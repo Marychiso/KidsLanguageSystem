@@ -1,0 +1,88 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* Background */
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #a0e7e5, #b4f8c8);
+}
+
+/* Container */
+.container {
+  background: white;
+  padding: 50px;
+  border-radius: 30px;
+  width: 1000px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Title */
+h1 {
+  color: #ff6f61;
+  margin-bottom: 10px;
+  font-size: 60px;
+  text-align: center;
+}
+
+.subtitle {
+  margin-bottom: 30px;
+  font-size: 30px;
+  text-align: center;
+  color: #555;
+}
+
+/* Buttons Layout */
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Base Button */
+.menu-btn {
+  padding: 18px;
+  font-size: 20px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  color: white;
+}
+
+/* Different Colors for Each Button */
+.menu-btn.lessons {
+  background-color: #ff9aa2;
+}
+
+.menu-btn.quizzes {
+  background-color: #ffb7b2;
+}
+
+.menu-btn.stories {
+  background-color: #ffdac1;
+  color: #333;
+}
+
+.menu-btn.games {
+  background-color: #b5ead7;
+  color: #333;
+}
+
+.menu-btn.badges {
+  background-color: #c7ceea;
+  color: #333;
+}
+
+/* Hover Effect */
+.menu-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}

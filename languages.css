@@ -1,0 +1,74 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* Background */
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #d982d9, #caffbf);
+}
+
+/* Container */
+.container {
+  text-align: center;
+  background: #f0c0df;
+  padding: 50px;
+  border-radius: 30px;
+  width: 450px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Title */
+h1 {
+  color: #ff69b4;
+  margin-bottom: 10px;
+  font-size: 25px;
+}
+
+.subtitle {
+  margin-bottom: 30px;
+  font-size: 18px;
+  color: #e3f3eb;
+}
+
+/* Language Buttons Layout */
+.languages {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Base Button Style */
+.lang-btn {
+  padding: 18px;
+  font-size: 20px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Active Button (English) */
+.lang-btn.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.lang-btn.active:hover {
+  background-color: #66bb6a;
+  transform: scale(1.05);
+}
+
+/* Disabled Buttons */
+.lang-btn.disabled {
+  background-color: #ddd;
+  color: #888;
+  cursor: not-allowed;
+}
