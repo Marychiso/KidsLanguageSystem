@@ -1,4 +1,4 @@
-/* Basic Reset */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -19,7 +19,7 @@ body {
   padding: 50px;
   border-radius: 30px;
   box-shadow: 0 12px 25px rgba(0,0,0,0.2);
-  width: 420px;   /* Increased from 350px */
+  width: 420px;   
   text-align: center;
 }
 
