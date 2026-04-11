@@ -1,9 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Lessons</title>
+  <meta charset="UTF-8">
+  <title>Lessons 📚</title>
+  <link rel="stylesheet" href="lessons.css">
 </head>
 <body>
-  <h1>Lessons Page Works 🎉</h1>
+
+  <div class="container">
+    <h1> Choose a Lesson</h1>
+    <p class="subtitle">Let’s start learning!</p>
+
+    <div class="lesson-list">
+
+      <button class="lesson-btn active" id="colorLesson">
+        🎨 Color Hunt
+      </button>
+
+      <button class="lesson-btn active">🧸 Toy Lesson</button>
+      <button class="lesson-btn active">👨‍👩‍👧 Family Lesson</button>
+      <button class="lesson-btn active">🧩 Matching Lesson</button>
+      <button class="lesson-btn active">🍎 Fruit Lesson</button>
+
+    </div>
+
+    <button class="back-btn" onclick="goBack()">⬅ Back</button>
+  </div>
+
+  <script src="lessons.js"></script>
 </body>
 </html>
