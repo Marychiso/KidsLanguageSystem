@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shape Adventure</title>
+  <link rel="stylesheet" href="shapes.css">
+</head>
+<body>
+
+<div class="screen active" id="screen1">
+
+  <div class="card">
+    <h1 id="introText">This is a circle</h1>
+    <div id="introShape" class="shape circle"></div>
+
+    <button onclick="nextIntro()">Next ▶</button>
+  </div>
+
+</div>
+
+<!-- TAP GAME -->
+<div class="screen" id="screen2">
+
+  <div class="card">
+
+    <h1 id="taskText">Find the circle</h1>
+
+    <div class="choices">
+
+      <div class="shape circle choice" data-shape="circle"></div>
+      <div class="shape square choice" data-shape="square"></div>
+      <div class="shape triangle choice" data-shape="triangle"></div>
+      <div class="shape rectangle choice" data-shape="rectangle"></div>
+      <div class="shape oval choice" data-shape="oval"></div>
+      <div class="shape star choice" data-shape="star"></div>
+      <div class="shape heart choice" data-shape="heart"></div>
+
+    </div>
+
+    <p id="feedback"></p>
+
+  </div>
+
+</div>
+
+<!-- DRAG GAME -->
+<div class="screen" id="screen3">
+
+  <div class="card">
+
+    <h1>Match the shapes</h1>
+
+    <div class="board">
+      <div class="dropzone" data-shape="circle">circle</div>
+      <div class="dropzone" data-shape="square">square</div>
+      <div class="dropzone" data-shape="triangle">triangle</div>
+    </div>
+
+    <div class="drag-area">
+
+      <div class="shape circle drag" draggable="true" data-shape="circle"></div>
+      <div class="shape square drag" draggable="true" data-shape="square"></div>
+      <div class="shape triangle drag" draggable="true" data-shape="triangle"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script src="shapes.js"></script>
+</body>
+</html>

@@ -1,134 +1,56 @@
 body {
   font-family: Comic Sans MS, Arial;
+  background: linear-gradient(135deg, #c1f0f6, #ffd6e0);
   text-align: center;
-  color: #333;
-  margin: 0;
 }
 
-/* CONTAINER */
 .container {
-  background: rgba(255, 255, 255, 0.7);
-  padding: 20px;
-  border-radius: 15px;
-  display: inline-block;
-  margin-top: 30px;
+  padding: 40px;
 }
 
-/* TITLE */
 h1 {
-  font-size: 50px;
+  font-size: 35px;
   color: #ff4d6d;
 }
 
-/* SCREENS */
-.screen {
-  display: none;
+.subtitle {
+  margin-bottom: 30px;
+  font-size: 18px;
 }
 
-.active {
-  display: block;
+.lesson-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-/* BACKGROUNDS PER SCREEN */
-#screen1 {
-  background-image: url("../assets/images/background1.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-}
-
-#screen2 {
-  background-image: url("../assets/images/background2.jpg");
-  background-size: cover;
-  background-position: center;
-  min-height: 100vh;
-}
-
-#screen3 {
-  background-image: url("../assets/images/background3.jpg");
-  background-size: cover;
-  background-position: center;
-  min-height: 100vh;
-}
-
-/* IMAGE */
-.main-img {
-  width: 300px;
-  margin: 40px;
-}
-
-/* BUTTON */
-button {
-  padding: 12px 25px;
+.lesson-btn {
+  padding: 18px;
   font-size: 20px;
+  border-radius: 25px;
   border: none;
-  background: #ff4d6d;
-  color: white;
-  border-radius: 15px;
   cursor: pointer;
   transition: 0.3s;
 }
 
-button:hover {
+/* Active */
+.lesson-btn.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.lesson-btn.active:hover {
   transform: scale(1.05);
 }
 
-/* CHOICES */
-.choices {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  margin-top: 40px;
-  flex-wrap: wrap;
-}
 
-.choice, .choice2 {
-  width: 120px;
+/* Back */
+.back-btn {
+  margin-top: 30px;
+  padding: 12px 20px;
+  border-radius: 20px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
   cursor: pointer;
-  border-radius: 15px;
-  transition: 0.3s;
-}
-
-.choice:hover, .choice2:hover {
-  transform: scale(1.1);
-}
-
-/* TEXT STYLES */
-.red {
-  color: red;
-  font-weight: bold;
-}
-
-/* BIG TEXT */
-.big-text {
-  font-size: 36px;
-  font-weight: bold;
-  animation: pop 0.3s ease;
-}
-
-/* FEEDBACK */
-.correct-text {
-  color: green;
-  font-size: 36px;
-  font-weight: bold;
-  animation: pop 0.3s ease;
-}
-
-.wrong-text {
-  color: red;
-  font-size: 36px;
-  font-weight: bold;
-  animation: pop 0.3s ease;
-}
-
-/* 🎉 POPPING ANIMATION */
-@keyframes pop {
-  0% {
-    transform: scale(0.7);
-    opacity: 0.5;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
 }
