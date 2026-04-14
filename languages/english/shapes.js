@@ -12,7 +12,7 @@ const introShapes = [
 
 let currentShape = "circle";
 
-/* ---------------- VOICE ---------------- */
+
 let voices = [];
 
 function loadVoices() {
@@ -41,14 +41,14 @@ function playVoice(text) {
   window.speechSynthesis.speak(speech);
 }
 
-/* ---------------- SOUND ---------------- */
+
 function playSound(src) {
   const audio = new Audio(src);
   audio.volume = 0.8;
   audio.play();
 }
 
-/* ---------------- CONFETTI ---------------- */
+
 function confettiBurst() {
   for (let i = 0; i < 25; i++) {
     const c = document.createElement("div");
@@ -79,7 +79,7 @@ function randomColor() {
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
-/* ---------------- INTRO ---------------- */
+
 function nextIntro() {
   introIndex++;
 
@@ -105,7 +105,7 @@ function goToGame() {
   nextTask();
 }
 
-/* ---------------- TAP GAME ---------------- */
+
 const choices = document.querySelectorAll(".choice");
 const feedback = document.getElementById("feedback");
 const taskText = document.getElementById("taskText");
@@ -140,7 +140,7 @@ choices.forEach(choice => {
   });
 });
 
-/* ---------------- DRAG & DROP ---------------- */
+
 const draggables = document.querySelectorAll(".drag");
 const dropzones = document.querySelectorAll(".dropzone");
 

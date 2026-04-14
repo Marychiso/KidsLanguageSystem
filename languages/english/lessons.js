@@ -20,7 +20,7 @@ familyLesson.addEventListener("click", () => {
 });
 
 fruitLesson.addEventListener("click", () => {
-  alert("Fruit lesson coming soon!");
+   window.location.href = "fruit.html";
 });
 
 

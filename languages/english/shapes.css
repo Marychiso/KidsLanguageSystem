@@ -5,7 +5,7 @@ body {
   background: linear-gradient(to right, #f04aa0, #8ed3f4);
 }
 
-/* SCREEN */
+
 .screen {
   display: none;
   min-height: 100vh;
@@ -17,7 +17,7 @@ body {
   display: flex;
 }
 
-/* CARD UI */
+
 .card {
   background: rgba(248, 218, 249, 0.85);
   padding: 30px;
@@ -28,37 +28,37 @@ body {
   max-width: 750px;
 }
 
-/* SHAPES */
+
 .shape {
   width: 100px;
   height: 100px;
   margin: 10px;
 }
 
-/* circle */
+
 .circle {
   background: #ff6b6b;
   border-radius: 70%;
 }
 
-/* square */
+
 .square {
   background: #4dabf7;
 }
 
-/* rectangle */
+
 .rectangle {
   width: 140px;
   background: #f94ccb;
 }
 
-/* oval */
+
 .oval {
   background: #51cf66;
   border-radius: 50% / 30%;
 }
 
-/* triangle */
+
 .triangle {
   width: 0;
   height: 0;
@@ -67,7 +67,7 @@ body {
   border-bottom: 100px solid #ffd43b;
 }
 
-/* star */
+
 .star {
   background: rgb(212, 97, 25);
   clip-path: polygon(
@@ -76,20 +76,20 @@ body {
   );
 }
 
-/* heart */
+
 .heart {
   background: #950e27;
   clip-path: path("M50 15 C35 -5, 0 20, 50 80 C100 20, 65 -5, 50 15 Z");
 }
 
-/* LAYOUT */
+
 .choices {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-/* BUTTON */
+
 button {
   padding: 12px 20px;
   font-size: 42px;
@@ -99,7 +99,7 @@ button {
   color: white;
 }
 
-/* ANIMATION */
+
 .pop {
   animation: pop 0.3s ease;
 }
