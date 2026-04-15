@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Alphabet Explorer </title>
+  <link rel="stylesheet" href="alphabet.css">
+</head>
+<body>
+
+<div class="container">
+
+  <h1>Alphabet Explorer</h1>
+
+  <!-- SCREEN 1: GRID -->
+  <div id="screen1" class="screen active">
+    <div id="alphabetGrid" class="grid"></div>
+  </div>
+
+  <!-- SCREEN 2: LETTER DETAIL -->
+  <div id="screen2" class="screen">
+    <h2 id="bigLetter"></h2>
+    <p id="letterText" class="big-text"></p>
+    <button onclick="backToGrid()">⬅ Back</button>
+  </div>
+
+</div>
+
+<script src="alphabet.js"></script>
+</body>
+</html>

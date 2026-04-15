@@ -1,0 +1,81 @@
+body {
+  font-family: Comic Sans MS, Arial;
+  text-align: center;
+  margin: 0;
+  font-size: 30px;
+  color: rgb(49, 35, 47);
+  background-color: rgb(65, 135, 201);
+}
+
+.screen {
+  display: none;
+  min-height: 100vh;
+}
+
+.active {
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 20px;
+}
+
+.animal {
+  cursor: pointer;
+}
+
+.animal img {
+  width: 120px;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+
+.animal:hover img {
+  transform: scale(1.1);
+}
+
+/* TEXT */
+.big-text {
+  font-size: 35px;
+  font-weight: bold;
+}
+
+/* BUTTON */
+button {
+  padding: 12px 25px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  cursor: pointer;
+}
+
+/* FEEDBACK */
+.correct {
+  color: green;
+  font-size: 28px;
+}
+
+.wrong {
+  color: red;
+  font-size: 28px;
+}
+
+/* ANIMATION */
+.correct-anim {
+  transform: scale(1.2);
+}
+
+.shake {
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}

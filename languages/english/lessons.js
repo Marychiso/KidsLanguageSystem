@@ -11,12 +11,12 @@ shapeLesson.addEventListener("click", () => {
 });
 
 // Others (optional placeholders for now)
-toyLesson.addEventListener("click", () => {
-  alert("Toy lesson coming soon!");
+alphabetLesson.addEventListener("click", () => {
+  window.location.href = "alphabet.html";
 });
 
-familyLesson.addEventListener("click", () => {
-  alert("Family lesson coming soon!");
+animalLesson.addEventListener("click", () => {
+  window.location.href = "animals.html";
 });
 
 fruitLesson.addEventListener("click", () => {

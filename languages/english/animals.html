@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Animals Lesson 🐾</title>
+  <link rel="stylesheet" href="animals.css">
+</head>
+<body>
+
+<div class="container">
+
+  <h1>Animals 🐾</h1>
+
+  <!-- SCREEN 1: LEARN -->
+  <div id="screen1" class="screen active">
+
+    <p id="learnText" class="big-text"></p>
+
+    <div class="grid">
+      <div class="animal" data-name="dog">
+        <img src="assets/images/dog.jpg">
+        <p>Dog</p>
+      </div>
+
+      <div class="animal" data-name="cat">
+        <img src="assets/images/cat.jpg">
+        <p>Cat</p>
+      </div>
+
+      <div class="animal" data-name="cow">
+        <img src="assets/images/cow.jpg">
+        <p>Cow</p>
+      </div>
+
+      <div class="animal" data-name="lion">
+        <img src="assets/images/lion.jpg">
+        <p>Lion</p>
+      </div>
+
+      <div class="animal" data-name="elephant">
+        <img src="assets/images/elephant.jpg">
+        <p>Elephant</p>
+      </div>
+
+      <div class="animal" data-name="bird">
+        <img src="assets/images/bird.jpg">
+        <p>Bird</p>
+      </div>
+
+      <div class="animal" data-name="fish">
+        <img src="assets/images/fish.jpg">
+        <p>Fish</p>
+      </div>
+    </div>
+
+    <button onclick="goToGame()">▶ Play</button>
+  </div>
+
+  <!-- SCREEN 2: GAME -->
+  <div id="screen2" class="screen">
+
+    <p id="instruction" class="big-text"></p>
+
+    <div class="grid" id="gameGrid"></div>
+
+    <p id="feedback"></p>
+
+  </div>
+
+</div>
+
+<script src="animals.js"></script>
+</body>
+</html>

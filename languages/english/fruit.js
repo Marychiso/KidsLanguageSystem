@@ -65,7 +65,7 @@ function nextRound() {
 choices.forEach(choice => {
   choice.addEventListener("click", () => {
     if (choice.dataset.fruit === currentFruit) {
-      feedback.textContent = "🎉 Good job!";
+      feedback.textContent = " Good job!!!";
       feedback.className = "correct";
 
       playVoice("Good job");
