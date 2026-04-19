@@ -15,6 +15,18 @@ const lessonSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Language",
     required: true
+  },
+  category: {
+    type: String,
+    required: true
+  },
+  page: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    default: ""
   }
 }, { timestamps: true });
 

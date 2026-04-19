@@ -1,6 +1,39 @@
-const englishBtn = document.getElementById("englishBtn");
+const buttons = document.querySelectorAll(".lang-btn");
 
-englishBtn.addEventListener("click", () => {
-  // Go to main menu page
-  window.location.href = "menu.html";
-});
+async function loadLanguages() {
+  try {
+    const response = await fetch("http://localhost:5000/api/languages");
+    const languages = await response.json();
+
+    console.log("Languages from backend:", languages);
+
+    buttons.forEach((btn) => {
+      const text = btn.innerText.toLowerCase();
+
+      const found = languages.find(lang =>
+        text.includes(lang.name.toLowerCase())
+      );
+
+      if (found) {
+        btn.classList.remove("disabled");
+        btn.classList.add("active");
+
+        btn.addEventListener("click", () => {
+          localStorage.setItem("languageId", found._id);
+          localStorage.setItem("languageName", found.name);
+
+          window.location.href = "menu.html";
+        });
+
+      } else {
+        btn.classList.remove("active");
+        btn.classList.add("disabled");
+      }
+    });
+
+  } catch (error) {
+    console.error("Error loading languages:", error);
+  }
+}
+
+loadLanguages();
