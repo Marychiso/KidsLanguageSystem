@@ -5,13 +5,11 @@ body {
   background: #fff5f8;
 }
 
-.container {
-  padding: 20px;
-}
-
+/* SCREENS */
 .screen {
   display: none;
   min-height: 100vh;
+  padding: 20px;
 }
 
 .active {
@@ -21,27 +19,20 @@ body {
 /* TEXT */
 .story-text {
   font-size: 22px;
-  margin-bottom: 20px;
-  animation: fade 0.5s ease;
+  margin: 20px;
 }
 
 .ending {
   font-size: 20px;
-  margin-top: 20px;
   color: #ff4d6d;
 }
 
-/* LETTER CARDS */
+/* LETTERS */
 .letters {
   display: flex;
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
-}
-
-.letters div {
-  text-align: center;
-  animation: pop 0.4s ease;
 }
 
 .letters img {
@@ -54,7 +45,7 @@ body {
   transform: scale(1.1);
 }
 
-/* GRID A-Z */
+/* GRID A–Z */
 .grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -65,31 +56,26 @@ body {
 .grid div {
   background: #ff4d6d;
   color: white;
-  padding: 10px;
+  padding: 12px;
   border-radius: 10px;
   font-weight: bold;
-  animation: pop 0.4s ease;
+  animation: pop 0.3s ease;
 }
 
-/* BUTTON */
-button {
-  margin-top: 20px;
+/* BUTTONS */
+.buttons button {
+  margin: 10px;
   padding: 12px 25px;
   font-size: 18px;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   background: #ff4d6d;
   color: white;
   cursor: pointer;
 }
 
-/* ANIMATIONS */
-@keyframes fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
+/* ANIMATION */
 @keyframes pop {
-  0% { transform: scale(0.8); }
+  0% { transform: scale(0.7); }
   100% { transform: scale(1); }
 }

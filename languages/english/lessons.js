@@ -26,5 +26,5 @@ fruitLesson.addEventListener("click", () => {
 
 // Back to menu
 function goBack() {
-  window.location.href = "../menu.html";
+  window.location.href = "../../menu.html";
 }

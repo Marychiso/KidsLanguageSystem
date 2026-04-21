@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Alphabet Story 📖</title>
+  <link rel="stylesheet" href="alphabetstory.css">
+</head>
+<body>
+
+<h1>📖 Ally’s Alphabet Walk</h1>
+
+<!-- SCREEN 1 -->
+<div id="screen1" class="screen active">
+
+  <p class="story-text">
+    Ally walks through a bright garden. She sees many letters around her.
+  </p>
+
+  <div class="letters">
+    <div><img src="assets/images/redapple.jpg"><p>A - Apple</p></div>
+    <div><img src="assets/images/blueball.jpg"><p>B - Ball</p></div>
+    <div><img src="assets/images/cat.jpg"><p>C - Cat</p></div>
+    <div><img src="assets/images/dog.jpg"><p>D - Dog</p></div>
+    <div><img src="assets/images/elephant.jpg"><p>E - Elephant</p></div>
+  </div>
+
+  <div class="buttons">
+    <button onclick="goMenu()">🏠 Menu</button>
+    <button onclick="next()">Next ▶</button>
+  </div>
+
+</div>
+
+<!-- SCREEN 2 -->
+<div id="screen2" class="screen">
+
+  <p class="story-text">
+    She keeps walking and finds more letters along the way.
+  </p>
+
+  <div class="letters">
+    <div><img src="assets/images/juice.jpg"><p>J - Juice</p></div>
+    <div><img src="assets/images/kite.jpg"><p>K - Kite</p></div>
+    <div><img src="assets/images/lion.jpg"><p>L - Lion</p></div>
+    <div><img src="assets/images/monkey.jpg"><p>M - Monkey</p></div>
+  </div>
+
+  <div class="buttons">
+    <button onclick="back()">⬅ Back</button>
+    <button onclick="next()">Next ▶</button>
+  </div>
+
+</div>
+
+<!-- SCREEN 3 -->
+<div id="screen3" class="screen">
+
+  <p class="story-text">
+    At the end, all the letters from A to Z stood and shined together.
+    Ally smiled and said, "So many letters!"
+  </p>
+
+  <div id="alphabetGrid" class="grid"></div>
+
+  <p class="ending">
+    She waved goodbye and walked home smiling ✨
+  </p>
+
+  <div class="buttons">
+    <button onclick="back()">⬅ Back</button>
+    <button onclick="goMenu()">🏠 Menu</button>
+  </div>
+
+</div>
+
+<script src="alphabetstory.js"></script>
+</body>
+</html>

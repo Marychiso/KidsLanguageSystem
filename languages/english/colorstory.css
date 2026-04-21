@@ -1,0 +1,97 @@
+body {
+  font-family: Comic Sans MS, Arial;
+  margin: 0;
+  background: linear-gradient(to top, #cceeff, #ffffff);
+  text-align: center;
+}
+
+/* SCENE */
+.scene {
+  padding: 20px;
+}
+
+/* SKY AREA */
+.sky {
+  position: relative;
+  height: 250px;
+  background: linear-gradient(to top, #87ceeb, #e0f7ff);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+/* ANIMATIONS */
+
+img {
+  display: block;
+}
+
+.bunny {
+  position: absolute;
+  bottom: 20px;
+  left: 20%;
+  width: 90px;
+  animation: hop 1s infinite alternate;
+}
+
+.balloon {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  width: 70px;
+  animation: float 3s infinite ease-in-out;
+}
+
+.bird {
+  position: absolute;
+  top: 40px;
+  right: 20%;
+  width: 60px;
+  animation: fly 4s infinite linear;
+}
+
+/* ANIMATIONS */
+@keyframes hop {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-20px); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-80px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes fly {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-100px); }
+  100% { transform: translateX(0); }
+}
+
+/* STORY TEXT */
+.story {
+  font-size: 22px;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* HIGHLIGHT */
+.highlight {
+  background: yellow;
+  border-radius: 5px;
+}
+
+/* BUTTONS */
+button {
+  padding: 12px 20px;
+  font-size: 18px;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #ff4d6d;
+  color: white;
+}
+
+.back {
+  background: #555;
+}

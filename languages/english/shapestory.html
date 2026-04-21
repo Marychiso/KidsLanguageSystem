@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shapes Story 🔺</title>
+  <link rel="stylesheet" href="shapestory.css">
+</head>
+<body>
+
+<h1> Sam’s Shape Adventure</h1>
+
+<!-- SCREEN 1 -->
+<div id="screen1" class="screen active">
+
+  <p class="story-text">
+    "Sam walks into a colorful playground. He sees a circle, a square, and a triangle."
+  </p>
+
+  <div class="shapes">
+    <div class="circle"></div>
+    <div class="square"></div>
+    <div class="triangle"></div>
+  </div>
+
+  <div class="buttons">
+    <button onclick="goStories()">⬅ Back</button>
+    <button onclick="next()">Next ▶</button>
+  </div>
+
+</div>
+
+<!-- SCREEN 2 -->
+<div id="screen2" class="screen">
+
+  <p class="story-text">
+    "The shapes start to move and play together. The circle rolls, the square bounces, and the triangle tilts."
+  </p>
+
+  <div class="shapes move">
+    <div class="circle move-circle"></div>
+    <div class="square bounce"></div>
+    <div class="triangle tilt"></div>
+  </div>
+
+  <div class="buttons">
+    <button onclick="back()">⬅ Back</button>
+    <button onclick="next()">Next ▶</button>
+  </div>
+
+</div>
+
+<!-- SCREEN 3 -->
+<div id="screen3" class="screen">
+
+  <p class="story-text">
+    "Sam smiles. I know these shapes. A square and triangle make a house, and the circle looks like the sun."
+  </p>
+
+  <div class="house">
+    <div class="roof"></div>
+    <div class="body"></div>
+    <div class="sun"></div>
+  </div>
+
+  <div class="buttons">
+    <button onclick="back()">⬅ Back</button>
+    <button onclick="restart()"> Replay</button>
+    <button onclick="goStories()">⬅ Back to Stories</button>
+  </div>
+
+</div>
+
+<script src="shapestory.js"></script>
+</body>
+</html>

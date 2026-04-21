@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  font-family: Comic Sans MS, Arial;
+  background: linear-gradient(to right, #dd4aa2, #69b8dd);
+  color: #ff4d6d;
+  font-size: 37px;
+}
+
+/* MAIN CONTAINER */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* centers content vertically */
+  text-align: center;
+  padding: 30px;
+}
+
+/* TITLE + TEXT */
+h1 {
+  margin: 0;
+  font-size: 50px;
+}
+
+.subtitle, p {
+  margin-top: 20px;
+  font-size: 30px;
+  color: #41b2de;
+  text-align: center;
+}
+
+/* STORY LIST CENTERED */
+.story-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 25px;
+  align-items: center;
+}
+
+/* SHORTER BUTTONS (not stretched) */
+.story-list button {
+  font-size: 25px;
+  padding: 18px 25px;
+  border-radius: 18px;
+  border: none;
+  background: #1b78cf;
+  color: white;
+  cursor: pointer;
+  width: 500px;   /* 👈 controls length */
+  transition: 0.2s;
+}
+
+.story-list button:hover {
+  transform: scale(1.05);
+}
+
+/* BACK BUTTON FIXED BOTTOM CENTER */
+.back-btn {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 35px;
+  font-size: 35px;
+  border: none;
+  border-radius: 25px;
+  background: #555;
+  color: rgb(35, 192, 203);
+  cursor: pointer;
+}

@@ -1,0 +1,137 @@
+body {
+  font-family: Comic Sans MS, Arial;
+  text-align: center;
+  background: #70bfde;
+  margin: 0;
+  font-size: 25px;
+  color: #864752;
+}
+
+/* SCREENS */
+.screen {
+  display: none;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.active {
+  display: block;
+}
+
+/* TEXT */
+.story-text {
+  font-size: 22px;
+  margin: 20px;
+}
+
+/* SHAPES LAYOUT */
+.shapes {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 50px;
+}
+
+/* SHAPES */
+.circle {
+  width: 100px;
+  height: 100px;
+  background: rgb(226, 247, 33);
+  border-radius: 50%;
+}
+
+.square {
+  width: 100px;
+  height: 100px;
+  background: blue;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 100px solid red;
+}
+
+/* ANIMATIONS */
+
+/* circle rolling */
+.move-circle {
+  animation: moveSide 2s infinite alternate;
+}
+
+@keyframes moveSide {
+  from { transform: translateX(0); }
+  to { transform: translateX(100px); }
+}
+
+/* square bounce */
+.bounce {
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* triangle tilt */
+.tilt {
+  animation: tilt 2s infinite alternate;
+}
+
+@keyframes tilt {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(10deg); }
+}
+
+/* HOUSE (FINAL) */
+.house {
+  position: relative;
+  margin-top: 50px;
+}
+
+.body {
+  width: 120px;
+  height: 100px;
+  background: blue;
+  margin: auto;
+}
+
+.roof {
+  width: 0;
+  height: 0;
+  border-left: 70px solid transparent;
+  border-right: 70px solid transparent;
+  border-bottom: 80px solid red;
+  margin: auto;
+}
+
+.sun {
+  width: 80px;
+  height: 80px;
+  background: yellow;
+  border-radius: 50%;
+  position: absolute;
+  top: -20px;
+  right: 30%;
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from { transform: scale(1); }
+  to { transform: scale(1.2); }
+}
+
+/* BUTTONS */
+.buttons button {
+  margin: 150px;
+  padding: 12px 25px;
+  font-size: 25px;
+  border: none;
+  border-radius: 15px;
+  background: #ff4d6d;
+  color: white;
+  cursor: pointer;
+}
