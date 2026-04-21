@@ -1,30 +1,70 @@
-const colorLesson = document.getElementById("colorLesson");
+const lessonContainer = document.getElementById("lessonContainer");
 
-// Go to Color Hunt lesson
-colorLesson.addEventListener("click", () => {
-  window.location.href = "colors.html";
-});
+function getLessonEmoji(title) {
+  const emojiMap = {
+    "Alphabet Lesson": "🔤",
+    "Animals Lesson": "🐶",
+    "Colors Lesson": "🎨",
+    "Fruit Lesson": "🍎",
+    "Shapes Lesson": "🧩"
+  };
 
-// Shapes
-shapeLesson.addEventListener("click", () => {
-  window.location.href = "shapes.html";
-});
+  return emojiMap[title] || "📚";
+}
 
-// Others (optional placeholders for now)
-alphabetLesson.addEventListener("click", () => {
-  window.location.href = "alphabet.html";
-});
+async function loadLessons() {
+  try {
+    const languageId = localStorage.getItem("languageId");
+    const languageName = localStorage.getItem("languageName");
 
-animalLesson.addEventListener("click", () => {
-  window.location.href = "animals.html";
-});
+    console.log("Selected language ID:", languageId);
+    console.log("Selected language name:", languageName);
 
-fruitLesson.addEventListener("click", () => {
-   window.location.href = "fruit.html";
-});
+    if (!languageId) {
+      lessonContainer.innerHTML = "<p>No language selected.</p>";
+      return;
+    }
 
+    const response = await fetch(`http://localhost:5000/api/lessons/language/${languageId}`);
+    const lessons = await response.json();
 
-// Back to menu
+    console.log("Lessons from backend:", lessons);
+
+    lessonContainer.innerHTML = "";
+
+    if (!lessons.length) {
+      lessonContainer.innerHTML = "<p>No lessons available yet.</p>";
+      return;
+    }
+
+    lessons.forEach((lesson) => {
+      const btn = document.createElement("button");
+      btn.classList.add("lesson-btn", "active");
+      btn.innerText = `${getLessonEmoji(lesson.title)} ${lesson.title}`;
+
+      btn.addEventListener("click", () => {
+        localStorage.setItem("lessonId", lesson._id);
+        localStorage.setItem("lessonTitle", lesson.title);
+        localStorage.setItem("lessonPage", lesson.page);
+
+        if (lesson.page) {
+          window.location.href = lesson.page;
+        } else {
+          alert("This lesson page is missing in the database.");
+        }
+      });
+
+      lessonContainer.appendChild(btn);
+    });
+
+  } catch (error) {
+    console.error("Error loading lessons:", error);
+    lessonContainer.innerHTML = "<p>Failed to load lessons.</p>";
+  }
+}
+
 function goBack() {
   window.location.href = "../../menu.html";
 }
+
+loadLessons();
