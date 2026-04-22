@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fruit Story 🍓</title>
+  <link rel="stylesheet" href="fruitstory.css">
+</head>
+<body>
+
+<h1>🍓 The Happy Fruit Garden</h1>
+
+<!-- SCREEN 1 -->
+<div id="screen1" class="screen active">
+  <p class="story-text">
+    Lily walks into a bright garden full of fruit trees. The sun is shining, and everything feels fresh and colorful.
+  </p>
+
+  <div class="fruits-grid">
+    <img src="assets/images/redapple.jpg" class="fruit idle">
+    <img src="assets/images/banana.jpg" class="fruit idle">
+    <img src="assets/images/strawberry.jpg" class="fruit idle">
+    <img src="assets/images/watermelon.jpg" class="fruit idle">
+  </div>
+
+  <div class="buttons">
+    <button onclick="goStories()">⬅ Back</button>
+    <button onclick="next()">Next ▶</button>
+  </div>
+</div>
+
+<!-- SCREEN 2 -->
+<div id="screen2" class="screen">
+  <p class="story-text">
+    The fruits start falling one by one. The garden slowly fills with apples, bananas, and berries.
+  </p>
+
+  <div class="fall-container">
+    <img src="assets/images/redapple.jpg" class="fruit fall f1">
+    <img src="assets/images/banana.jpg" class="fruit fall f2">
+    <img src="assets/images/strawberry.jpg" class="fruit fall f3">
+    <img src="assets/images/watermelon.jpg" class="fruit fall f4">
+  </div>
+
+  <div class="buttons">
+    <button onclick="back()">⬅ Back</button>
+    <button onclick="next()">Next ▶</button>
+  </div>
+</div>
+
+<!-- SCREEN 3 -->
+<div id="screen3" class="screen">
+  <p class="story-text">
+     Lily laughs. "Let’s have a fruit picnic!" It is a happy and peaceful day in the garden.
+  </p>
+
+  <div class="picnic-layout">
+    <img src="assets/images/redapple.jpg" class="fruit glow">
+    <img src="assets/images/banana.jpg" class="fruit glow">
+    <img src="assets/images/strawberry.jpg" class="fruit glow">
+    <img src="assets/images/watermelon.jpg" class="fruit glow">
+  </div>
+
+  <div class="buttons">
+    <button onclick="back()">⬅ Back</button>
+    <button onclick="goStories()">⬅ Back to Stories</button>
+  </div>
+</div>
+
+<script src="fruitstory.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+body {
+  font-family: Comic Sans MS, Arial;
+  text-align: center;
+  margin: 0;
+  background: #fcc969;
+}
+
+/* SCREENS */
+.screen {
+  display: none;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.active {
+  display: block;
+}
+
+/* TEXT */
+.story-text {
+  font-size: 22px;
+  margin: 20px;
+}
+
+/* ANIMALS */
+.animals {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  flex-wrap: wrap;
+  margin-top: 90px;
+}
+
+.animal {
+  width: 170px;
+}
+
+/* IDLE (small bounce) */
+.idle {
+  animation: idle 2s infinite alternate;
+}
+
+@keyframes idle {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
+/* DOG RUN */
+.dog-move {
+  animation: run 2s infinite alternate;
+}
+
+@keyframes run {
+  from { transform: translateX(0); }
+  to { transform: translateX(60px); }
+}
+
+/* CAT JUMP */
+.cat-jump {
+  animation: jump 1.2s infinite;
+}
+
+@keyframes jump {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}
+
+/* COW HEAD MOVE */
+.cow-move {
+  animation: nod 2s infinite alternate;
+}
+
+@keyframes nod {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(5deg); }
+}
+
+/* BIRD FLY */
+.bird-fly {
+  animation: fly 3s infinite linear;
+}
+
+@keyframes fly {
+  from { transform: translateX(-100px); }
+  to { transform: translateX(100px); }
+}
+
+/* FINAL SCREEN */
+.bird-wave {
+  animation: flyUp 2s infinite alternate;
+}
+
+@keyframes flyUp {
+  from { transform: translateY(0); }
+  to { transform: translateY(-20px); }
+}
+
+/* BUTTONS */
+.buttons button {
+  margin: 35px;
+  padding: 20px 35px;
+  font-size: 25px;
+  border: none;
+  border-radius: 35px;
+  background: #ff4d6d;
+  color: white;
+  cursor: pointer;
+}

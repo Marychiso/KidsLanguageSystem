@@ -1,0 +1,106 @@
+body {
+  font-family: Comic Sans MS, Arial;
+  margin: 0;
+  text-align: center;
+  background: #7bf3f5;
+}
+
+/* SCREENS */
+.screen {
+  display: none;
+  min-height: 100vh;
+  padding: 30px;
+}
+
+.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* TEXT */
+.story-text {
+  font-size: 30px;
+  max-width: 600px;
+}
+
+/* GRID (SCREEN 1) */
+.fruits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 150px);
+  gap: 60px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+/* FALL AREA (SCREEN 2) */
+.fall-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+
+/* PICNIC (SCREEN 3) */
+.picnic-layout {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-top: 40px;
+}
+
+/* FRUITS */
+.fruit {
+  width: 170px;
+}
+
+/* IDLE ANIMATION */
+.idle {
+  animation: float 2s infinite alternate;
+}
+
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
+/* FALLING */
+.fall {
+  position: absolute;
+  top: -100px;
+  animation: fallDown 2.5s forwards;
+}
+
+.f1 { left: 20%; }
+.f2 { left: 40%; animation-delay: 0.5s; }
+.f3 { left: 60%; animation-delay: 1s; }
+.f4 { left: 80%; animation-delay: 1.5s; }
+
+@keyframes fallDown {
+  to { top: 200px; }
+}
+
+/* PICNIC EFFECT */
+.glow {
+  animation: pop 1.5s infinite alternate;
+}
+
+@keyframes pop {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+/* BUTTONS */
+.buttons {
+  margin-top: 35px;
+}
+
+button {
+  padding: 25px 22px;
+  font-size: 22px;
+  border: none;
+  border-radius: 20px;
+  background: #ff4d6d;
+  color: white;
+  cursor: pointer;
+}

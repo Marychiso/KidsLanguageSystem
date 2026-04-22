@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Animal Story 🐾</title>
+  <link rel="stylesheet" href="animalstory.css">
+</head>
+<body>
+
+<h1>🐾 Luna’s Animal Park Adventure</h1>
+
+<!-- SCREEN 1 -->
+<div id="screen1" class="screen active">
+
+  <p class="story-text">
+    Luna visits a small animal park. The sun is shining and everything feels calm and she sees friendly animals waiting to say hello.
+  </p>
+
+  <div class="animals">
+    <img src="assets/images/dog.jpg" class="animal idle">
+    <img src="assets/images/cat.jpg" class="animal idle">
+    <img src="assets/images/cow.jpg" class="animal idle">
+    <img src="assets/images/bird.jpg" class="animal idle">
+  </div>
+
+  <div class="buttons">
+    <button onclick="goStories()">⬅ Back</button>
+    <button onclick="next()">Next ▶</button>
+  </div>
+
+</div>
+
+<!-- SCREEN 2 -->
+<div id="screen2" class="screen">
+
+  <p class="story-text">
+    “The animals begin to move and play together. The dog runs happily, the cat jumps around, and the bird flies in the sky. Luna laughs as she watches them.”
+  </p>
+
+  <div class="animals">
+    <img src="assets/images/dog.jpg" class="animal dog-move">
+    <img src="assets/images/cat.jpg" class="animal cat-jump">
+    <img src="assets/images/cow.jpg" class="animal cow-move">
+    <img src="assets/images/bird.jpg" class="animal bird-fly">
+  </div>
+
+  <div class="buttons">
+    <button onclick="back()">⬅ Back</button>
+    <button onclick="next()">Next ▶</button>
+  </div>
+
+</div>
+
+<!-- SCREEN 3 -->
+<div id="screen3" class="screen">
+
+  <p class="story-text">
+    Soon it is time to go home. Luna waves and says, ‘Goodbye, my animal friends!’ The animals gather close as if waving back.”
+  </p>
+
+  <div class="animals final">
+    <img src="assets/images/dog.jpg" class="animal">
+    <img src="assets/images/cat.jpg" class="animal">
+    <img src="assets/images/cow.jpg" class="animal">
+    <img src="assets/images/bird.jpg" class="animal bird-wave">
+  </div>
+
+  <div class="buttons">
+    <button onclick="back()">⬅ Back</button>
+    <button onclick="goStories()">⬅ Back to Stories</button>
+  </div>
+
+</div>
+
+<script src="animalstory.js"></script>
+</body>
+</html>
