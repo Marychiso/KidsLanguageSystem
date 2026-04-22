@@ -1,0 +1,18 @@
+[33m74e55a9[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: reset: moving to 74e55a9
+[33m74e55a9[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{1}: reset: moving to ORIG_HEAD
+[33m74e55a9[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{2}: reset: moving to 74e55a9
+[33m74e55a9[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{3}: reset: moving to 74e55a9
+[33m74e55a9[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{4}: reset: moving to 74e55a9
+[33m6c40353[m HEAD@{5}: reset: moving to ORIG_HEAD
+[33m6c40353[m HEAD@{6}: commit (merge): Merge branch 'main' of https://github.com/Marychiso/KidsLanguageSystem
+[33m834ea9b[m HEAD@{7}: reset: moving to HEAD
+[33m834ea9b[m HEAD@{8}: commit: first 3 stories
+[33m4ca04b7[m HEAD@{9}: commit: fourth and fifth lesson
+[33mf32249c[m HEAD@{10}: commit (merge): fruits lesson
+[33m2ece040[m HEAD@{11}: commit: fruits lesson
+[33m67b9599[m HEAD@{12}: commit: lesson 2 UI
+[33m3efb502[m HEAD@{13}: commit: lesson 1 UI
+[33me22f1e6[m HEAD@{14}: Branch: renamed refs/heads/main to refs/heads/main
+[33me22f1e6[m HEAD@{16}: commit: Initial commit
+[33mece88a3[m HEAD@{17}: Branch: renamed refs/heads/master to refs/heads/main
+[33mece88a3[m HEAD@{19}: commit (initial): Initial commit with project setup
