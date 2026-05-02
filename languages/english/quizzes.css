@@ -1,0 +1,53 @@
+body {
+  font-family: Comic Sans MS, Arial;
+  background: #f39fbb;
+  text-align: center;
+  margin: 0;
+}
+
+/* CONTAINER */
+.container {
+  padding: 40px;
+}
+
+/* TITLE */
+h1 {
+  font-size: 40px;
+  color: #ff4d6d;
+}
+
+/* QUIZ LIST */
+.quiz-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+/* QUIZ BUTTONS */
+.quiz-btn {
+  padding: 20px;
+  font-size: 22px;
+  border: none;
+  border-radius: 15px;
+  background: #ffd166;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.quiz-btn:hover {
+  transform: scale(1.05);
+}
+
+/* BACK BUTTON */
+.back-btn {
+  margin-top: 40px;
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background: #ff4d6d;
+  color: white;
+  cursor: pointer;
+}
+

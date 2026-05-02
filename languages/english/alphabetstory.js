@@ -24,8 +24,8 @@ function back() {
 }
 
 // MENU
-function goMenu() {
-  window.location.href = "../../menu.html"; // adjust if needed
+function goStories() {
+  window.location.href = "stories.html"; // adjust if needed
 }
 
 // LOAD A-Z GRID

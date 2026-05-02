@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Alphabet Quiz</title>
+  <link rel="stylesheet" href="alphabetquiz.css">
+</head>
+<body>
+
+<h1>🔤 Letter Challenge</h1>
+
+<!-- ================= SCREEN 1 ================= -->
+<div id="screen1" class="screen active">
+
+  <p id="instruction1" class="big-text">Tap A</p>
+
+  <div class="grid" id="grid1">
+    <button class="letter" data-letter="A">A</button>
+    <button class="letter" data-letter="B">B</button>
+    <button class="letter" data-letter="C">C</button>
+    <button class="letter" data-letter="D">D</button>
+    <button class="letter" data-letter="E">E</button>
+    <button class="letter" data-letter="F">F</button>
+  </div>
+
+  <p id="feedback1"></p>
+
+  <div class="buttons">
+    <button onclick="goQuizzes()">⬅ Quizzes</button>
+    <button onclick="goToScreen2()">Next ▶</button>
+  </div>
+
+</div>
+
+<!-- ================= SCREEN 2 ================= -->
+<div id="screen2" class="screen">
+
+  <p id="instruction2" class="big-text">Find D</p>
+
+ <div class="grid" id="grid2">
+  <button class="letter2" data-letter="D">D</button>
+  <button class="letter2" data-letter="F">F</button>
+  <button class="letter2" data-letter="B">B</button>
+  <button class="letter2" data-letter="A">A</button>
+  <button class="letter2" data-letter="C">C</button>
+  <button class="letter2" data-letter="E">E</button>
+  <button class="letter2" data-letter="T">T</button>
+  <button class="letter2" data-letter="R">R</button>
+  <button class="letter2" data-letter="H">H</button>
+  <button class="letter2" data-letter="Y">Y</button>
+</div>
+  <p id="feedback2"></p>
+
+  <div class="buttons">
+    <button onclick="back()">⬅ Back</button>
+    <button onclick="goQuizzes()">Finish ✔</button>
+  </div>
+
+</div>
+
+<script src="alphabetquiz.js"></script>
+</body>
+</html>

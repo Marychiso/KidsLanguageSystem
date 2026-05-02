@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Animal Quiz</title>
+  <link rel="stylesheet" href="animalsquiz.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>🐾 Animal Adventure</h1>
+
+  <!-- SCREEN 1 -->
+  <div id="screen1" class="screen active">
+    <p id="instruction1" class="big-text"></p>
+
+    <div class="grid">
+      <div class="animal" data-animal="dog">
+        <img src="assets/images/dog.jpg" alt="dog">
+      </div>
+
+      <div class="animal" data-animal="cat">
+        <img src="assets/images/cat.jpg" alt="cat">
+      </div>
+
+      <div class="animal" data-animal="cow">
+        <img src="assets/images/cow.jpg" alt="cow">
+      </div>
+    </div>
+
+    <p id="feedback1"></p>
+
+    <button onclick="goToScreen2()">Next</button>
+  </div>
+
+  <!-- SCREEN 2 -->
+  <div id="screen2" class="screen">
+    <p id="instruction2" class="big-text"></p>
+
+    <div class="grid">
+      <div class="animal" data-animal="lion">
+        <img src="assets/images/lion.jpg" alt="lion">
+      </div>
+
+      <div class="animal" data-animal="elephant">
+        <img src="assets/images/elephant.jpg" alt="elephant">
+      </div>
+
+      <div class="animal" data-animal="bird">
+        <img src="assets/images/bird.jpg" alt="bird">
+      </div>
+    </div>
+
+    <p id="feedback2"></p>
+
+    <button onclick="back1()">Back</button>
+    <button onclick="goToScreen3()">Next</button>
+  </div>
+
+ <!-- SCREEN 3 -->
+<div id="screen3" class="screen">
+  <p id="instruction3" class="big-text"></p>
+
+  <!-- PARADE -->
+  <div class="parade-section">
+    <p class="section-title">Watch carefully 👀</p>
+    <div id="parade" class="grid"></div>
+  </div>
+
+  <!-- OPTIONS -->
+  <div class="options-section">
+    <p class="option-label">Tap your answer:</p>
+
+    <!-- CHOICES -->
+    <div class="grid small">
+      <div class="animal" data-animal="dog">
+        <img src="assets/images/dog.jpg" alt="dog">
+      </div>
+
+      <div class="animal" data-animal="cat">
+        <img src="assets/images/cat.jpg" alt="cat">
+      </div>
+
+      <div class="animal" data-animal="cow">
+        <img src="assets/images/cow.jpg" alt="cow">
+      </div>
+
+      <div class="animal" data-animal="lion">
+        <img src="assets/images/lion.jpg" alt="lion">
+      </div>
+
+      <div class="animal" data-animal="elephant">
+        <img src="assets/images/elephant.jpg" alt="elephant">
+      </div>
+
+      <div class="animal" data-animal="bird">
+        <img src="assets/images/bird.jpg" alt="bird">
+      </div>
+
+      <div class="animal" data-animal="fish">
+        <img src="assets/images/fish.jpg" alt="fish">
+      </div>
+    </div>
+
+    <p id="feedback3"></p>
+
+    <button onclick="back2()">Back</button>
+    <button onclick="goQuizzes()">Finish</button>
+  </div>
+
+</div>
+
+<script src="animalsquiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shapes Quiz</title>
+  <link rel="stylesheet" href="shapesquiz.css">
+</head>
+<body>
+
+<div class="container">
+
+  <h1>🔺 Shape Fun!</h1>
+
+  <!-- SCREEN 1 -->
+  <div id="screen1" class="screen active">
+    <p id="instruction1" class="big-text"></p>
+
+    <div class="grid">
+      <div class="shape circle" data-shape="circle"></div>
+      <div class="shape square" data-shape="square"></div>
+      <div class="shape triangle" data-shape="triangle"></div>
+    </div>
+
+    <p id="feedback1"></p>
+
+    <div class="buttons">
+      <button onclick="goQuizzes()">⬅ Back</button>
+      <button onclick="goToScreen2()">Next ➡</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 2 -->
+  <div id="screen2" class="screen">
+    <p id="instruction2" class="big-text"></p>
+
+    <div class="grid">
+      <div class="object circle" data-shape="circle"></div>
+      <div class="object square" data-shape="square"></div>
+      <div class="object triangle" data-shape="triangle"></div>
+    </div>
+
+    <p id="feedback2"></p>
+
+    <div class="buttons">
+      <button onclick="back1()">⬅ Back</button>
+      <button onclick="goToScreen3()">Next ➡</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 3 -->
+  <div id="screen3" class="screen">
+    <p id="instruction3" class="big-text">Find the different shape</p>
+
+    <div id="oddGrid" class="grid"></div>
+
+    <p id="feedback3"></p>
+
+    <div class="buttons">
+      <button onclick="back2()">⬅ Back</button>
+      <button onclick="goQuizzes()">Finish</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="shapesquiz.js"></script>
+</body>
+</html>

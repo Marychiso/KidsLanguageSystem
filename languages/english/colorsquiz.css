@@ -1,0 +1,142 @@
+body {
+  font-family: Comic Sans MS, Arial;
+  text-align: center;
+  color: #333;
+  margin: 0;
+}
+
+/* CONTAINER */
+.container {
+  padding: 30px;
+  border-radius: 45px;
+  width:100%;
+  margin: 10px ;
+}
+
+/* TITLE */
+h1 {
+  font-size: 50px;
+  color: #ff4d6d;
+}
+
+/* SCREENS */
+.screen {
+  display: none;
+  min-height: 100vh;
+}
+
+.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* BACKGROUNDS PER SCREEN */
+#screen1 {
+  background-image: url("assets/images/colorground.jpg"); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+}
+
+#screen2 {
+  background-image: url("assets/images/background.jpg"); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#screen3 {
+  background-image: url("assets/images/background.jpg"); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* IMAGE */
+.main-img {
+  width: 300px;
+  margin: 50px auto; /* FIX: centers image */
+  display: block;
+}
+
+/* BUTTON */
+button {
+  padding: 12px 25px;
+  font-size: 40px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* CHOICES */
+.choices {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  flex-wrap: wrap; /* FIX: prevents overlap */
+}
+
+
+.choice:hover, .choice2:hover {
+  transform: scale(1.1);
+}
+
+/* TEXT STYLES */
+.red {
+  color: red;
+  font-weight: bold;
+}
+
+/* BIG TEXT */
+.big-text {
+  font-size: 36px;
+  font-weight: bold;
+  animation: pop 0.3s ease;
+}
+
+/* FEEDBACK */
+.correct-text {
+  color: green;
+  font-size: 36px;
+  font-weight: bold;
+  animation: pop 0.3s ease;
+}
+
+.wrong-text {
+  color: red;
+  font-size: 36px;
+  font-weight: bold;
+  animation: pop 0.3s ease;
+}
+
+
+.choice, .choice2 {
+  width: 120px;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: transform 0.2s ease;
+}
+
+.choice:active, .choice2:active {
+  transform: scale(0.9);
+}
+
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.pop {
+  animation: pop 0.3s ease;
+}

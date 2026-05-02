@@ -2,49 +2,78 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Colors </title>
+  <title>Meet the Colors 🎨</title>
   <link rel="stylesheet" href="colors.css">
 </head>
 <body>
+<h1>🎨 Meet the Colors</h1>
 
-<div class="container">
+<!-- ================= SCREEN 1 ================= -->
+<div id="screen1" class="screen active">
 
-  <h1> COLOR HUNT</h1>
+  <p id="colorText" class="story-text">This is red</p>
 
-  <!-- SCREEN 1 -->
-  <div id="screen1" class="screen active">
-    
-    <button onclick="nextScreen()">Next ▶</button>
+  <!-- YOU WILL ADD YOUR IMAGES HERE -->
+  <img id="colorImage" class="color-img" src="assets/images/watermelon.jpg">
+
+  <div class="buttons">
+    <button onclick="goLessons()">⬅ Lessons</button>
+    <button onclick="nextColor()">Next Color ▶</button>
+    <button onclick="nextScreen()">Next▶</button>
   </div>
 
-  <!-- SCREEN 2 -->
-  <div id="screen2" class="screen">
-    <p>Find Color RED</p>
-    <div class="choices">
-      <img src="assets/images/redapple.jpg" class="choice" data-color="red">
-      <img src="assets/images/blueball.jpg" class="choice" data-color="blue">
-      <img src="assets/images/yellowbanana.jpg" class="choice" data-color="yellow">
-      <img src="assets/images/brown.jpg" class="choice" data-color="brown">
-      <img src="assets/images/green.jpg" class="choice" data-color="green">
-      <img src="assets/images/white.jpg" class="choice" data-color="white">
-      <img src="assets/images/pink.jpg" class="choice" data-color="pink">
+</div>
+
+<!-- ================= SCREEN 2 ================= -->
+<div id="screen2" class="screen">
+
+  <p class="story-text">
+    These are colors. Red, blue, yellow, orange, purple, green and white
+  </p>
+
+  <div class="colors-grid">
+
+    <!-- ADD YOUR IMAGES -->
+    <div class="color-item">
+      <img src="assets/images/watermelon.jpg">
+      <span>Red</span>
     </div>
-    <p id="feedback"></p>
+
+    <div class="color-item">
+      <img src="assets/images/blueball.jpg">
+      <span>Blue</span>
+    </div>
+
+    <div class="color-item">
+      <img src="assets/images/yellowbanana.jpg">
+      <span>Yellow</span>
+    </div>
+
+    <div class="color-item">
+      <img src="assets/images/orange.jpg">
+      <span>Orange</span>
+    </div>
+
+    <div class="color-item">
+      <img src="assets/images/grape.jpg">
+      <span>Purple</span>
+    </div>
+
+    <div class="color-item">
+      <img src="assets/images/green.jpg">
+      <span>Green</span>
+    </div>
+
+    <div class="color-item">
+      <img src="assets/images/whitebunny.jpg">
+      <span>White</span>
+    </div>
+
   </div>
 
-  <!-- SCREEN 3 -->
-  <div id="screen3" class="screen">
-    <p id="promptText">Find something...</p>
-    <div class="choices">
-      <img src="assets/images/redapple.jpg" class="choice2" data-color="red">
-      <img src="assets/images/blueball.jpg" class="choice2" data-color="blue">
-      <img src="assets/images/yellowbanana.jpg" class="choice2" data-color="yellow">
-      <img src="assets/images/brown.jpg" class="choice2" data-color="brown">
-      <img src="assets/images/pink.jpg" class="choice2" data-color="pink">
-      <img src="assets/images/white.jpg" class="choice2" data-color="white">
-      <img src="assets/images/green.jpg" class="choice2" data-color="green">
-    </div>
-    <p id="feedback2"></p>
+  <div class="buttons">
+    <button onclick="back()">⬅ Back</button>
+    <button onclick="goLessons()">Finish ✔</button>
   </div>
 
 </div>

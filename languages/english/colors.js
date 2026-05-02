@@ -1,91 +1,102 @@
+// ======================
+// STATE
+// ======================
 let currentScreen = 1;
+let pulseInterval = null;
 
-// SWITCH SCREENS
+// COLORS DATA
+const colors = [
+  { name: "red", img: "assets/images/watermelon.jpg" },
+  { name: "blue", img: "assets/images/blueball.jpg" },
+  { name: "yellow", img: "assets/images/yellowbanana.jpg" },
+  { name: "orange", img: "assets/images/orange.jpg" },
+  { name: "purple", img: "assets/images/grape.jpg" },
+  { name: "white", img: "assets/images/whitebunny.jpg" },
+  { name: "green", img: "assets/images/green.jpg" }
+];
+
+let index = 0;
+
+// ELEMENTS
+const colorText = document.getElementById("colorText");
+const colorImage = document.getElementById("colorImage");
+
+// ======================
+// SHOW COLOR (SCREEN 1)
+// ======================
+function showColor() {
+  const c = colors[index];
+
+  colorText.textContent = "This is " + c.name;
+  colorImage.src = c.img;
+
+  // restart pop animation
+  colorImage.classList.remove("pop");
+  void colorImage.offsetWidth;
+  colorImage.classList.add("pop");
+}
+
+// NEXT COLOR BUTTON
+function nextColor() {
+  if (index < colors.length - 1) {
+    index++;
+    showColor();
+  }
+}
+
+// ======================
+// SCREEN NAVIGATION
+// ======================
 function nextScreen() {
   document.getElementById("screen1").classList.remove("active");
   document.getElementById("screen2").classList.add("active");
 
-  playVoice("Find a color red");
+  startPulse();
 }
 
-// SCREEN 2 (GUIDED PRACTICE)
-const choices = document.querySelectorAll(".choice");
-const feedback = document.getElementById("feedback");
+function back() {
+  stopPulse();
 
-choices.forEach(choice => {
-  choice.addEventListener("click", () => {
-    if (choice.dataset.color === "red") {
-      feedback.textContent = "✅ Yes! Red!";
-      feedback.className = "correct-text";
-
-      addBounce(feedback);
-
-      setTimeout(() => {
-        goToScreen3();
-      }, 1500);
-
-    } else {
-      feedback.textContent = "❌ Try again!";
-      feedback.className = "wrong-text";
-    }
-  });
-});
-
-// GO TO SCREEN 3
-function goToScreen3() {
   document.getElementById("screen2").classList.remove("active");
-  document.getElementById("screen3").classList.add("active");
-
-  nextRound();
+  document.getElementById("screen1").classList.add("active");
 }
 
-// SCREEN 3 (FREE PLAY)
-const colors = ["red", "blue", "yellow", "brown", "green", "white", "pink"];
-let currentColor = "";
-
-const choices2 = document.querySelectorAll(".choice2");
-const feedback2 = document.getElementById("feedback2");
-const promptText = document.getElementById("promptText");
-
-function nextRound() {
-  currentColor = colors[Math.floor(Math.random() * colors.length)];
-
-  promptText.textContent = "Find something " + currentColor.toUpperCase();
-  promptText.className = "big-text";
-
-  playVoice("Find something " + currentColor);
+function goLessons() {
+  stopPulse();
+  window.location.href = "lessons.html"; // adjust if needed
 }
 
-choices2.forEach(choice => {
-  choice.addEventListener("click", () => {
-    if (choice.dataset.color === currentColor) {
-      feedback2.textContent = "✅ Correct!";
-      feedback2.className = "correct-text";
+// ======================
+// SCREEN 2 ANIMATION
+// ======================
+function startPulse() {
+  stopPulse(); // prevent duplicates
 
-      addBounce(feedback2);
+  const items = document.querySelectorAll(".color-item");
+  let i = 0;
 
-      setTimeout(() => {
-        nextRound();
-      }, 1000);
+  pulseInterval = setInterval(() => {
 
-    } else {
-      feedback2.textContent = "❌ Try again!";
-      feedback2.className = "wrong-text";
-    }
-  });
-});
+    items.forEach(item => item.classList.remove("active"));
 
-// SIMPLE VOICE
-function playVoice(text) {
-  const speech = new SpeechSynthesisUtterance(text);
-  speech.lang = "en-US";
-  speech.rate = 0.8;
-  window.speechSynthesis.speak(speech);
+    items[i].classList.add("active");
+
+    i++;
+    if (i >= items.length) i = 0;
+
+  }, 2000);
 }
 
-// BOUNCE EFFECT HELPER
-function addBounce(el) {
-  el.classList.remove("pop");
-  void el.offsetWidth; // restart animation
-  el.classList.add("pop");
+function stopPulse() {
+  if (pulseInterval) {
+    clearInterval(pulseInterval);
+    pulseInterval = null;
+  }
 }
+
+// ======================
+// INIT
+// ======================
+window.onload = () => {
+  showColor();
+};
