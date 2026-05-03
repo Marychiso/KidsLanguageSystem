@@ -28,6 +28,7 @@ app.use("/api/users", userRoutes); //connect user routes
 app.use("/api/languages", languageRoutes); //connect language routes
 app.use("/api/lessons", lessonRoutes); //connect lesson routes
 app.use("/api/stories", require("./routes/storyRoutes"));
+app.use("/api/quizzes", require("./routes/quizRoutes"));
 
 // test route
 app.get("/", (req, res) => {

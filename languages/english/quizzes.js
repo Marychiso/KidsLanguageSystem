@@ -1,27 +1,82 @@
-function openQuiz(type) {
+const quizContainer = document.getElementById("quizContainer");
 
-  if (type === "colors") {
-    window.location.href = "colorsquiz.html";
+const expectedQuizzes = [
+  {
+    title: "Colors Quiz",
+    emoji: "🎨",
+    category: "Colors"
+  },
+  {
+    title: "Alphabet Quiz",
+    emoji: "🔤",
+    category: "Alphabet"
+  },
+  {
+    title: "Shapes Quiz",
+    emoji: "🔺",
+    category: "Shapes"
+  },
+  {
+    title: "Animals Quiz",
+    emoji: "🐾",
+    category: "Animals"
+  },
+  {
+    title: "Fruit Quiz",
+    emoji: "🍓",
+    category: "Fruits"
   }
+];
 
-  else if (type === "alphabet") {
-    window.location.href = "alphabetquiz.html";
-  }
+async function loadQuizzes() {
+  try {
+    const languageId = localStorage.getItem("languageId");
 
-  else if (type === "shapes") {
-    window.location.href = "shapesquiz.html";
-  }
+    if (!languageId) {
+      quizContainer.innerHTML = "<p>No language selected.</p>";
+      return;
+    }
 
-  else if (type === "animals") {
-    window.location.href = "animalsquiz.html";
-  }
+    const response = await fetch(`http://localhost:5000/api/quizzes/language/${languageId}`);
+    const quizzesFromDB = await response.json();
 
-  else if (type === "fruits") {
-    window.location.href = "fruitsquiz.html";
+    console.log("Quizzes from backend:", quizzesFromDB);
+
+    quizContainer.innerHTML = "";
+
+    expectedQuizzes.forEach((expectedQuiz) => {
+      const quizFromDB = quizzesFromDB.find(
+        (quiz) => quiz.title === expectedQuiz.title
+      );
+
+      const btn = document.createElement("button");
+      btn.classList.add("quiz-btn");
+
+      btn.innerText = `${expectedQuiz.emoji} ${expectedQuiz.title}`;
+
+      btn.addEventListener("click", () => {
+        if (quizFromDB && quizFromDB.page) {
+          localStorage.setItem("quizId", quizFromDB._id);
+          localStorage.setItem("quizTitle", quizFromDB.title);
+          localStorage.setItem("quizPage", quizFromDB.page);
+
+          window.location.href = quizFromDB.page;
+        } else {
+          alert(`${expectedQuiz.title} is coming soon!`);
+        }
+      });
+
+      quizContainer.appendChild(btn);
+    });
+
+  } catch (error) {
+    console.error("Error loading quizzes:", error);
+    quizContainer.innerHTML = "<p>Failed to load quizzes.</p>";
   }
 }
 
-// BACK TO MAIN MENU
 function goMenu() {
-  window.location.href = "menu.html";
+  window.location.href = "../../menu.html";
 }
+
+loadQuizzes();
