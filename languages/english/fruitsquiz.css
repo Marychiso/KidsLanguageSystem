@@ -1,0 +1,108 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  text-align: center;
+  background: #a0e2fa;
+  user-select: none;
+}
+
+.container {
+  padding: 20px;
+}
+
+.screen {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.big-text {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 110px);
+  gap: 25px;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.grid.small {
+  grid-template-columns: repeat(3, 100px);
+}
+
+.fruit img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.fruit img:hover {
+  transform: scale(1.1);
+}
+
+button {
+  padding: 14px 28px;
+  margin: 15px 10px;
+  border: none;
+  border-radius: 12px;
+  background: #ff6b6b;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #d94c4c;
+  transition: all 0.15s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 0 #d94c4c;
+}
+
+.options-box {
+  margin-top: 20px;
+  padding: 15px;
+  border: 3px dashed #ccc;
+  border-radius: 15px;
+}
+
+.option-label {
+  font-weight: bold;
+}
+
+#feedback1, #feedback2, #feedback3 {
+  height: 30px;
+  font-weight: bold;
+}
+
+.correct {
+  transform: scale(1.2);
+}
+
+.wrong {
+  animation: shake 0.3s;
+}
+
+#memoryDisplay img {
+  width: 70px;
+  height: 70px;
+  margin: 5px;
+}
+
+@keyframes shake {
+  0% {transform: translateX(0);}
+  50% {transform: translateX(5px);}
+  100% {transform: translateX(0);}
+}

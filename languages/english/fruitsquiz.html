@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fruit Quiz</title>
+  <link rel="stylesheet" href="fruitsquiz.css">
+</head>
+<body>
+
+<div class="container">
+  <h1> Fruit Day Fun</h1>
+
+  <!-- SCREEN 1 -->
+  <div id="screen1" class="screen active">
+    <p id="instruction1" class="big-text"></p>
+
+    <div class="grid" id="fruits1">
+
+      <div class="fruit" data-fruit="redapple" data-img="assets/images/redapple.jpg">
+        <img src="assets/images/redapple.jpg">
+      </div>
+
+      <div class="fruit" data-fruit="banana" data-img="assets/images/banana.jpg">
+        <img src="assets/images/banana.jpg">
+      </div>
+
+      <div class="fruit" data-fruit="grape" data-img="assets/images/grape.jpg">
+        <img src="assets/images/grape.jpg">
+      </div>
+
+      <div class="fruit" data-fruit="orange" data-img="assets/images/orange.jpg">
+        <img src="assets/images/orange.jpg">
+      </div>
+
+      <div class="fruit" data-fruit="blueberry" data-img="assets/images/blueberry.jpg">
+        <img src="assets/images/blueberry.jpg">
+      </div>
+
+      <div class="fruit" data-fruit="pear" data-img="assets/images/pear.jpg">
+        <img src="assets/images/pear.jpg">
+      </div>
+
+      <div class="fruit" data-fruit="watermelon2" data-img="assets/images/watermelon2.jpg">
+        <img src="assets/images/watermelon2.jpg">
+      </div>
+
+    </div>
+
+    <p id="feedback1"></p>
+
+    <button onclick="goToScreen2()">Next</button>
+  </div>
+
+  <!-- SCREEN 2 -->
+  <div id="screen2" class="screen">
+    <p id="sizeQuestion" class="big-text"></p>
+
+    <div class="grid" id="fruits2">
+      <div class="fruit" data-size="small"><img src="assets/images/redapple.jpg"></div>
+      <div class="fruit" data-size="big"><img src="assets/images/banana.jpg"></div>
+      <div class="fruit" data-size="small"><img src="assets/images/grape.jpg"></div>
+      <div class="fruit" data-size="small"><img src="assets/images/orange.jpg"></div>
+      <div class="fruit" data-size="smallest"><img src="assets/images/blueberry.jpg"></div>
+      <div class="fruit" data-size="big"><img src="assets/images/pear.jpg"></div>
+      <div class="fruit" data-size="biggest"><img src="assets/images/watermelon2.jpg"></div>
+    </div>
+
+    <p id="feedback2"></p>
+
+    <button onclick="back1()">Back</button>
+    <button onclick="goToScreen3()">Next</button>
+  </div>
+
+  <!-- SCREEN 3 -->
+  <div id="screen3" class="screen">
+    <p id="instruction3" class="big-text"></p>
+
+    <div id="memoryDisplay" class="grid"></div>
+
+    <div class="options-box">
+      <p class="option-label">Tap your answer:</p>
+      <div id="memoryOptions" class="grid small"></div>
+    </div>
+
+    <p id="feedback3"></p>
+
+    <button onclick="back2()">Back</button>
+    <button onclick="goQuizzes()">Finish</button>
+  </div>
+
+</div>
+
+<script src="fruitsquiz.js"></script>
+</body>
+</html>
