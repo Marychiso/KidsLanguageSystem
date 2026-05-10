@@ -49,24 +49,34 @@ async function loadQuizzes() {
         (quiz) => quiz.title === expectedQuiz.title
       );
 
-      const btn = document.createElement("button");
-      btn.classList.add("quiz-btn");
+     const card = document.createElement("div");
 
-      btn.innerText = `${expectedQuiz.emoji} ${expectedQuiz.title}`;
+card.classList.add("quiz-card");
 
-      btn.addEventListener("click", () => {
-        if (quizFromDB && quizFromDB.page) {
-          localStorage.setItem("quizId", quizFromDB._id);
-          localStorage.setItem("quizTitle", quizFromDB.title);
-          localStorage.setItem("quizPage", quizFromDB.page);
+card.innerHTML = `
+  <div class="quiz-icon">${expectedQuiz.emoji}</div>
+  <div class="quiz-title">${expectedQuiz.title}</div>
+`;
 
-          window.location.href = quizFromDB.page;
-        } else {
-          alert(`${expectedQuiz.title} is coming soon!`);
-        }
-      });
+card.addEventListener("click", () => {
 
-      quizContainer.appendChild(btn);
+  if (quizFromDB && quizFromDB.page) {
+
+    localStorage.setItem("quizId", quizFromDB._id);
+    localStorage.setItem("quizTitle", quizFromDB.title);
+    localStorage.setItem("quizPage", quizFromDB.page);
+
+    window.location.href = quizFromDB.page;
+
+  } else {
+
+    alert(`${expectedQuiz.title} is coming soon!`);
+
+  }
+
+});
+
+quizContainer.appendChild(card);
     });
 
   } catch (error) {

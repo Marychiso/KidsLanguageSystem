@@ -1,0 +1,125 @@
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#dff6ff;
+  text-align:center;
+  user-select:none;
+}
+
+.container{
+  padding:20px;
+}
+
+h1{
+  color:#ff6b6b;
+  font-size:45px;
+}
+
+.instructions{
+  font-size:24px;
+  color:#444;
+  margin-bottom:25px;
+}
+
+/* BUTTONS */
+
+.top-buttons{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-bottom:25px;
+}
+
+button{
+  padding:14px 24px;
+  border:none;
+  border-radius:15px;
+  background:#ff9f1c;
+  color:white;
+  font-size:20px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+/* SCORE */
+
+.score-board{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  margin-bottom:25px;
+}
+
+.score-box{
+  background:white;
+  padding:15px 25px;
+  border-radius:15px;
+  font-size:22px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+/* MATCH BUTTON */
+
+#match{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  background:#4cd964;
+  font-size:28px;
+  margin-bottom:35px;
+}
+
+/* SHAPES */
+
+#shapeSection{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:120px;
+  margin-top:20px;
+  min-height:250px;
+}
+
+#shape1,
+#shape2{
+  transition:0.3s;
+  border-radius:20px;
+}
+
+/* RESULT */
+
+#resultMessage{
+  margin-top:30px;
+  font-size:32px;
+  font-weight:bold;
+  color:#ff6b6b;
+}
+
+/* ANIMATIONS */
+
+.correct{
+  animation:bounce 0.5s;
+}
+
+.wrong{
+  animation:shake 0.4s;
+}
+
+@keyframes bounce{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.2);}
+  100%{transform:scale(1);}
+}
+
+@keyframes shake{
+  0%{transform:translateX(0);}
+  25%{transform:translateX(-5px);}
+  50%{transform:translateX(5px);}
+  75%{transform:translateX(-5px);}
+  100%{transform:translateX(0);}
+}

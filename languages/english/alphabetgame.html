@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Letter Builder</title>
+  <link rel="stylesheet" href="alphabetgame.css">
+</head>
+<body>
+
+<div class="container">
+
+  <h1> Letter Builder</h1>
+
+  <!-- TOP (IMAGE + HINT) -->
+  <div class="top">
+    <div id="object">🍎</div>
+    <p id="hint">Let’s build the word!</p>
+  </div>
+
+  <!-- LETTER SLOTS -->
+  <div id="slots" class="slots"></div>
+
+  <!-- LETTER OPTIONS -->
+  <div id="letters" class="letters"></div>
+
+  <!-- FEEDBACK -->
+  <p id="message"></p>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+  <button onclick="replayWord()">🔄 Replay</button>
+  <button onclick="nextWord()">Next</button>
+  <button onclick="goGames()">⬅ Back</button>
+</div>
+
+</div>
+
+<script src="alphabetgame.js"></script>
+</body>
+</html>

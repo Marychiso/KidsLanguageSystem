@@ -30,17 +30,23 @@ async function loadStories() {
     storyList.innerHTML = "";
 
     stories.forEach((story) => {
-      const button = document.createElement("button");
+      const card = document.createElement("div");
 
-      const storyName = story.page.replace(".html", "");
-      const emoji = getStoryEmoji(story.title);
+const storyName = story.page.replace(".html", "");
+const emoji = getStoryEmoji(story.title);
 
-      button.innerText = `${emoji} ${story.title}`;
-      button.onclick = function () {
-        openStory(storyName);
-      };
+card.className = "story-card";
 
-      storyList.appendChild(button);
+card.innerHTML = `
+  <div class="story-icon">${emoji}</div>
+  <div class="story-title">${story.title}</div>
+`;
+
+card.onclick = function () {
+  openStory(storyName);
+};
+
+storyList.appendChild(card);
     });
 
   } catch (error) {

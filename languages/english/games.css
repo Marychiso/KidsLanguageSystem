@@ -1,7 +1,7 @@
 body{
   margin:0;
   font-family:Arial;
-  background:#3cc36e;
+  background:#e5ec5f;
   text-align:center;
 }
 
@@ -14,25 +14,26 @@ h1{
 }
 
 .subtitle{
-  font-size:25px;
-  color:#333;
+  font-size:28px;
   margin-bottom:20px;
+  color:#333;
 }
 
-/* CARD GRID */
-.story-cards{
+/* CARD LAYOUT */
+.cards{
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
   gap:20px;
+  margin-top:20px;
 }
 
-/* CARD STYLE */
-.story-card{
+/* INDIVIDUAL CARD */
+.card{
   width:250px;
   height:250px;
-  background:rgb(227, 83, 169);
-  border-radius:18px;
+  background:rgb(72, 223, 239);
+  border-radius:20px;
   box-shadow:0 8px 20px rgba(0,0,0,0.15);
   display:flex;
   flex-direction:column;
@@ -42,26 +43,18 @@ h1{
   transition:0.2s;
 }
 
-.story-list{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:20px;
-  margin-top:20px;
-}
-
-.story-card:hover{
+.card:hover{
   transform:scale(1.05);
 }
 
-.story-title{
-  font-size:30px;
-  font-weight:bold;
+.icon{
+  font-size:50px;
 }
 
-.story-icon{
-  font-size:40px;
-  margin-bottom:10px;
+.title{
+  margin-top:10px;
+  font-size:30px;
+  font-weight:bold;
 }
 
 /* BACK BUTTON */

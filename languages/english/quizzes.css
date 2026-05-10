@@ -1,53 +1,57 @@
-body {
-  font-family: Comic Sans MS, Arial;
-  background: #f39fbb;
-  text-align: center;
-  margin: 0;
+body{
+  margin:0;
+  font-family:Arial;
+  background:#eb8d56;
+  text-align:center;
 }
 
-/* CONTAINER */
-.container {
-  padding: 40px;
+.container{
+  padding:20px;
 }
 
-/* TITLE */
-h1 {
-  font-size: 40px;
-  color: #ff4d6d;
+.quiz-list{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px;
+  margin-top:20px;
 }
 
-/* QUIZ LIST */
-.quiz-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-top: 40px;
+.quiz-card{
+  width:250px;
+  height:250px;
+  background:rgb(136, 114, 226);
+  border-radius:20px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  transition:0.2s;
 }
 
-/* QUIZ BUTTONS */
-.quiz-btn {
-  padding: 20px;
-  font-size: 22px;
-  border: none;
-  border-radius: 15px;
-  background: #ffd166;
-  cursor: pointer;
-  transition: 0.3s;
+.quiz-card:hover{
+  transform:scale(1.05);
 }
 
-.quiz-btn:hover {
-  transform: scale(1.05);
+.quiz-icon{
+  font-size:45px;
+  margin-bottom:10px;
 }
 
-/* BACK BUTTON */
-.back-btn {
-  margin-top: 40px;
-  padding: 12px 25px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  background: #ff4d6d;
-  color: white;
-  cursor: pointer;
+.quiz-title{
+  font-size:30px;
+  font-weight:bold;
 }
 
+.back-btn{
+  margin-top:30px;
+  padding:12px 20px;
+  border:none;
+  border-radius:12px;
+  background:#ff8fab;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}

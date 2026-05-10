@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Match the Shape</title>
+
+  <link rel="stylesheet" href="shapesgame.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- TITLE -->
+    <h1>🔺 Match the Shape!</h1>
+
+    <!-- INSTRUCTIONS -->
+    <p class="instructions">
+      Press MATCH when both shapes look the same!
+    </p>
+
+    <!-- TOP BUTTONS -->
+    <div class="top-buttons">
+
+      <button id="play">
+        ▶ Play
+      </button>
+
+      <button id="reset">
+        🔁 Reset
+      </button>
+
+      <button onclick="goGames()">
+        ⬅ Back to Games
+      </button>
+
+    </div>
+
+    <!-- SCORE BOARD -->
+    <div class="score-board">
+
+      <div class="score-box">
+        ⏰ Time:
+        <span id="time">30</span>
+      </div>
+
+      <div class="score-box">
+        ⭐ Score:
+        <span id="score">0</span>
+      </div>
+
+    </div>
+
+    <!-- MATCH BUTTON -->
+    <button id="match">
+      MATCH
+    </button>
+
+    <!-- SHAPES -->
+    <div id="shapeSection">
+
+      <div id="shape1"></div>
+
+      <div id="shape2"></div>
+
+    </div>
+
+    <!-- GAME RESULT -->
+    <div id="resultMessage"></div>
+
+  </div>
+
+  <script src="shapesgame.js"></script>
+
+</body>
+</html>

@@ -38,23 +38,30 @@ async function loadLessons() {
     }
 
     lessons.forEach((lesson) => {
-      const btn = document.createElement("button");
-      btn.classList.add("lesson-btn", "active");
-      btn.innerText = `${getLessonEmoji(lesson.title)} ${lesson.title}`;
+      const card = document.createElement("div");
 
-      btn.addEventListener("click", () => {
-        localStorage.setItem("lessonId", lesson._id);
-        localStorage.setItem("lessonTitle", lesson.title);
-        localStorage.setItem("lessonPage", lesson.page);
+card.classList.add("lesson-card");
 
-        if (lesson.page) {
-          window.location.href = lesson.page;
-        } else {
-          alert("This lesson page is missing in the database.");
-        }
-      });
+card.innerHTML = `
+  <div class="lesson-icon">${getLessonEmoji(lesson.title)}</div>
+  <div class="lesson-title">${lesson.title}</div>
+`;
 
-      lessonContainer.appendChild(btn);
+card.addEventListener("click", () => {
+
+  localStorage.setItem("lessonId", lesson._id);
+  localStorage.setItem("lessonTitle", lesson.title);
+  localStorage.setItem("lessonPage", lesson.page);
+
+  if (lesson.page) {
+    window.location.href = lesson.page;
+  } else {
+    alert("This lesson page is missing in the database.");
+  }
+
+});
+
+lessonContainer.appendChild(card);
     });
 
   } catch (error) {

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Animal Homes Game</title>
+  <link rel="stylesheet" href="animalgame.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <button class="nav-btn" onclick="goGames()">⬅ Back</button>
+    <h1>🐾 Animal Homes</h1>
+  </div>
+
+  <!-- INSTRUCTIONS -->
+  <p class="instructions">
+    Help the animals find their homes!<br>
+    Tap the correct home for each animal.
+  </p>
+
+  <!-- CURRENT ANIMAL -->
+  <div class="animal-section">
+
+    <div id="animalCard" class="animal-card">
+      <img id="animalImage" src="" alt="">
+    </div>
+
+    <p id="animalName" class="animal-name"></p>
+
+  </div>
+
+  <!-- FEEDBACK -->
+  <p id="feedback" class="feedback"></p>
+
+  <!-- HOMES -->
+  <div class="homes-grid">
+
+    <div class="home" data-home="pond">
+      <img src="assets/images/pond.jpg" alt="">
+      <p>Pond</p>
+    </div>
+
+    <div class="home" data-home="barn">
+      <img src="assets/images/barn.jpg" alt="">
+      <p>Barn</p>
+    </div>
+
+    <div class="home" data-home="jungle">
+      <img src="assets/images/jungle.jpg" alt="">
+      <p>Jungle</p>
+    </div>
+
+    <div class="home" data-home="tree">
+      <img src="assets/images/tree.jpg" alt="">
+      <p>Tree</p>
+    </div>
+
+  </div>
+
+  <!-- FINISH -->
+  <div id="finishScreen" class="finish-screen">
+    <h2>🎉 All animals are happy!</h2>
+    <button class="play-btn" onclick="restartGame()">Play Again</button>
+  </div>
+
+</div>
+
+<script src="animalgame.js"></script>
+
+</body>
+</html>

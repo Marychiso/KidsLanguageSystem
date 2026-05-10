@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Magic Paint Splash</title>
+  <link rel="stylesheet" href="colorgame.css">
+</head>
+<body>
+
+<div class="container">
+
+  <h1> Magic Paint Splash</h1>
+
+  <!-- MESSAGE -->
+  <p id="message">Color the world!</p>
+
+  <!-- GAME AREA -->
+  <div class="game-area">
+
+  <div class="object tree" data-name="tree">🌳</div>
+  <div class="object sun" data-name="sun">☀️</div>
+  <div class="object ball" data-name="ball">⚽</div>
+
+  <div class="object apple" data-name="apple">🍎</div>
+  <div class="object banana" data-name="banana">🍌</div>
+  <div class="object cloud" data-name="cloud">☁️</div>
+  <div class="object leaf" data-name="leaf">🍃</div>
+
+</div>
+  <!-- COLOR PALETTE -->
+  <div class="palette">
+  <button class="color red" onclick="selectColor('red')"></button>
+  <button class="color blue" onclick="selectColor('blue')"></button>
+  <button class="color yellow" onclick="selectColor('yellow')"></button>
+  <button class="color green" onclick="selectColor('green')"></button>
+  <button class="color white" onclick="selectColor('white')"></button>
+</div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <button onclick="resetGame()">🔄 Play Again</button>
+    <button onclick="goGames()">⬅ Back</button>
+  </div>
+
+</div>
+
+<script src="colorgame.js"></script>
+</body>
+</html>

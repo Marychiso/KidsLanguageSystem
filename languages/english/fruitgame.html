@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mystery Fruit Game</title>
+  <link rel="stylesheet" href="fruitgame.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- TITLE -->
+  <h1>🍓 Mystery Fruit!</h1>
+
+  <!-- INSTRUCTIONS -->
+  <p class="instructions">
+    Read the hints and guess the hidden fruit!
+  </p>
+
+
+  <!-- MYSTERY AREA -->
+  <div class="mystery-box">
+
+    <div id="mysteryFruit" class="hidden-fruit">
+      ❓
+    </div>
+
+  </div>
+
+  <!-- HINT -->
+  <div id="hintText" class="hint-box">
+  Can you guess the fruit?
+</div>
+  <!-- MESSAGE -->
+  <p id="message"></p>
+
+  <!-- FRUIT OPTIONS -->
+  <div id="fruitOptions" class="fruit-grid">
+
+    <!-- APPLE -->
+    <div class="fruit-option" data-fruit="redapple">
+      <img src="assets/images/redapple.jpg">
+    </div>
+
+    <!-- BANANA -->
+    <div class="fruit-option" data-fruit="banana">
+      <img src="assets/images/banana.jpg">
+    </div>
+
+    <!-- ORANGE -->
+    <div class="fruit-option" data-fruit="orange">
+      <img src="assets/images/orange.jpg">
+    </div>
+
+    <!-- GRAPES -->
+    <div class="fruit-option" data-fruit="grape">
+      <img src="assets/images/grape.jpg">
+    </div>
+
+    <!-- STRAWBERRY -->
+    <div class="fruit-option" data-fruit="strawberry">
+      <img src="assets/images/strawberry.jpg">
+    </div>
+
+    <!-- PEAR -->
+    <div class="fruit-option" data-fruit="pear">
+      <img src="assets/images/pear.jpg">
+    </div>
+
+    <!-- WATERMELON -->
+    <div class="fruit-option" data-fruit="watermelon">
+      <img src="assets/images/watermelon.jpg">
+    </div>
+
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-buttons">
+
+  <button onclick="goGames()">
+    ⬅ Back
+  </button>
+
+  <button onclick="playAgain()">
+    🔁 Play Again
+  </button>
+
+</div>
+
+</div>
+
+<script src="fruitgame.js"></script>
+
+</body>
+</html>

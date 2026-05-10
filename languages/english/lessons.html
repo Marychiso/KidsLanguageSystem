@@ -1,37 +1,3 @@
-<!-- 
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Lessons 📚</title>
-  <link rel="stylesheet" href="lessons.css">
-</head>
-<body>
-
-  <div class="container">
-    <h1> Choose a Lesson</h1>
-    <p class="subtitle">Let’s start learning!</p>
-
-    <div class="lesson-list">
-
-      <button class="lesson-btn active" id="colorLesson">
-        🎨 Color lesson
-      </button>
-
-      <button class="lesson-btn active" id="alphabetLesson">  Alphabets lesson </button>
-      <button class="lesson-btn active" id="animalLesson"> Animal lesson 🐾 </button>
-      <button class="lesson-btn active" id="shapeLesson">🧩 Shapes lesson </button>
-      <button class="lesson-btn active" id="fruitLesson">🍎 Fruit lesson</button>
-
-    </div>
-
-    <button class="back-btn" onclick="goBack()">⬅ Back</button>
-  </div>
-
-  <script src="lessons.js"></script>
-</body>
- </html>  -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,19 +5,25 @@
   <title>Lessons 📚</title>
   <link rel="stylesheet" href="lessons.css">
 </head>
+
 <body>
 
-  <div class="container">
-    <h1>Choose a Lesson</h1>
-    <p class="subtitle">Let’s start learning!</p>
+<div class="container">
 
-    <div class="lesson-list" id="lessonContainer">
-      <!-- Lessons from backend will appear here -->
-    </div>
+  <h1>📚 Choose a Lesson</h1>
 
-    <button class="back-btn" onclick="goBack()">⬅ Back</button>
+  <p class="subtitle">Let’s start learning!</p>
+
+  <div class="lesson-list" id="lessonContainer">
+    <!-- Lesson cards load here -->
   </div>
 
-  <script src="lessons.js"></script>
+  <button class="back-btn" onclick="goBack()">
+    ⬅ Back
+  </button>
+
+</div>
+
+<script src="lessons.js"></script>
 </body>
 </html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Games Menu</title>
+  <link rel="stylesheet" href="games.css">
+</head>
+
+<body>
+
+<div class="container">
+  <h1>🎮 Games</h1>
+
+  <p class="subtitle">Choose a game to play</p>
+
+  <div class="cards">
+
+    <div class="card" onclick="goGame('color')">
+      <div class="icon">🎨</div>
+      <div class="title">Color Game</div>
+    </div>
+
+    <div class="card" onclick="goGame('alphabet')">
+      <div class="icon">🔤</div>
+      <div class="title">Alphabet Game</div>
+    </div>
+
+    <div class="card" onclick="goGame('shapes')">
+      <div class="icon">🔺</div>
+      <div class="title">Shapes Game</div>
+    </div>
+
+    <div class="card" onclick="goGame('animals')">
+      <div class="icon">🐾</div>
+      <div class="title">Animal Game</div>
+    </div>
+
+    <div class="card" onclick="goGame('fruits')">
+      <div class="icon">🍎</div>
+      <div class="title">Fruit Game</div>
+    </div>
+
+  </div>
+
+  <button class="back-btn" onclick="goMenu()">⬅ Back to Menu</button>
+
+</div>
+
+<script src="games.js"></script>
+</body>
+</html>
