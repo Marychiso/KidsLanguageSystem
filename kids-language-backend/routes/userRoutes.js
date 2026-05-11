@@ -1,16 +1,17 @@
 const express = require("express"); //import express into this file
-const router = express.Router(); //reate a route manager for users
+const router = express.Router(); //create a route manager for users
 const User = require("../models/User"); //import user model into this file
 
 // Register user
 router.post("/register", async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
 
     const newUser = new User({
       username,
       email,
-      password
+      password,
+      role: role || "child"
     });
 
     const savedUser = await newUser.save();
@@ -29,9 +30,9 @@ router.post("/register", async (req, res) => {
 // Login user
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    const foundUser = await User.findOne({ email });
+    const foundUser = await User.findOne({ username });
 
     if (!foundUser) {
       return res.status(404).json({
