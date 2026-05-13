@@ -1,11 +1,54 @@
 let current = 1;
+let storyProgressSaved = false;
 
-// GET CURRENT TEXT
+async function saveStoryProgress() {
+  try {
+    if (storyProgressSaved) return;
+
+    const userId = localStorage.getItem("userId");
+    const storyId = localStorage.getItem("storyId");
+    const storyTitle = localStorage.getItem("storyTitle");
+
+    if (!userId || !storyId) {
+      console.log("Missing userId or storyId. Story progress not saved.");
+      return;
+    }
+
+    storyProgressSaved = true;
+
+    await fetch("http://localhost:5000/api/progress/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId,
+        contentType: "story",
+        contentId: storyId,
+        title: storyTitle || "Animal Story",
+        completed: true,
+        score: null
+      })
+    });
+
+    await fetch(`http://localhost:5000/api/badges/check/${userId}`, {
+      method: "POST"
+    });
+
+    console.log("Animal story progress saved and badges checked.");
+  } catch (error) {
+    console.error("Error saving animal story progress:", error);
+  }
+}
+
 function getCurrentText() {
   return document.querySelector("#screen" + current + " .story-text").textContent;
 }
 
-// VOICE
+function getTotalScreens() {
+  return document.querySelectorAll("[id^='screen']").length;
+}
+
 function playVoice(text) {
   window.speechSynthesis.cancel();
   const speech = new SpeechSynthesisUtterance(text);
@@ -14,16 +57,18 @@ function playVoice(text) {
   window.speechSynthesis.speak(speech);
 }
 
-// NEXT
 function next() {
   document.getElementById("screen" + current).classList.remove("active");
   current++;
   document.getElementById("screen" + current).classList.add("active");
 
   playVoice(getCurrentText());
+
+  if (current === getTotalScreens()) {
+    saveStoryProgress();
+  }
 }
 
-// BACK
 function back() {
   document.getElementById("screen" + current).classList.remove("active");
   current--;
@@ -32,12 +77,10 @@ function back() {
   playVoice(getCurrentText());
 }
 
-// GO BACK TO STORIES
 function goStories() {
-  window.location.href = "stories.html"; // adjust if needed
+  window.location.href = "stories.html";
 }
 
-// AUTO PLAY
 window.onload = () => {
   playVoice(getCurrentText());
 };

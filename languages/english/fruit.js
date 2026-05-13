@@ -1,4 +1,45 @@
-// FRUITS DATA
+let lessonProgressSaved = false;
+
+async function saveLessonProgress() {
+  try {
+    if (lessonProgressSaved) return;
+
+    const userId = localStorage.getItem("userId");
+    const lessonId = localStorage.getItem("lessonId");
+    const lessonTitle = localStorage.getItem("lessonTitle");
+
+    if (!userId || !lessonId) {
+      console.log("Missing userId or lessonId. Lesson progress not saved.");
+      return;
+    }
+
+    lessonProgressSaved = true;
+
+    await fetch("http://localhost:5000/api/progress/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId,
+        contentType: "lesson",
+        contentId: lessonId,
+        title: lessonTitle || "Fruit Lesson",
+        completed: true,
+        score: null
+      })
+    });
+
+    await fetch(`http://localhost:5000/api/badges/check/${userId}`, {
+      method: "POST"
+    });
+
+    console.log("Fruit lesson progress saved and badges checked.");
+  } catch (error) {
+    console.error("Error saving fruit lesson progress:", error);
+  }
+}
+
 const fruits = [
   { name: "banana", img: "assets/images/banana.jpg" },
   { name: "apple", img: "assets/images/redapple.jpg" },
@@ -8,7 +49,6 @@ const fruits = [
   { name: "watermelon", img: "assets/images/watermelon.jpg" }
 ];
 
-// INTRO
 let index = 0;
 
 const fruitImage = document.getElementById("fruitImage");
@@ -33,7 +73,6 @@ function nextFruit() {
   }
 }
 
-// GO TO PRACTICE
 function goToPractice() {
   document.getElementById("screen1").classList.remove("active");
   document.getElementById("screen2").classList.add("active");
@@ -41,7 +80,6 @@ function goToPractice() {
   nextRound();
 }
 
-// PRACTICE
 const instruction = document.getElementById("instruction");
 const feedback = document.getElementById("feedback");
 const choices = document.querySelectorAll(".choice");
@@ -61,7 +99,6 @@ function nextRound() {
   playVoice("Find the " + currentFruit);
 }
 
-// CLICK EVENTS
 choices.forEach(choice => {
   choice.addEventListener("click", () => {
     if (choice.dataset.fruit === currentFruit) {
@@ -81,6 +118,7 @@ choices.forEach(choice => {
         feedback.textContent = "";
 
         playVoice("Great job! Lesson complete");
+        saveLessonProgress();
       }
 
     } else {
@@ -92,9 +130,8 @@ choices.forEach(choice => {
   });
 });
 
-// 🔊 VOICE FUNCTION
 function playVoice(text) {
-  window.speechSynthesis.cancel(); // stops overlapping voices
+  window.speechSynthesis.cancel();
 
   const speech = new SpeechSynthesisUtterance(text);
   speech.lang = "en-US";

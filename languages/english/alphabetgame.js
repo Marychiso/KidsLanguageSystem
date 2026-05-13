@@ -1,4 +1,5 @@
 let completed = false;
+let progressSaved = false;
 
 const words = [
   { word: "APPLE", emoji: "🍎" },
@@ -29,6 +30,43 @@ const lettersContainer = document.getElementById("letters");
 const objectDisplay = document.getElementById("object");
 const message = document.getElementById("message");
 
+async function saveGameProgress() {
+  try {
+    const userId = localStorage.getItem("userId");
+    const gameId = localStorage.getItem("gameId");
+    const gameTitle = localStorage.getItem("gameTitle");
+
+    if (!userId || !gameId) {
+      console.log("Missing userId or gameId. Progress not saved.");
+      return;
+    }
+
+    await fetch("http://localhost:5000/api/progress/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId: userId,
+        contentType: "game",
+        contentId: gameId,
+        title: gameTitle || "Alphabet Game",
+        completed: true,
+        score: null
+      })
+    });
+
+    await fetch(`http://localhost:5000/api/badges/check/${userId}`, {
+      method: "POST"
+    });
+
+    console.log("Alphabet game progress saved and badges checked.");
+
+  } catch (error) {
+    console.error("Error saving alphabet game progress:", error);
+  }
+}
+
 function loadWord() {
   letterIndex = 0;
   completed = false;
@@ -37,7 +75,6 @@ function loadWord() {
   const current = words[currentIndex];
   objectDisplay.textContent = current.emoji;
 
-  // slots
   slotsContainer.innerHTML = "";
   current.word.split("").forEach(() => {
     const div = document.createElement("div");
@@ -47,7 +84,6 @@ function loadWord() {
 
   slots = document.querySelectorAll(".slot");
 
-  // letters
   let letters = current.word.split("");
 
   const extras = ["B", "C", "D", "E", "F"];
@@ -100,6 +136,11 @@ function handleClick(el, letter) {
       setTimeout(() => {
         objectDisplay.classList.remove("correct");
       }, 500);
+
+      if (!progressSaved) {
+        progressSaved = true;
+        saveGameProgress();
+      }
     }
 
   } else {

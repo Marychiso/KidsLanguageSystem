@@ -1,12 +1,51 @@
+let quizProgressSaved = false;
+
+async function saveQuizProgress(score = 100) {
+  try {
+    if (quizProgressSaved) return;
+
+    const userId = localStorage.getItem("userId");
+    const quizId = localStorage.getItem("quizId");
+    const quizTitle = localStorage.getItem("quizTitle");
+
+    if (!userId || !quizId) {
+      console.log("Missing userId or quizId. Quiz progress not saved.");
+      return;
+    }
+
+    quizProgressSaved = true;
+
+    await fetch("http://localhost:5000/api/progress/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId,
+        contentType: "quiz",
+        contentId: quizId,
+        title: quizTitle || "Animals Quiz",
+        completed: true,
+        score
+      })
+    });
+
+    await fetch(`http://localhost:5000/api/badges/check/${userId}`, {
+      method: "POST"
+    });
+
+    console.log("Animals quiz progress saved and badges checked.");
+  } catch (error) {
+    console.error("Error saving animals quiz progress:", error);
+  }
+}
+
 function shuffle(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
 
-// ======================
-// VOICE
-// ======================
 let voiceEnabled = false;
 
 function speak(text) {
@@ -19,14 +58,10 @@ function speak(text) {
   window.speechSynthesis.speak(speech);
 }
 
-// unlock voice after first click
 document.body.addEventListener("click", () => {
   voiceEnabled = true;
 });
 
-// ======================
-// NAVIGATION
-// ======================
 function switchScreen(from, to) {
   window.speechSynthesis.cancel();
 
@@ -189,6 +224,7 @@ buttons2.forEach(btn => {
 // ======================
 const paradeAnimals = ["dog", "cat", "cow", "lion", "elephant", "bird", "fish"];
 let paradeOrder = [];
+let paradeCorrectCount = 0;
 
 const paradeDisplay = document.getElementById("parade");
 const instruction3 = document.getElementById("instruction3");
@@ -243,11 +279,17 @@ paradeButtons.forEach(btn => {
       feedback3.textContent = "Correct!";
       speak("Correct");
 
+      paradeCorrectCount++;
+
+      if (paradeCorrectCount >= 3) {
+        saveQuizProgress(100);
+      }
+
       btn.classList.add("correct-anim");
 
       setTimeout(() => {
         btn.classList.remove("correct-anim");
-        startParade(); // repeat game
+        startParade();
       }, 1000);
 
     } else {

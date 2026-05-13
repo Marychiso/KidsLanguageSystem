@@ -1,64 +1,18 @@
-// ======================
-// ANIMAL DATA
-// ======================
-
 const animals = [
-  {
-    name: "Fish",
-    image: "assets/images/fish.jpg",
-    home: "pond"
-  },
-
-  {
-    name: "Cow",
-    image: "assets/images/cow.jpg",
-    home: "barn"
-  },
-
-  {
-    name: "Bird",
-    image: "assets/images/bird.jpg",
-    home: "tree"
-  },
-
-  {
-    name: "Lion",
-    image: "assets/images/lion.jpg",
-    home: "jungle"
-  },
-
-  {
-    name: "Monkey",
-    image: "assets/images/monkey.jpg",
-    home: "jungle"
-  },
-
-  {
-    name: "Dog",
-    image: "assets/images/dog.jpg",
-    home: "barn"
-  },
-
-  {
-    name: "Frog",
-    image: "assets/images/frog.jpg",
-    home: "pond"
-  }
+  { name: "Fish", image: "assets/images/fish.jpg", home: "pond" },
+  { name: "Cow", image: "assets/images/cow.jpg", home: "barn" },
+  { name: "Bird", image: "assets/images/bird.jpg", home: "tree" },
+  { name: "Lion", image: "assets/images/lion.jpg", home: "jungle" },
+  { name: "Monkey", image: "assets/images/monkey.jpg", home: "jungle" },
+  { name: "Dog", image: "assets/images/dog.jpg", home: "barn" },
+  { name: "Frog", image: "assets/images/frog.jpg", home: "pond" }
 ];
-
-// ======================
-// SHUFFLE
-// ======================
 
 function shuffle(array){
   return array.sort(() => Math.random() - 0.5);
 }
 
 shuffle(animals);
-
-// ======================
-// DOM
-// ======================
 
 const animalImage = document.getElementById("animalImage");
 const animalName = document.getElementById("animalName");
@@ -67,15 +21,45 @@ const animalCard = document.getElementById("animalCard");
 const homes = document.querySelectorAll(".home");
 const finishScreen = document.getElementById("finishScreen");
 
-// ======================
-// GAME STATE
-// ======================
-
 let currentIndex = 0;
+let progressSaved = false;
 
-// ======================
-// LOAD ANIMAL
-// ======================
+async function saveGameProgress() {
+  try {
+    const userId = localStorage.getItem("userId");
+    const gameId = localStorage.getItem("gameId");
+    const gameTitle = localStorage.getItem("gameTitle");
+
+    if (!userId || !gameId) {
+      console.log("Missing userId or gameId. Progress not saved.");
+      return;
+    }
+
+    await fetch("http://localhost:5000/api/progress/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId: userId,
+        contentType: "game",
+        contentId: gameId,
+        title: gameTitle || "Animal Game",
+        completed: true,
+        score: null
+      })
+    });
+
+    await fetch(`http://localhost:5000/api/badges/check/${userId}`, {
+      method: "POST"
+    });
+
+    console.log("Animal game progress saved and badges checked.");
+
+  } catch (error) {
+    console.error("Error saving animal game progress:", error);
+  }
+}
 
 function loadAnimal(){
 
@@ -85,6 +69,11 @@ function loadAnimal(){
     document.querySelector(".homes-grid").style.display = "none";
 
     finishScreen.style.display = "block";
+
+    if (!progressSaved) {
+      progressSaved = true;
+      saveGameProgress();
+    }
 
     return;
   }
@@ -97,17 +86,12 @@ function loadAnimal(){
   feedback.textContent = "";
 }
 
-// ======================
-// HOME CLICK
-// ======================
-
 homes.forEach(home => {
 
   home.onclick = () => {
 
     const current = animals[currentIndex];
 
-    // CORRECT
     if(home.dataset.home === current.home){
 
       feedback.textContent = "🎉 Great job!";
@@ -125,10 +109,7 @@ homes.forEach(home => {
 
       }, 900);
 
-    }
-
-    // WRONG
-    else{
+    } else {
 
       feedback.textContent = "Try again!";
 
@@ -143,13 +124,10 @@ homes.forEach(home => {
 
 });
 
-// ======================
-// RESTART
-// ======================
-
 function restartGame(){
 
   currentIndex = 0;
+  progressSaved = false;
 
   shuffle(animals);
 
@@ -161,13 +139,8 @@ function restartGame(){
   loadAnimal();
 }
 
-// ======================
-// NAVIGATION
-// ======================
-
 function goGames(){
   window.location.href = "games.html";
 }
 
-// START
 loadAnimal();

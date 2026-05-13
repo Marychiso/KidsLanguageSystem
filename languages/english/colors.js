@@ -1,10 +1,48 @@
-// ======================
-// STATE
-// ======================
+let lessonProgressSaved = false;
+
+async function saveLessonProgress() {
+  try {
+    if (lessonProgressSaved) return;
+
+    const userId = localStorage.getItem("userId");
+    const lessonId = localStorage.getItem("lessonId");
+    const lessonTitle = localStorage.getItem("lessonTitle");
+
+    if (!userId || !lessonId) {
+      console.log("Missing userId or lessonId. Lesson progress not saved.");
+      return;
+    }
+
+    lessonProgressSaved = true;
+
+    await fetch("http://localhost:5000/api/progress/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId,
+        contentType: "lesson",
+        contentId: lessonId,
+        title: lessonTitle || "Colors Lesson",
+        completed: true,
+        score: null
+      })
+    });
+
+    await fetch(`http://localhost:5000/api/badges/check/${userId}`, {
+      method: "POST"
+    });
+
+    console.log("Colors lesson progress saved and badges checked.");
+  } catch (error) {
+    console.error("Error saving colors lesson progress:", error);
+  }
+}
+
 let currentScreen = 1;
 let pulseInterval = null;
 
-// COLORS DATA
 const colors = [
   { name: "red", img: "assets/images/watermelon.jpg" },
   { name: "blue", img: "assets/images/blueball.jpg" },
@@ -17,41 +55,35 @@ const colors = [
 
 let index = 0;
 
-// ELEMENTS
 const colorText = document.getElementById("colorText");
 const colorImage = document.getElementById("colorImage");
 
-// ======================
-// SHOW COLOR (SCREEN 1)
-// ======================
 function showColor() {
   const c = colors[index];
 
   colorText.textContent = "This is " + c.name;
   colorImage.src = c.img;
 
-  // restart pop animation
   colorImage.classList.remove("pop");
   void colorImage.offsetWidth;
   colorImage.classList.add("pop");
 }
 
-// NEXT COLOR BUTTON
 function nextColor() {
   if (index < colors.length - 1) {
     index++;
     showColor();
+  } else {
+    saveLessonProgress();
   }
 }
 
-// ======================
-// SCREEN NAVIGATION
-// ======================
 function nextScreen() {
   document.getElementById("screen1").classList.remove("active");
   document.getElementById("screen2").classList.add("active");
 
   startPulse();
+  saveLessonProgress();
 }
 
 function back() {
@@ -63,20 +95,16 @@ function back() {
 
 function goLessons() {
   stopPulse();
-  window.location.href = "lessons.html"; // adjust if needed
+  window.location.href = "lessons.html";
 }
 
-// ======================
-// SCREEN 2 ANIMATION
-// ======================
 function startPulse() {
-  stopPulse(); // prevent duplicates
+  stopPulse();
 
   const items = document.querySelectorAll(".color-item");
   let i = 0;
 
   pulseInterval = setInterval(() => {
-
     items.forEach(item => item.classList.remove("active"));
 
     items[i].classList.add("active");
@@ -94,9 +122,6 @@ function stopPulse() {
   }
 }
 
-// ======================
-// INIT
-// ======================
 window.onload = () => {
   showColor();
 };

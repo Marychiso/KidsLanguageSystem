@@ -2,6 +2,7 @@ const lessonsBtn = document.querySelector(".lessons");
 const quizzesBtn = document.querySelector(".quizzes");
 const storiesBtn = document.querySelector(".stories");
 const gamesBtn = document.querySelector(".games");
+const badgesCard = document.querySelector(".badges");
 
 lessonsBtn.addEventListener("click", () => {
   window.location.href = "languages/english/lessons.html";
@@ -17,4 +18,8 @@ storiesBtn.addEventListener("click", () => {
 
 gamesBtn.addEventListener("click", () => {
   window.location.href = "languages/english/games.html";
+});
+
+badgesCard.addEventListener("click", () => {
+  window.location.href = "badges.html";
 });

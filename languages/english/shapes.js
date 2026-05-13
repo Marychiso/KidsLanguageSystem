@@ -1,3 +1,47 @@
+let lessonProgressSaved = false;
+let correctTaskCount = 0;
+let correctDropCount = 0;
+
+async function saveLessonProgress() {
+  try {
+    if (lessonProgressSaved) return;
+
+    const userId = localStorage.getItem("userId");
+    const lessonId = localStorage.getItem("lessonId");
+    const lessonTitle = localStorage.getItem("lessonTitle");
+
+    if (!userId || !lessonId) {
+      console.log("Missing userId or lessonId. Lesson progress not saved.");
+      return;
+    }
+
+    lessonProgressSaved = true;
+
+    await fetch("http://localhost:5000/api/progress/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId,
+        contentType: "lesson",
+        contentId: lessonId,
+        title: lessonTitle || "Shapes Lesson",
+        completed: true,
+        score: null
+      })
+    });
+
+    await fetch(`http://localhost:5000/api/badges/check/${userId}`, {
+      method: "POST"
+    });
+
+    console.log("Shapes lesson progress saved and badges checked.");
+  } catch (error) {
+    console.error("Error saving shapes lesson progress:", error);
+  }
+}
+
 let introIndex = 0;
 
 const introShapes = [
@@ -11,7 +55,6 @@ const introShapes = [
 ];
 
 let currentShape = "circle";
-
 
 let voices = [];
 
@@ -41,13 +84,11 @@ function playVoice(text) {
   window.speechSynthesis.speak(speech);
 }
 
-
 function playSound(src) {
   const audio = new Audio(src);
   audio.volume = 0.8;
   audio.play();
 }
-
 
 function confettiBurst() {
   for (let i = 0; i < 25; i++) {
@@ -79,7 +120,6 @@ function randomColor() {
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
-
 function nextIntro() {
   introIndex++;
 
@@ -105,7 +145,6 @@ function goToGame() {
   nextTask();
 }
 
-
 const choices = document.querySelectorAll(".choice");
 const feedback = document.getElementById("feedback");
 const taskText = document.getElementById("taskText");
@@ -127,6 +166,12 @@ choices.forEach(choice => {
       playVoice("Yay! Correct!");
       confettiBurst();
 
+      correctTaskCount++;
+
+      if (correctTaskCount >= 5) {
+        saveLessonProgress();
+      }
+
       setTimeout(nextTask, 1200);
 
     } else {
@@ -139,7 +184,6 @@ choices.forEach(choice => {
 
   });
 });
-
 
 const draggables = document.querySelectorAll(".drag");
 const dropzones = document.querySelectorAll(".dropzone");
@@ -162,6 +206,12 @@ dropzones.forEach(zone => {
 
       playSound("assets/sounds/correct.mp3");
       playVoice("Good job!");
+
+      correctDropCount++;
+
+      if (correctDropCount >= dropzones.length) {
+        saveLessonProgress();
+      }
 
     } else {
       zone.classList.add("shake");

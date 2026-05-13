@@ -1,3 +1,45 @@
+let quizProgressSaved = false;
+
+async function saveQuizProgress(score = 100) {
+  try {
+    if (quizProgressSaved) return;
+
+    const userId = localStorage.getItem("userId");
+    const quizId = localStorage.getItem("quizId");
+    const quizTitle = localStorage.getItem("quizTitle");
+
+    if (!userId || !quizId) {
+      console.log("Missing userId or quizId. Quiz progress not saved.");
+      return;
+    }
+
+    quizProgressSaved = true;
+
+    await fetch("http://localhost:5000/api/progress/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId,
+        contentType: "quiz",
+        contentId: quizId,
+        title: quizTitle || "Shapes Quiz",
+        completed: true,
+        score
+      })
+    });
+
+    await fetch(`http://localhost:5000/api/badges/check/${userId}`, {
+      method: "POST"
+    });
+
+    console.log("Shapes quiz progress saved and badges checked.");
+  } catch (error) {
+    console.error("Error saving shapes quiz progress:", error);
+  }
+}
+
 // ======================
 // VOICE FUNCTION
 // ======================
@@ -15,7 +57,6 @@ function speak(text) {
   window.speechSynthesis.speak(speech);
 }
 
-// unlock voice after first click
 document.body.addEventListener("click", () => {
   voiceEnabled = true;
 });
@@ -68,7 +109,7 @@ function goQuizzes() {
 // ======================
 // SCREEN 1 (EASY)
 // ======================
-const shapes1 = ["circle", "square", "triangle", ];
+const shapes1 = ["circle", "square", "triangle"];
 let index1 = 0;
 
 const instruction1 = document.getElementById("instruction1");
@@ -80,7 +121,6 @@ function updateInstruction1() {
     instruction1.textContent = "Great job!";
     speak("Great job");
 
-    // 👉 automatically go to next screen after short delay
     setTimeout(() => {
       goToScreen2();
     }, 1000);
@@ -107,7 +147,7 @@ shapeButtons.forEach(btn => {
         btn.classList.remove("correct-anim");
         index1++;
         feedback1.textContent = "";
-        updateInstruction1(); // ✅ safe update
+        updateInstruction1();
       }, 800);
 
     } else {
@@ -132,12 +172,10 @@ const objects = document.querySelectorAll(".object");
 let shapes2 = ["circle", "square", "triangle"];
 let currentIndex2 = 0;
 
-// shuffle function
 function shuffle(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
-// shuffle at start
 shapes2 = shuffle(shapes2);
 
 function loadScreen2() {
@@ -155,7 +193,6 @@ function loadScreen2() {
   feedback2.textContent = "";
 }
 
-// click logic
 objects.forEach(obj => {
   obj.addEventListener("click", () => {
 
@@ -190,6 +227,8 @@ objects.forEach(obj => {
 const oddGrid = document.getElementById("oddGrid");
 const feedback3 = document.getElementById("feedback3");
 
+let oddCorrectCount = 0;
+
 function loadOdd() {
   oddGrid.innerHTML = "";
   feedback3.textContent = "";
@@ -204,7 +243,6 @@ function loadOdd() {
 
   let set = [main, main, main, odd];
 
-  // shuffle
   set.sort(() => Math.random() - 0.5);
 
   set.forEach(shape => {
@@ -216,6 +254,12 @@ function loadOdd() {
         div.classList.add("correct-anim");
         feedback3.textContent = "✨ Correct!";
         speak("Correct");
+
+        oddCorrectCount++;
+
+        if (oddCorrectCount >= 3) {
+          saveQuizProgress(100);
+        }
 
         setTimeout(() => {
           loadOdd();

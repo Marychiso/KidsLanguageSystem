@@ -30,6 +30,8 @@ app.use("/api/lessons", lessonRoutes); //connect lesson routes
 app.use("/api/stories", require("./routes/storyRoutes"));
 app.use("/api/quizzes", require("./routes/quizRoutes"));
 app.use("/api/games", require("./routes/gameRoutes"));
+app.use("/api/progress", require("./routes/progressRoutes"));
+app.use("/api/badges", require("./routes/badgeRoutes"));
 
 // test route
 app.get("/", (req, res) => {

@@ -1,234 +1,140 @@
-// ======================
-// NAVIGATION
-// ======================
-function switchScreen(a,b){
-  document.getElementById(a).classList.remove("active");
-  document.getElementById(b).classList.add("active");
-}
+let quizProgressSaved = false;
 
-function goToScreen2(){
-  switchScreen("screen1","screen2");
-  loadSizeQuestion();
-}
+async function saveQuizProgress(score = 100) {
+  try {
+    if (quizProgressSaved) return;
 
-function goToScreen3(){
-  switchScreen("screen2","screen3");
-  startMemory();
-}
+    const userId = localStorage.getItem("userId");
+    const quizId = localStorage.getItem("quizId");
+    const quizTitle = localStorage.getItem("quizTitle");
 
-function back1(){ switchScreen("screen2","screen1"); }
-function back2(){ switchScreen("screen3","screen2"); }
-function goQuizzes(){ window.location.href="quizzes.html"; }
-
-
-// ======================
-// IMAGE LOOKUP
-// ======================
-const fruitImages = {};
-
-document.querySelectorAll("#fruits1 .fruit").forEach(f => {
-  fruitImages[f.dataset.fruit] = f.dataset.img;
-});
-
-
-// ======================
-// SCREEN 1 (COLOR)
-// ======================
-const questions = [
-  {q:"Which fruit is yellow?", a:"banana"},
-  {q:"Which fruit is red?", a:"redapple"},
-  {q:"Which fruit is green?", a:"pear"},
-  {q:"Which fruit is orange?", a:"orange"},
-  {q:"Which fruit is purple?", a:"grape"},
-  {q:"Which fruit is blue?", a:"blueberry"}
-];
-
-let qIndex = 0;
-
-const instruction1 = document.getElementById("instruction1");
-const feedback1 = document.getElementById("feedback1");
-const fruits1 = document.querySelectorAll("#fruits1 .fruit");
-
-function loadQ(){
-  if(qIndex >= questions.length){
-    instruction1.textContent = "Great job!";
-    return;
-  }
-  instruction1.textContent = questions[qIndex].q;
-}
-
-loadQ();
-
-fruits1.forEach(f=>{
-  f.onclick=()=>{
-    if(f.dataset.fruit===questions[qIndex].a){
-      feedback1.textContent="Yay!";
-      f.classList.add("correct");
-
-      setTimeout(()=>{
-        f.classList.remove("correct");
-        qIndex++;
-        loadQ();
-        feedback1.textContent="";
-      },800);
-
-    }else{
-      feedback1.textContent="Try again!";
-      f.classList.add("wrong");
-      setTimeout(()=>f.classList.remove("wrong"),500);
-    }
-  }
-});
-
-
-// ======================
-// SCREEN 2 (SIZE)
-// ======================
-const fruits2 = document.querySelectorAll("#fruits2 .fruit");
-const feedback2 = document.getElementById("feedback2");
-const sizeQuestion = document.getElementById("sizeQuestion");
-
-const sizeQuestions = [
-  {q:"Tap the biggest fruit", a:"biggest"},
-  {q:"Tap a big fruit", a:"big"},
-  {q:"Tap a small fruit", a:"small"},
-  {q:"Tap the smallest fruit", a:"smallest"}
-];
-
-let sizeIndex = 0;
-
-function loadSizeQuestion(){
-  sizeQuestion.textContent =
-    sizeQuestions[sizeIndex % sizeQuestions.length].q;
-
-  feedback2.textContent = "";
-}
-
-fruits2.forEach(f=>{
-  f.onclick=()=>{
-
-    const current = sizeQuestions[sizeIndex % sizeQuestions.length];
-
-    if(f.dataset.size === current.a){
-
-      feedback2.textContent = "Correct!";
-      f.classList.add("correct");
-
-      setTimeout(()=>{
-        f.classList.remove("correct");
-        sizeIndex++;
-        loadSizeQuestion();
-      },800);
-
-    } else {
-
-      feedback2.textContent = "Try again!";
-      f.classList.add("wrong");
-
-      setTimeout(()=>f.classList.remove("wrong"),500);
-    }
-  };
-});
-
-// ======================
-// SCREEN 3 (MEMORY LOOP)
-// ======================
-const memoryDisplay = document.getElementById("memoryDisplay");
-const memoryOptions = document.getElementById("memoryOptions");
-const instruction3 = document.getElementById("instruction3");
-const feedback3 = document.getElementById("feedback3");
-
-const allFruits = ["redapple","banana","grape","blueberry","orange","pear","watermelon2"];
-
-let memorySet = [];
-
-function getRandomFruits(count){
-  let shuffled = [...allFruits].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, count);
-}
-
-function startMemory(){
-  memoryDisplay.innerHTML="";
-  memoryOptions.innerHTML="";
-  feedback3.textContent="";
-  instruction3.textContent="Watch carefully...";
-
-  // 🔁 NEW RANDOM SET EACH ROUND
-  memorySet = getRandomFruits(3);
-
-  let i = 0;
-
-  function showNext(){
-    if(i >= memorySet.length){
-      setTimeout(()=>{
-        memoryDisplay.innerHTML="";
-        askMemory();
-      },800);
+    if (!userId || !quizId) {
+      console.log("Missing userId or quizId. Quiz progress not saved.");
       return;
     }
 
-    const img = document.createElement("img");
-    img.src = fruitImages[memorySet[i]];
+    quizProgressSaved = true;
 
-    memoryDisplay.appendChild(img);
+    await fetch("http://localhost:5000/api/progress/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId,
+        contentType: "quiz",
+        contentId: quizId,
+        title: quizTitle || "Colors Quiz",
+        completed: true,
+        score
+      })
+    });
 
-    i++;
-    setTimeout(showNext, 600); // slower
+    await fetch(`http://localhost:5000/api/badges/check/${userId}`, {
+      method: "POST"
+    });
+
+    console.log("Colors quiz progress saved and badges checked.");
+  } catch (error) {
+    console.error("Error saving colors quiz progress:", error);
   }
-
-  showNext();
 }
 
-function askMemory(){
-  memoryOptions.innerHTML="";
-  feedback3.textContent="";
+let currentScreen = 1;
 
-  // pick correct from what was shown
-  const correct = memorySet[Math.floor(Math.random() * memorySet.length)];
+// SWITCH SCREENS
+function nextScreen() {
+  document.getElementById("screen1").classList.remove("active");
+  document.getElementById("screen2").classList.add("active");
 
-  instruction3.textContent = "Which fruit did you see?";
+  playVoice("Find a color red");
+}
 
-  // build options (1 correct + 2 random wrong)
-  let options = [correct];
+// SCREEN 2 (GUIDED PRACTICE)
+const choices = document.querySelectorAll(".choice");
+const feedback = document.getElementById("feedback");
 
-  while(options.length < 3){
-    const rand = allFruits[Math.floor(Math.random() * allFruits.length)];
-    if(!options.includes(rand)){
-      options.push(rand);
+choices.forEach(choice => {
+  choice.addEventListener("click", () => {
+    if (choice.dataset.color === "red") {
+      feedback.textContent = "✅ Yes! Red!";
+      feedback.className = "correct-text";
+
+      addBounce(feedback);
+
+      setTimeout(() => {
+        goToScreen3();
+      }, 1500);
+
+    } else {
+      feedback.textContent = "❌ Try again!";
+      feedback.className = "wrong-text";
     }
-  }
+  });
+});
 
-  // shuffle options
-  options.sort(() => Math.random() - 0.5);
+// GO TO SCREEN 3
+function goToScreen3() {
+  document.getElementById("screen2").classList.remove("active");
+  document.getElementById("screen3").classList.add("active");
 
-  options.forEach(f=>{
-    const div = document.createElement("div");
-    div.className = "fruit";
+  nextRound();
+}
 
-    const img = document.createElement("img");
-    img.src = fruitImages[f];
+// SCREEN 3 (FREE PLAY)
+const colors = ["red", "blue", "yellow", "brown", "green", "white", "pink"];
+let currentColor = "";
+let correctCount = 0;
 
-    div.appendChild(img);
+const choices2 = document.querySelectorAll(".choice2");
+const feedback2 = document.getElementById("feedback2");
+const promptText = document.getElementById("promptText");
 
-    div.onclick = () => {
+function nextRound() {
+  currentColor = colors[Math.floor(Math.random() * colors.length)];
 
-      if(f === correct){
-        feedback3.textContent = "✨ Correct!";
+  promptText.textContent = "Find something " + currentColor.toUpperCase();
+  promptText.className = "big-text";
 
-        setTimeout(()=>{
-          startMemory(); // 🔁 NEXT ROUND
-        },1000);
+  playVoice("Find something " + currentColor);
+}
 
-      } else {
-        feedback3.textContent = "Try again!";
+choices2.forEach(choice => {
+  choice.addEventListener("click", () => {
+    if (choice.dataset.color === currentColor) {
+      feedback2.textContent = "✅ Correct!";
+      feedback2.className = "correct-text";
 
-        setTimeout(()=>{
-          startMemory(); // 🔁 RESTART ROUND
-        },1000);
+      correctCount++;
+
+      if (correctCount >= 3) {
+        saveQuizProgress(100);
       }
 
-    };
+      addBounce(feedback2);
 
-    memoryOptions.appendChild(div);
+      setTimeout(() => {
+        nextRound();
+      }, 1000);
+
+    } else {
+      feedback2.textContent = "❌ Try again!";
+      feedback2.className = "wrong-text";
+    }
   });
+});
+
+// SIMPLE VOICE
+function playVoice(text) {
+  const speech = new SpeechSynthesisUtterance(text);
+  speech.lang = "en-US";
+  speech.rate = 0.8;
+  window.speechSynthesis.speak(speech);
+}
+
+// BOUNCE EFFECT HELPER
+function addBounce(el) {
+  el.classList.remove("pop");
+  void el.offsetWidth;
+  el.classList.add("pop");
 }

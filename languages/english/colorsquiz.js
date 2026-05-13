@@ -1,3 +1,45 @@
+let quizProgressSaved = false;
+
+async function saveQuizProgress(score = 100) {
+  try {
+    if (quizProgressSaved) return;
+
+    const userId = localStorage.getItem("userId");
+    const quizId = localStorage.getItem("quizId");
+    const quizTitle = localStorage.getItem("quizTitle");
+
+    if (!userId || !quizId) {
+      console.log("Missing userId or quizId. Quiz progress not saved.");
+      return;
+    }
+
+    quizProgressSaved = true;
+
+    await fetch("http://localhost:5000/api/progress/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId,
+        contentType: "quiz",
+        contentId: quizId,
+        title: quizTitle || "Colors Quiz",
+        completed: true,
+        score
+      })
+    });
+
+    await fetch(`http://localhost:5000/api/badges/check/${userId}`, {
+      method: "POST"
+    });
+
+    console.log("Colors quiz progress saved and badges checked.");
+  } catch (error) {
+    console.error("Error saving colors quiz progress:", error);
+  }
+}
+
 let currentScreen = 1;
 
 // SWITCH SCREENS
@@ -42,6 +84,7 @@ function goToScreen3() {
 // SCREEN 3 (FREE PLAY)
 const colors = ["red", "blue", "yellow", "brown", "green", "white", "pink"];
 let currentColor = "";
+let correctCount = 0;
 
 const choices2 = document.querySelectorAll(".choice2");
 const feedback2 = document.getElementById("feedback2");
@@ -61,6 +104,12 @@ choices2.forEach(choice => {
     if (choice.dataset.color === currentColor) {
       feedback2.textContent = "✅ Correct!";
       feedback2.className = "correct-text";
+
+      correctCount++;
+
+      if (correctCount >= 3) {
+        saveQuizProgress(100);
+      }
 
       addBounce(feedback2);
 
@@ -86,6 +135,6 @@ function playVoice(text) {
 // BOUNCE EFFECT HELPER
 function addBounce(el) {
   el.classList.remove("pop");
-  void el.offsetWidth; // restart animation
+  void el.offsetWidth;
   el.classList.add("pop");
 }

@@ -1,3 +1,45 @@
+let quizProgressSaved = false;
+
+async function saveQuizProgress(score = 100) {
+  try {
+    if (quizProgressSaved) return;
+
+    const userId = localStorage.getItem("userId");
+    const quizId = localStorage.getItem("quizId");
+    const quizTitle = localStorage.getItem("quizTitle");
+
+    if (!userId || !quizId) {
+      console.log("Missing userId or quizId. Quiz progress not saved.");
+      return;
+    }
+
+    quizProgressSaved = true;
+
+    await fetch("http://localhost:5000/api/progress/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId,
+        contentType: "quiz",
+        contentId: quizId,
+        title: quizTitle || "Alphabet Quiz",
+        completed: true,
+        score
+      })
+    });
+
+    await fetch(`http://localhost:5000/api/badges/check/${userId}`, {
+      method: "POST"
+    });
+
+    console.log("Alphabet quiz progress saved and badges checked.");
+  } catch (error) {
+    console.error("Error saving alphabet quiz progress:", error);
+  }
+}
+
 // ======================
 // VOICE FUNCTION
 // ======================
@@ -13,14 +55,6 @@ function speak(text) {
 // ======================
 // SCREEN CONTROL
 // ======================
-function goToScreen2() {
-  document.getElementById("screen1").classList.remove("active");
-  document.getElementById("screen2").classList.add("active");
-
-  index2 = 0; // reset
-  updateInstruction2();
-}
-
 function back() {
   window.speechSynthesis.cancel();
 
@@ -55,9 +89,7 @@ updateInstruction1();
 
 buttons1.forEach(btn => {
   btn.addEventListener("click", () => {
-
     if (btn.dataset.letter === letters1[index1]) {
-
       btn.classList.add("correct-anim");
       feedback1.textContent = "Good job!";
       speak("Good job");
@@ -73,6 +105,7 @@ buttons1.forEach(btn => {
         } else {
           feedback1.textContent = "Great!";
           speak("Great job");
+          saveQuizProgress(100);
         }
 
       }, 800);
@@ -86,7 +119,6 @@ buttons1.forEach(btn => {
         btn.classList.remove("wrong-anim");
       }, 500);
     }
-
   });
 });
 
@@ -97,7 +129,6 @@ const buttons2 = document.querySelectorAll(".letter2");
 
 let allLetters = [];
 
-// get letters from HTML
 buttons2.forEach(btn => {
   allLetters.push(btn.dataset.letter);
 });
@@ -107,15 +138,11 @@ let currentLetter = "";
 const instruction2 = document.getElementById("instruction2");
 const feedback2 = document.getElementById("feedback2");
 
-// 🔀 SHUFFLE FUNCTION
 function shuffle(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
-// LOAD NEW ROUND
 function loadRound() {
-
-  // shuffle letters visually
   const shuffled = shuffle([...allLetters]);
 
   buttons2.forEach((btn, index) => {
@@ -123,7 +150,6 @@ function loadRound() {
     btn.textContent = shuffled[index];
   });
 
-  // pick random correct answer
   currentLetter = shuffled[Math.floor(Math.random() * shuffled.length)];
 
   const text = "Find " + currentLetter;
@@ -133,7 +159,6 @@ function loadRound() {
   feedback2.textContent = "";
 }
 
-// START FIRST ROUND
 function goToScreen2() {
   document.getElementById("screen1").classList.remove("active");
   document.getElementById("screen2").classList.add("active");
@@ -141,19 +166,18 @@ function goToScreen2() {
   loadRound();
 }
 
-// CLICK EVENTS
 buttons2.forEach(btn => {
   btn.addEventListener("click", () => {
-
     if (btn.dataset.letter === currentLetter) {
-
       btn.classList.add("correct-anim");
       feedback2.textContent = "⭐ Good job!";
       speak("Good job");
 
+      saveQuizProgress(100);
+
       setTimeout(() => {
         btn.classList.remove("correct-anim");
-        loadRound(); // 🔁 NEW RANDOM ROUND
+        loadRound();
       }, 800);
 
     } else {
@@ -165,6 +189,5 @@ buttons2.forEach(btn => {
         btn.classList.remove("wrong-anim");
       }, 500);
     }
-
   });
 });

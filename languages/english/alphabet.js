@@ -1,6 +1,47 @@
+let lessonProgressSaved = false;
+
+async function saveLessonProgress() {
+  try {
+    if (lessonProgressSaved) return;
+
+    const userId = localStorage.getItem("userId");
+    const lessonId = localStorage.getItem("lessonId");
+    const lessonTitle = localStorage.getItem("lessonTitle");
+
+    if (!userId || !lessonId) {
+      console.log("Missing userId or lessonId. Lesson progress not saved.");
+      return;
+    }
+
+    lessonProgressSaved = true;
+
+    await fetch("http://localhost:5000/api/progress/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId,
+        contentType: "lesson",
+        contentId: lessonId,
+        title: lessonTitle || "Alphabet Lesson",
+        completed: true,
+        score: null
+      })
+    });
+
+    await fetch(`http://localhost:5000/api/badges/check/${userId}`, {
+      method: "POST"
+    });
+
+    console.log("Alphabet lesson progress saved and badges checked.");
+  } catch (error) {
+    console.error("Error saving alphabet lesson progress:", error);
+  }
+}
+
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
-// SIMPLE WORDS
 const words = {
   A: "Apple", B: "Ball", C: "Cat", D: "Dog", E: "Egg",
   F: "Fish", G: "Goat", H: "Hat", I: "Ice cream",
@@ -10,7 +51,8 @@ const words = {
   V: "Van", W: "Whale", X: "Xylophone", Y: "Yam", Z: "Zebra"
 };
 
-// GRID
+const viewedLetters = new Set();
+
 const grid = document.getElementById("alphabetGrid");
 
 alphabet.forEach(letter => {
@@ -22,7 +64,6 @@ alphabet.forEach(letter => {
   grid.appendChild(btn);
 });
 
-// SHOW LETTER
 function showLetter(letter) {
   document.getElementById("screen1").classList.remove("active");
   document.getElementById("screen2").classList.add("active");
@@ -31,16 +72,20 @@ function showLetter(letter) {
   document.getElementById("letterText").textContent =
     letter + " is for " + words[letter];
 
+  viewedLetters.add(letter);
+
+  if (viewedLetters.size >= 5) {
+    saveLessonProgress();
+  }
+
   playVoice(letter + " is for " + words[letter]);
 }
 
-// BACK
 function backToGrid() {
   document.getElementById("screen2").classList.remove("active");
   document.getElementById("screen1").classList.add("active");
 }
 
-// VOICE
 function playVoice(text) {
   window.speechSynthesis.cancel();
   const speech = new SpeechSynthesisUtterance(text);

@@ -1,4 +1,46 @@
-// DATA
+let lessonProgressSaved = false;
+let correctRounds = 0;
+
+async function saveLessonProgress() {
+  try {
+    if (lessonProgressSaved) return;
+
+    const userId = localStorage.getItem("userId");
+    const lessonId = localStorage.getItem("lessonId");
+    const lessonTitle = localStorage.getItem("lessonTitle");
+
+    if (!userId || !lessonId) {
+      console.log("Missing userId or lessonId. Lesson progress not saved.");
+      return;
+    }
+
+    lessonProgressSaved = true;
+
+    await fetch("http://localhost:5000/api/progress/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId,
+        contentType: "lesson",
+        contentId: lessonId,
+        title: lessonTitle || "Animals Lesson",
+        completed: true,
+        score: null
+      })
+    });
+
+    await fetch(`http://localhost:5000/api/badges/check/${userId}`, {
+      method: "POST"
+    });
+
+    console.log("Animals lesson progress saved and badges checked.");
+  } catch (error) {
+    console.error("Error saving animals lesson progress:", error);
+  }
+}
+
 const animals = [
   { name: "dog", img: "assets/images/dog.jpg" },
   { name: "cat", img: "assets/images/cat.jpg" },
@@ -9,13 +51,11 @@ const animals = [
   { name: "fish", img: "assets/images/fish.jpg" }
 ];
 
-// SCREEN SWITCH
 function showScreen(id) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
 
-// SCREEN 1 INTERACTION
 const learnText = document.getElementById("learnText");
 const animalDivs = document.querySelectorAll(".animal");
 
@@ -34,13 +74,11 @@ animalDivs.forEach(div => {
   });
 });
 
-// GO TO GAME
 function goToGame() {
   showScreen("screen2");
   loadRound();
 }
 
-// GAME
 const gameGrid = document.getElementById("gameGrid");
 const instruction = document.getElementById("instruction");
 const feedback = document.getElementById("feedback");
@@ -74,6 +112,15 @@ function loadRound() {
 
         div.classList.add("correct-anim");
 
+        correctRounds++;
+
+        if (correctRounds >= 5) {
+          instruction.textContent = "🎉 Lesson Complete!";
+          feedback.textContent = "";
+          saveLessonProgress();
+          return;
+        }
+
         setTimeout(loadRound, 1200);
       } else {
         feedback.textContent = "❌ Try again!";
@@ -92,7 +139,6 @@ function loadRound() {
   });
 }
 
-// VOICE
 function playVoice(text) {
   window.speechSynthesis.cancel();
   const speech = new SpeechSynthesisUtterance(text);

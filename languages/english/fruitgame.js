@@ -1,50 +1,38 @@
-// ======================
-// NAVIGATION
-// ======================
 function goGames() {
   window.location.href = "games.html";
 }
 
-// ======================
-// FRUIT DATA
-// ======================
 const fruits = [
   {
     name: "apple",
     img: "assets/images/redapple.jpg",
     hints: ["I am red", "I am round", "Teachers like me"]
   },
-
   {
     name: "banana",
     img: "assets/images/banana.jpg",
     hints: ["I am yellow", "Monkeys love me", "I have a peel"]
   },
-
   {
     name: "orange",
     img: "assets/images/orange.jpg",
     hints: ["I am orange", "I am juicy", "I make orange juice"]
   },
-
   {
     name: "grape",
     img: "assets/images/grape.jpg",
     hints: ["I grow in bunches", "I am small", "I can be purple"]
   },
-
   {
     name: "strawberry",
     img: "assets/images/strawberry.jpg",
-    hints: ["I am sweet", "I have tiny seeds", ]
+    hints: ["I am sweet", "I have tiny seeds"]
   },
-
   {
     name: "pear",
     img: "assets/images/pear.jpg",
     hints: ["I am green", "I am soft", "I look like a bell"]
   },
-
   {
     name: "watermelon",
     img: "assets/images/watermelon.jpg",
@@ -52,46 +40,69 @@ const fruits = [
   }
 ];
 
-// ======================
-// DOM
-// ======================
 const hintText = document.getElementById("hintText");
 const mysteryFruit = document.getElementById("mysteryFruit");
 const fruitOptions = document.getElementById("fruitOptions");
 const message = document.getElementById("message");
 
-// ======================
-// GAME VARIABLES
-// ======================
 let shuffledFruits = [];
 let currentFruit = null;
 let hintIndex = 0;
 let completedCount = 0;
+let progressSaved = false;
 
-// ======================
-// SHUFFLE
-// ======================
 function shuffle(arr) {
   return arr.sort(() => Math.random() - 0.5);
 }
 
-// ======================
-// START GAME
-// ======================
+async function saveGameProgress() {
+  try {
+    const userId = localStorage.getItem("userId");
+    const gameId = localStorage.getItem("gameId");
+    const gameTitle = localStorage.getItem("gameTitle");
+
+    if (!userId || !gameId) {
+      console.log("Missing userId or gameId. Progress not saved.");
+      return;
+    }
+
+    await fetch("http://localhost:5000/api/progress/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        userId: userId,
+        contentType: "game",
+        contentId: gameId,
+        title: gameTitle || "Fruit Game",
+        completed: true,
+        score: null
+      })
+    });
+
+    await fetch(`http://localhost:5000/api/badges/check/${userId}`, {
+      method: "POST"
+    });
+
+    console.log("Fruit game progress saved and badges checked.");
+
+  } catch (error) {
+    console.error("Error saving fruit game progress:", error);
+  }
+}
+
 function startGame() {
 
   shuffledFruits = shuffle([...fruits]);
   completedCount = 0;
+  progressSaved = false;
 
   loadNextFruit();
 }
 
-// ======================
-// LOAD NEXT FRUIT
-// ======================
 function loadNextFruit() {
 
-  // GAME COMPLETE
   if (completedCount >= fruits.length) {
 
     hintText.textContent = "🎉 Game Complete!";
@@ -99,6 +110,11 @@ function loadNextFruit() {
     message.textContent = "You guessed all the fruits!";
 
     fruitOptions.innerHTML = "";
+
+    if (!progressSaved) {
+      progressSaved = true;
+      saveGameProgress();
+    }
 
     return;
   }
@@ -116,18 +132,10 @@ function loadNextFruit() {
   renderOptions();
 }
 
-// ======================
-// SHOW HINT
-// ======================
 function showHint() {
-
-  hintText.textContent =
-    currentFruit.hints[hintIndex];
+  hintText.textContent = currentFruit.hints[hintIndex];
 }
 
-// ======================
-// RENDER OPTIONS
-// ======================
 function renderOptions() {
 
   fruitOptions.innerHTML = "";
@@ -150,19 +158,13 @@ function renderOptions() {
   });
 }
 
-// ======================
-// CHECK ANSWER
-// ======================
 function checkAnswer(fruit) {
 
-  // CORRECT
   if (fruit.name === currentFruit.name) {
 
-    mysteryFruit.innerHTML =
-      `<img src="${currentFruit.img}">`;
+    mysteryFruit.innerHTML = `<img src="${currentFruit.img}">`;
 
-    message.textContent =
-      "🎉 You found the " + currentFruit.name + "!";
+    message.textContent = "🎉 You found the " + currentFruit.name + "!";
 
     mysteryFruit.classList.add("bounce");
 
@@ -175,13 +177,10 @@ function checkAnswer(fruit) {
       loadNextFruit();
 
     }, 1500);
-  }
 
-  // WRONG
-  else {
+  } else {
 
-    message.textContent =
-      "Oops! Try again!";
+    message.textContent = "Oops! Try again!";
 
     mysteryFruit.classList.add("shake");
 
@@ -189,7 +188,6 @@ function checkAnswer(fruit) {
       mysteryFruit.classList.remove("shake");
     }, 500);
 
-    // NEXT HINT
     if (hintIndex < currentFruit.hints.length - 1) {
       hintIndex++;
       showHint();
@@ -197,12 +195,8 @@ function checkAnswer(fruit) {
   }
 }
 
-// ======================
-// PLAY AGAIN
-// ======================
 function playAgain() {
   startGame();
 }
 
-// START
 startGame();

@@ -1,0 +1,78 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #fff3b0, #ffd6e8);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 85%;
+  max-width: 800px;
+  background: white;
+  border-radius: 25px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+h1 {
+  font-size: 36px;
+  color: #ff7a00;
+}
+
+.subtitle {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.badge-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.badge-card {
+  background: #f7f7ff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.12);
+  transition: transform 0.2s;
+}
+
+.badge-card:hover {
+  transform: scale(1.05);
+}
+
+.badge-icon {
+  font-size: 50px;
+}
+
+.badge-name {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.badge-description {
+  font-size: 15px;
+  margin-top: 8px;
+  color: #555;
+}
+
+.back-btn {
+  margin-top: 30px;
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 15px;
+  background: #ff7a00;
+  color: white;
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  background: #e86f00;
+}
