@@ -18,3 +18,7 @@ storiesBtn.addEventListener("click", () => {
 gamesBtn.addEventListener("click", () => {
   window.location.href = "languages/english/games.html";
 });
+
+function goLanguages(){
+  window.location.href = "../../languages.html";
+}

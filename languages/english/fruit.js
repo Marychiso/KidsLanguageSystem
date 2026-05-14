@@ -61,6 +61,10 @@ function nextRound() {
   playVoice("Find the " + currentFruit);
 }
 
+function goBackToLessons(){
+  window.location.href = "lessons.html";
+}
+
 // CLICK EVENTS
 choices.forEach(choice => {
   choice.addEventListener("click", () => {

@@ -48,6 +48,9 @@ function playSound(src) {
   audio.play();
 }
 
+function goBackToLessons(){
+  window.location.href = "lessons.html";
+}
 
 function confettiBurst() {
   for (let i = 0; i < 25; i++) {

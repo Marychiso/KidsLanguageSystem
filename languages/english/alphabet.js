@@ -40,6 +40,10 @@ function backToGrid() {
   document.getElementById("screen1").classList.add("active");
 }
 
+function goLessons(){
+  window.location.href = "lessons.html";
+}
+
 // VOICE
 function playVoice(text) {
   window.speechSynthesis.cancel();

@@ -99,6 +99,27 @@ button {
   color: white;
 }
 
+.bottom-nav{
+  text-align:center;
+  margin-top:30px;
+  padding-bottom:20px;
+}
+
+.bottom-nav button{
+  padding:14px 22px;
+  border:none;
+  border-radius:14px;
+  background:#db4268;
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.bottom-nav button:hover{
+  transform:scale(1.05);
+}
 
 .pop {
   animation: pop 0.3s ease;

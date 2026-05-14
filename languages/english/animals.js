@@ -40,6 +40,10 @@ function goToGame() {
   loadRound();
 }
 
+function goBackToLessons(){
+  window.location.href = "lessons.html";
+}
+
 // GAME
 const gameGrid = document.getElementById("gameGrid");
 const instruction = document.getElementById("instruction");
