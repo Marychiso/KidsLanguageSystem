@@ -28,3 +28,11 @@ function readStory() {
 
   window.speechSynthesis.speak(speech);
 }
+
+function restartStory(){
+  location.reload();
+}
+
+function finishStory(){
+  window.location.href = "stories.html";
+}

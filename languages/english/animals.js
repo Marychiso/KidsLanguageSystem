@@ -103,3 +103,12 @@ function playVoice(text) {
   speech.rate = 0.8;
   window.speechSynthesis.speak(speech);
 }
+
+function backToLearn(){
+  document.getElementById("screen2").classList.remove("active");
+  document.getElementById("screen1").classList.add("active");
+}
+
+function finishLesson(){
+  window.location.href = "lessons.html";
+}

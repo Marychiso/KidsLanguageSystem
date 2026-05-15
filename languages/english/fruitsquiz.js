@@ -1,3 +1,5 @@
+let memoryRounds = 0;
+
 // ======================
 // NAVIGATION
 // ======================
@@ -183,6 +185,21 @@ function askMemory(){
   memoryOptions.innerHTML="";
   feedback3.textContent="";
 
+    memoryRounds++;
+
+  if(memoryRounds >= 5){
+    instruction3.textContent = "🎉 Quiz Complete!";
+    feedback3.textContent = "Great job!";
+
+    memoryOptions.innerHTML = "";
+
+    setTimeout(() => {
+      window.location.href = "quizzes.html";
+    }, 2000);
+
+    return;
+  }
+
   // pick correct from what was shown
   const correct = memorySet[Math.floor(Math.random() * memorySet.length)];
 
@@ -231,4 +248,8 @@ function askMemory(){
 
     memoryOptions.appendChild(div);
   });
+}
+
+function finishQuiz(){
+  window.location.href = "quizzes.html";
 }

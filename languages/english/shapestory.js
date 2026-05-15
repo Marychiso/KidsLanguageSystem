@@ -42,8 +42,8 @@ function restart() {
 }
 
 // MENU
-function goStories() {
-  window.location.href = "stories.html"; 
+function finishStory(){
+  window.location.href = "stories.html";
 }
 
 // AUTO PLAY FIRST SCREEN

@@ -106,3 +106,11 @@ function playVoice(text) {
 
   window.speechSynthesis.speak(speech);
 }
+
+function restartLesson() {
+  location.reload();
+}
+
+function goBackToLessons() {
+  window.location.href = "lessons.html";
+}

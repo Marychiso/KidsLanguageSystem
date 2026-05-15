@@ -1,19 +1,14 @@
-let currentScreen = 1;
+let currentColor = "";
 
-// SWITCH SCREENS
-function nextScreen() {
-  document.getElementById("screen1").classList.remove("active");
-  document.getElementById("screen2").classList.add("active");
-
-  playVoice("Find a color red");
-}
-
-// SCREEN 2 (GUIDED PRACTICE)
+// ======================
+// SCREEN 2 (FIRST SCREEN)
+// ======================
 const choices = document.querySelectorAll(".choice");
 const feedback = document.getElementById("feedback");
 
 choices.forEach(choice => {
   choice.addEventListener("click", () => {
+
     if (choice.dataset.color === "red") {
       feedback.textContent = "✅ Yes! Red!";
       feedback.className = "correct-text";
@@ -22,16 +17,19 @@ choices.forEach(choice => {
 
       setTimeout(() => {
         goToScreen3();
-      }, 1500);
+      }, 1000);
 
     } else {
       feedback.textContent = "❌ Try again!";
       feedback.className = "wrong-text";
     }
+
   });
 });
 
-// GO TO SCREEN 3
+// ======================
+// NAV: SCREEN 2 → SCREEN 3
+// ======================
 function goToScreen3() {
   document.getElementById("screen2").classList.remove("active");
   document.getElementById("screen3").classList.add("active");
@@ -39,9 +37,10 @@ function goToScreen3() {
   nextRound();
 }
 
-// SCREEN 3 (FREE PLAY)
+// ======================
+// SCREEN 3 GAME
+// ======================
 const colors = ["red", "blue", "yellow", "brown", "green", "white", "pink"];
-let currentColor = "";
 
 const choices2 = document.querySelectorAll(".choice2");
 const feedback2 = document.getElementById("feedback2");
@@ -51,13 +50,14 @@ function nextRound() {
   currentColor = colors[Math.floor(Math.random() * colors.length)];
 
   promptText.textContent = "Find something " + currentColor.toUpperCase();
-  promptText.className = "big-text";
 
   playVoice("Find something " + currentColor);
 }
 
+// SCREEN 3 CLICK HANDLER
 choices2.forEach(choice => {
   choice.addEventListener("click", () => {
+
     if (choice.dataset.color === currentColor) {
       feedback2.textContent = "✅ Correct!";
       feedback2.className = "correct-text";
@@ -72,10 +72,33 @@ choices2.forEach(choice => {
       feedback2.textContent = "❌ Try again!";
       feedback2.className = "wrong-text";
     }
+
   });
 });
 
-// SIMPLE VOICE
+// ======================
+// NAVIGATION (FIXED PART YOU WERE MISSING)
+// ======================
+
+// back to quiz menu
+function backToMenu() {
+  window.location.href = "quizzes.html";
+}
+
+// back from screen 3 → screen 2
+function back2() {
+  document.getElementById("screen3").classList.remove("active");
+  document.getElementById("screen2").classList.add("active");
+}
+
+// finish button (same as back to menu)
+function goQuizzes() {
+  window.location.href = "quizzes.html";
+}
+
+// ======================
+// VOICE
+// ======================
 function playVoice(text) {
   const speech = new SpeechSynthesisUtterance(text);
   speech.lang = "en-US";
@@ -83,13 +106,11 @@ function playVoice(text) {
   window.speechSynthesis.speak(speech);
 }
 
-// BOUNCE EFFECT HELPER
+// ======================
+// ANIMATION
+// ======================
 function addBounce(el) {
   el.classList.remove("pop");
-  void el.offsetWidth; // restart animation
+  void el.offsetWidth;
   el.classList.add("pop");
-}
-
-function goQuizzes(){
-  window.location.href = "quizzes.html";
 }

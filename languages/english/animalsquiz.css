@@ -80,6 +80,36 @@ button:hover {
   transform: scale(1.05);
 }
 
+/* BACK TO QUIZZES BUTTON */
+.bottom-nav {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.bottom-nav button {
+  padding: 12px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  background: #4dabf7;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+/* hover effect */
+.bottom-nav button:hover {
+  background: #b32d60;
+  transform: scale(1.05);
+}
+
+/* optional: tap effect for mobile */
+.bottom-nav button:active {
+  transform: scale(0.95);
+}
+
 /* FEEDBACK */
 #feedback1,
 #feedback2,

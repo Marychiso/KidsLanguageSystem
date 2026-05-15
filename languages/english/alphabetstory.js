@@ -23,10 +23,7 @@ function back() {
   playVoice(getCurrentText());
 }
 
-// MENU
-function goStories() {
-  window.location.href = "stories.html"; // adjust if needed
-}
+// ME
 
 // LOAD A-Z GRID
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -51,3 +48,11 @@ function playVoice(text) {
 window.onload = () => {
   playVoice(getCurrentText());
 };
+
+function restartStory(){
+  location.reload();
+}
+
+function finishStory(){
+  window.location.href = "stories.html";
+}

@@ -51,3 +51,7 @@ function playVoice(text) {
   speech.rate = 0.8;
   window.speechSynthesis.speak(speech);
 }
+
+function finishLesson(){
+  window.location.href = "lessons.html";
+}

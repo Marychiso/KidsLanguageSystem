@@ -10,6 +10,7 @@ body {
 /* CONTAINER */
 .container {
   padding: 40px;
+  padding-bottom: 120px;
 }
 
 /* SCREENS */
@@ -50,7 +51,7 @@ button {
 
 .bottom-nav{
   text-align:center;
-  margin-top:30px;
+  margin-top:50px;
   padding-bottom:20px;
 }
 
@@ -116,4 +117,29 @@ button {
   50% { transform: translateX(5px); }
   75% { transform: translateX(-5px); }
   100% { transform: translateX(0); }
+}
+
+.bottom-buttons{
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+
+  width: auto;
+  z-index: 1000;
+}
+
+.bottom-buttons button{
+  padding: 12px 25px;
+  font-size: 20px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  border-radius: 15px;
+  cursor: pointer;
 }

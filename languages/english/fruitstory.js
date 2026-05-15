@@ -41,3 +41,11 @@ function goStories() {
 window.onload = () => {
   playVoice(getCurrentText());
 };
+
+function restartStory(){
+  location.reload();
+}
+
+function finishStory(){
+  window.location.href = "stories.html";
+}

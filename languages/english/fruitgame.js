@@ -1,9 +1,3 @@
-// ======================
-// NAVIGATION
-// ======================
-function goGames() {
-  window.location.href = "games.html";
-}
 
 // ======================
 // FRUIT DATA
@@ -206,3 +200,14 @@ function playAgain() {
 
 // START
 startGame();
+
+// ======================
+// NAVIGATION
+// ======================
+function goGames() {
+  window.location.href = "games.html";
+}
+
+function finishGame() {
+  window.location.href = "games.html"; // change if your menu page is different
+}

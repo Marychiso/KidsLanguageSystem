@@ -33,8 +33,12 @@ function back() {
 }
 
 // GO BACK TO STORIES
-function goStories() {
-  window.location.href = "stories.html"; // adjust if needed
+function restartStory(){
+  location.reload();
+}
+
+function finishStory(){
+  window.location.href = "stories.html";
 }
 
 // AUTO PLAY

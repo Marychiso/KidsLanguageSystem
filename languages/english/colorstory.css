@@ -50,6 +50,14 @@ img {
   animation: fly 4s infinite linear;
 }
 
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
 /* ANIMATIONS */
 @keyframes hop {
   0% { transform: translateY(0); }

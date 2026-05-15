@@ -174,3 +174,12 @@ dropzones.forEach(zone => {
     }
   });
 });
+
+
+function restartShapes(){
+  location.reload();
+}
+
+function finishShapes(){
+  window.location.href = "lessons.html";
+}

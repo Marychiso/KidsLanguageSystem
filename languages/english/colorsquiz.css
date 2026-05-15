@@ -1,18 +1,16 @@
 body {
-  font-family: Comic Sans MS, Arial;
+  font-family: Arial, sans-serif;
   text-align: center;
-  color: #333;
   margin: 0;
+  background: #4dace2;
+  color: #333;
 }
 
 /* CONTAINER */
 .container {
   padding: 30px;
-  border-radius: 45px;
-  width:100%;
-  margin: 10px ;
+  width: 100%;
 }
-
 
 /* TITLE */
 h1 {
@@ -24,6 +22,7 @@ h1 {
 .screen {
   display: none;
   min-height: 100vh;
+  padding: 20px;
 }
 
 .active {
@@ -33,86 +32,70 @@ h1 {
   align-items: center;
 }
 
-/* BACKGROUNDS PER SCREEN */
-
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#4dace2;
-  text-align:center;
-}
-
-.screen{
-  min-height:100vh;
-  padding:20px;
-}
-
 /* IMAGE */
 .main-img {
   width: 300px;
-  margin: 50px auto; /* FIX: centers image */
+  margin: 30px auto;
   display: block;
 }
 
-/* BUTTON */
+/* BUTTONS (FIXED SIZE) */
 button {
-  padding: 12px 25px;
-  font-size: 40px;
+  padding: 12px 20px;
+  font-size: 18px;   /* FIX: was 40px */
   border: none;
-  background: #ff4d6d;
+  background: #be2e48;
   color: white;
-  border-radius: 15px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.2s;
+  margin: 10px;
 }
 
 button:hover {
   transform: scale(1.05);
 }
 
+/* BACK TO QUIZZES BUTTON */
+.bottom-nav {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.bottom-nav button {
+  padding: 12px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  background: #4dabf7;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+/* hover effect */
+.bottom-nav button:hover {
+  background: #339af0;
+  transform: scale(1.05);
+}
+
+/* optional: tap effect for mobile */
+.bottom-nav button:active {
+  transform: scale(0.95);
+}
+
 /* CHOICES */
 .choices {
   display: flex;
   justify-content: center;
-  gap: 40px;
-  margin-top: 40px;
-  flex-wrap: wrap; /* FIX: prevents overlap */
+  gap: 30px;
+  margin-top: 30px;
+  flex-wrap: wrap;
 }
 
-
-.choice:hover, .choice2:hover {
-  transform: scale(1.1);
-}
-
-/* TEXT STYLES */
-.red {
-  color: red;
-  font-weight: bold;
-}
-
-/* BIG TEXT */
-.big-text {
-  font-size: 36px;
-  font-weight: bold;
-  animation: pop 0.3s ease;
-}
-
-/* FEEDBACK */
-.correct-text {
-  color: green;
-  font-size: 36px;
-  font-weight: bold;
-  animation: pop 0.3s ease;
-}
-
-.wrong-text {
-  color: red;
-  font-size: 36px;
-  font-weight: bold;
-  animation: pop 0.3s ease;
-}
-
-
+/* IMAGES */
 .choice, .choice2 {
   width: 120px;
   cursor: pointer;
@@ -120,15 +103,31 @@ button:hover {
   transition: transform 0.2s ease;
 }
 
-.choice:active, .choice2:active {
-  transform: scale(0.9);
+.choice:hover, .choice2:hover {
+  transform: scale(1.1);
 }
 
+/* TEXT */
+.big-text {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* FEEDBACK */
+.correct-text {
+  color: green;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.wrong-text {
+  color: red;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* ANIMATION */
 @keyframes pop {
   0% { transform: scale(0.8); opacity: 0.5; }
   100% { transform: scale(1); opacity: 1; }
-}
-
-.pop {
-  animation: pop 0.3s ease;
 }

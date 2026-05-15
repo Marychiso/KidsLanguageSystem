@@ -169,5 +169,9 @@ function goGames(){
   window.location.href = "games.html";
 }
 
+function finishGame() {
+  window.location.href = "games.html"; // change if your games menu is different
+}
+
 // START
 loadAnimal();
