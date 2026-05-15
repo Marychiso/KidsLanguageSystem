@@ -13,6 +13,7 @@ body {
   margin: 10px ;
 }
 
+
 /* TITLE */
 h1 {
   font-size: 50px;
@@ -33,26 +34,17 @@ h1 {
 }
 
 /* BACKGROUNDS PER SCREEN */
-#screen1 {
-  background-image: url("assets/images/colorground.jpg"); 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#4dace2;
+  text-align:center;
 }
 
-#screen2 {
-  background-image: url("assets/images/background.jpg"); 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-#screen3 {
-  background-image: url("assets/images/background.jpg"); 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.screen{
+  min-height:100vh;
+  padding:20px;
 }
 
 /* IMAGE */

@@ -125,6 +125,10 @@ buttons1.forEach(btn => {
   };
 });
 
+function goQuizzesMenu(){
+  window.location.href = "quizzes.html";
+}
+
 // ======================
 // SCREEN 2 (LOGIC)
 // ======================

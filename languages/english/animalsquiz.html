@@ -10,28 +10,35 @@
 <div class="container">
   <h1>🐾 Animal Adventure</h1>
 
-  <!-- SCREEN 1 -->
-  <div id="screen1" class="screen active">
-    <p id="instruction1" class="big-text"></p>
+ <!-- SCREEN 1 -->
+<div id="screen1" class="screen active">
 
-    <div class="grid">
-      <div class="animal" data-animal="dog">
-        <img src="assets/images/dog.jpg" alt="dog">
-      </div>
+  <p id="instruction1" class="big-text"></p>
 
-      <div class="animal" data-animal="cat">
-        <img src="assets/images/cat.jpg" alt="cat">
-      </div>
-
-      <div class="animal" data-animal="cow">
-        <img src="assets/images/cow.jpg" alt="cow">
-      </div>
+  <div class="grid">
+    <div class="animal" data-animal="dog">
+      <img src="assets/images/dog.jpg" alt="dog">
     </div>
 
-    <p id="feedback1"></p>
+    <div class="animal" data-animal="cat">
+      <img src="assets/images/cat.jpg" alt="cat">
+    </div>
 
-    <button onclick="goToScreen2()">Next</button>
+    <div class="animal" data-animal="cow">
+      <img src="assets/images/cow.jpg" alt="cow">
+    </div>
   </div>
+
+  <p id="feedback1"></p>
+
+  <button onclick="goToScreen2()">Next</button>
+
+  <!-- ✅ BACK TO QUIZZES -->
+  <div class="bottom-nav">
+    <button onclick="goQuizzesMenu()">⬅ Back to Quizzes</button>
+  </div>
+
+</div>
 
   <!-- SCREEN 2 -->
   <div id="screen2" class="screen">

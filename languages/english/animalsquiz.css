@@ -139,6 +139,26 @@ button:hover {
   box-shadow: 0 0 10px rgba(255,255,255,0.5);
 }
 
+.bottom-nav{
+  margin-top:20px;
+  text-align:center;
+}
+
+.bottom-nav button{
+  padding:12px 20px;
+  border:none;
+  border-radius:14px;
+  background:#ff8fab;
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.bottom-nav button:hover{
+  transform:scale(1.05);
+}
 
 @keyframes bounce {
   0% { transform: scale(1); }

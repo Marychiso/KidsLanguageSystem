@@ -2,53 +2,150 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Colors </title>
+  <title>Colors Quiz</title>
   <link rel="stylesheet" href="colorsquiz.css">
 </head>
+
 <body>
 
 <div class="container">
 
-  <h1> COLOR HUNT</h1>
+  <h1>🎨 COLOR HUNT</h1>
 
   <!-- SCREEN 1 -->
   <div id="screen1" class="screen active">
-    
-    <button onclick="nextScreen()">Next ▶</button>
+
+    <p class="big-text">
+      Tap the correct colors!
+    </p>
+
+    <div class="buttons">
+
+      <button onclick="nextScreen()">
+        Next ▶
+      </button>
+
+      <button onclick="goQuizzes()">
+        ⬅ Back to Quizzes
+      </button>
+
+    </div>
+
   </div>
 
   <!-- SCREEN 2 -->
   <div id="screen2" class="screen">
-    <p>Find Color RED</p>
+
+    <p class="big-text">
+      Find Color RED
+    </p>
+
     <div class="choices">
-      <img src="assets/images/redapple.jpg" class="choice" data-color="red">
-      <img src="assets/images/blueball.jpg" class="choice" data-color="blue">
-      <img src="assets/images/yellowbanana.jpg" class="choice" data-color="yellow">
-      <img src="assets/images/brown.jpg" class="choice" data-color="brown">
-      <img src="assets/images/green.jpg" class="choice" data-color="green">
-      <img src="assets/images/white.jpg" class="choice" data-color="white">
-      <img src="assets/images/pink.jpg" class="choice" data-color="pink">
+
+      <img src="assets/images/redapple.jpg"
+           class="choice"
+           data-color="red">
+
+      <img src="assets/images/blueball.jpg"
+           class="choice"
+           data-color="blue">
+
+      <img src="assets/images/yellowbanana.jpg"
+           class="choice"
+           data-color="yellow">
+
+      <img src="assets/images/brown.jpg"
+           class="choice"
+           data-color="brown">
+
+      <img src="assets/images/green.jpg"
+           class="choice"
+           data-color="green">
+
+      <img src="assets/images/white.jpg"
+           class="choice"
+           data-color="white">
+
+      <img src="assets/images/pink.jpg"
+           class="choice"
+           data-color="pink">
+
     </div>
+
     <p id="feedback"></p>
+
+    <div class="buttons">
+
+      <button onclick="back1()">
+        ⬅ Back
+      </button>
+
+      <button onclick="goToScreen3()">
+        Next ▶
+      </button>
+
+    </div>
+
   </div>
 
   <!-- SCREEN 3 -->
   <div id="screen3" class="screen">
-    <p id="promptText">Find something...</p>
+
+    <p id="promptText" class="big-text">
+      Find something...
+    </p>
+
     <div class="choices">
-      <img src="assets/images/redapple.jpg" class="choice2" data-color="red">
-      <img src="assets/images/blueball.jpg" class="choice2" data-color="blue">
-      <img src="assets/images/yellowbanana.jpg" class="choice2" data-color="yellow">
-      <img src="assets/images/brown.jpg" class="choice2" data-color="brown">
-      <img src="assets/images/pink.jpg" class="choice2" data-color="pink">
-      <img src="assets/images/white.jpg" class="choice2" data-color="white">
-      <img src="assets/images/green.jpg" class="choice2" data-color="green">
+
+      <img src="assets/images/redapple.jpg"
+           class="choice2"
+           data-color="red">
+
+      <img src="assets/images/blueball.jpg"
+           class="choice2"
+           data-color="blue">
+
+      <img src="assets/images/yellowbanana.jpg"
+           class="choice2"
+           data-color="yellow">
+
+      <img src="assets/images/brown.jpg"
+           class="choice2"
+           data-color="brown">
+
+      <img src="assets/images/pink.jpg"
+           class="choice2"
+           data-color="pink">
+
+      <img src="assets/images/white.jpg"
+           class="choice2"
+           data-color="white">
+
+      <img src="assets/images/green.jpg"
+           class="choice2"
+           data-color="green">
+
     </div>
+
     <p id="feedback2"></p>
+
+    <div class="buttons">
+
+      <button onclick="back2()">
+        ⬅ Back
+      </button>
+
+      <button onclick="goQuizzes()">
+        Finish ✅
+      </button>
+
+    </div>
+
   </div>
 
 </div>
 
 <script src="colorsquiz.js"></script>
+
 </body>
 </html>

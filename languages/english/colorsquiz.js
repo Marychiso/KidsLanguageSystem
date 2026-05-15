@@ -89,3 +89,7 @@ function addBounce(el) {
   void el.offsetWidth; // restart animation
   el.classList.add("pop");
 }
+
+function goQuizzes(){
+  window.location.href = "quizzes.html";
+}
