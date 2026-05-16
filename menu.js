@@ -23,3 +23,8 @@ gamesBtn.addEventListener("click", () => {
 badgesCard.addEventListener("click", () => {
   window.location.href = "badges.html";
 });
+
+
+function goLanguages() {
+  window.location.href = "languages.html";
+}

@@ -221,3 +221,16 @@ dropzones.forEach(zone => {
     }
   });
 });
+
+function restartShapes() {
+  window.location.reload();
+}
+
+function finishShapes() {
+  saveLessonProgress();
+  window.location.href = "lessons.html";
+}
+
+function goBackToLessons() {
+  window.location.href = "lessons.html";
+}

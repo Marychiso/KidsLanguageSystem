@@ -139,3 +139,19 @@ function playVoice(text) {
 
   window.speechSynthesis.speak(speech);
 }
+
+function restartLesson() {
+  index = 0;
+  rounds = 0;
+  lessonProgressSaved = false;
+
+  document.getElementById("screen2").classList.remove("active");
+  document.getElementById("screen1").classList.add("active");
+
+  showFruit();
+}
+
+function goBackToLessons() {
+  saveLessonProgress();
+  window.location.href = "lessons.html";
+}

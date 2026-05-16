@@ -92,3 +92,12 @@ function playVoice(text) {
   speech.rate = 0.8;
   window.speechSynthesis.speak(speech);
 }
+
+function goLessons() {
+  window.location.href = "lessons.html";
+}
+
+function finishLesson() {
+  saveLessonProgress();
+  window.location.href = "lessons.html";
+}

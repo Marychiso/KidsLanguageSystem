@@ -138,3 +138,32 @@ function addBounce(el) {
   void el.offsetWidth;
   el.classList.add("pop");
 }
+
+function goQuizzes() {
+  window.location.href = "quizzes.html";
+}
+
+function back1() {
+  document.getElementById("screen2").classList.remove("active");
+  document.getElementById("screen1").classList.add("active");
+}
+
+function goToScreen2() {
+  document.getElementById("screen1").classList.remove("active");
+  document.getElementById("screen2").classList.add("active");
+}
+
+function back2() {
+  document.getElementById("screen3").classList.remove("active");
+  document.getElementById("screen2").classList.add("active");
+}
+
+function goToScreen3() {
+  document.getElementById("screen2").classList.remove("active");
+  document.getElementById("screen3").classList.add("active");
+}
+
+function finishQuiz() {
+  saveQuizProgress(100);
+  window.location.href = "quizzes.html";
+}

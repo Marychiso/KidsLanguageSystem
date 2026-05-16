@@ -145,3 +145,16 @@ function playVoice(text) {
   speech.rate = 0.8;
   window.speechSynthesis.speak(speech);
 }
+
+function backToLearn() {
+  showScreen("screen1");
+}
+
+function finishLesson() {
+  saveLessonProgress();
+  window.location.href = "lessons.html";
+}
+
+function goBackToLessons() {
+  window.location.href = "lessons.html";
+}

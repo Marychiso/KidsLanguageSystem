@@ -138,3 +138,17 @@ function addBounce(el) {
   void el.offsetWidth;
   el.classList.add("pop");
 }
+
+function backToMenu() {
+  window.location.href = "quizzes.html";
+}
+
+function back2() {
+  document.getElementById("screen3").classList.remove("active");
+  document.getElementById("screen2").classList.add("active");
+}
+
+function goQuizzes() {
+  saveQuizProgress(100);
+  window.location.href = "quizzes.html";
+}

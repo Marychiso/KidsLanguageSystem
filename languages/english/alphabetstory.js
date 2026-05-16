@@ -93,3 +93,16 @@ function playVoice(text) {
 window.onload = () => {
   playVoice(getCurrentText());
 };
+
+function restartStory() {
+  document.getElementById("screen" + current).classList.remove("active");
+  current = 1;
+  document.getElementById("screen1").classList.add("active");
+
+  playVoice(getCurrentText());
+}
+
+function finishStory() {
+  saveStoryProgress();
+  window.location.href = "stories.html";
+}

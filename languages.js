@@ -28,11 +28,16 @@ async function loadLanguages() {
       } else {
         btn.classList.remove("active");
         btn.classList.add("disabled");
+
+        btn.addEventListener("click", () => {
+          alert("This language is coming soon!");
+        });
       }
     });
 
   } catch (error) {
     console.error("Error loading languages:", error);
+    alert("Backend is not connected. Please start the server.");
   }
 }
 

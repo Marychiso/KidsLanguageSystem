@@ -92,3 +92,8 @@ function goStories() {
 window.onload = () => {
   playVoice(getCurrentText());
 };
+
+function finishStory() {
+  saveStoryProgress();
+  window.location.href = "stories.html";
+}

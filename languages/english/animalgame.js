@@ -8,7 +8,7 @@ const animals = [
   { name: "Frog", image: "assets/images/frog.jpg", home: "pond" }
 ];
 
-function shuffle(array){
+function shuffle(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
@@ -61,10 +61,8 @@ async function saveGameProgress() {
   }
 }
 
-function loadAnimal(){
-
-  if(currentIndex >= animals.length){
-
+function loadAnimal() {
+  if (currentIndex >= animals.length) {
     document.querySelector(".animal-section").style.display = "none";
     document.querySelector(".homes-grid").style.display = "none";
 
@@ -87,30 +85,24 @@ function loadAnimal(){
 }
 
 homes.forEach(home => {
-
   home.onclick = () => {
-
     const current = animals[currentIndex];
 
-    if(home.dataset.home === current.home){
-
+    if (home.dataset.home === current.home) {
       feedback.textContent = "🎉 Great job!";
 
       animalCard.classList.add("correct");
       home.classList.add("correct");
 
       setTimeout(() => {
-
         animalCard.classList.remove("correct");
         home.classList.remove("correct");
 
         currentIndex++;
         loadAnimal();
-
       }, 900);
 
     } else {
-
       feedback.textContent = "Try again!";
 
       animalCard.classList.add("wrong");
@@ -119,13 +111,10 @@ homes.forEach(home => {
         animalCard.classList.remove("wrong");
       }, 500);
     }
-
   };
-
 });
 
-function restartGame(){
-
+function restartGame() {
   currentIndex = 0;
   progressSaved = false;
 
@@ -139,7 +128,19 @@ function restartGame(){
   loadAnimal();
 }
 
-function goGames(){
+function finishGame() {
+  document.querySelector(".animal-section").style.display = "none";
+  document.querySelector(".homes-grid").style.display = "none";
+
+  finishScreen.style.display = "block";
+
+  if (!progressSaved) {
+    progressSaved = true;
+    saveGameProgress();
+  }
+}
+
+function goGames() {
   window.location.href = "games.html";
 }
 
