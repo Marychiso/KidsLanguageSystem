@@ -46,7 +46,7 @@ router.get("/user/:userId", async (req, res) => {
   }
 });
 
-// helper function to avoid duplicate badges
+// HELPER FUNCTION TO AVOID DUPLICATE BADGES
 async function awardBadge(userId, badgeName, description, icon) {
   const existingBadge = await Badge.findOne({
     userId,
@@ -81,11 +81,12 @@ router.post("/check/:userId", async (req, res) => {
     const gameCount = allProgress.filter(item => item.contentType === "game").length;
 
     const highScoreQuiz = allProgress.some(item =>
-      item.contentType === "quiz" && item.score !== null && item.score >= 80
+      item.contentType === "quiz" &&
+      item.score !== null &&
+      item.score >= 80
     );
 
-    const completedColorGame = allProgress.some(item =>
-      item.contentType === "game" &&
+    const completedColorActivity = allProgress.some(item =>
       item.title &&
       item.title.toLowerCase().includes("color")
     );
@@ -95,7 +96,7 @@ router.post("/check/:userId", async (req, res) => {
       item.title.toLowerCase().includes("alphabet")
     );
 
-    // General badges
+    // GENERAL BADGES
     if (totalCompleted >= 1) {
       await awardBadge(
         userId,
@@ -123,7 +124,7 @@ router.post("/check/:userId", async (req, res) => {
       );
     }
 
-    // Lesson badge
+    // LESSON BADGE
     if (lessonCount >= 1) {
       await awardBadge(
         userId,
@@ -133,7 +134,7 @@ router.post("/check/:userId", async (req, res) => {
       );
     }
 
-    // Story badge
+    // STORY BADGE
     if (storyCount >= 1) {
       await awardBadge(
         userId,
@@ -143,7 +144,7 @@ router.post("/check/:userId", async (req, res) => {
       );
     }
 
-    // Quiz badge
+    // QUIZ BADGES
     if (quizCount >= 1) {
       await awardBadge(
         userId,
@@ -162,7 +163,7 @@ router.post("/check/:userId", async (req, res) => {
       );
     }
 
-    // Game badge
+    // GAME BADGE
     if (gameCount >= 3) {
       await awardBadge(
         userId,
@@ -172,8 +173,8 @@ router.post("/check/:userId", async (req, res) => {
       );
     }
 
-    // Specific topic badges
-    if (completedColorGame) {
+    // SPECIFIC TOPIC BADGES
+    if (completedColorActivity) {
       await awardBadge(
         userId,
         "Color Expert",

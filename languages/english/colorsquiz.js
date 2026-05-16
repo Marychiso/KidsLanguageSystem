@@ -35,22 +35,13 @@ async function saveQuizProgress(score = 100) {
     });
 
     console.log("Colors quiz progress saved and badges checked.");
+
   } catch (error) {
     console.error("Error saving colors quiz progress:", error);
   }
 }
 
-let currentScreen = 1;
-
-// SWITCH SCREENS
-function nextScreen() {
-  document.getElementById("screen1").classList.remove("active");
-  document.getElementById("screen2").classList.add("active");
-
-  playVoice("Find a color red");
-}
-
-// SCREEN 2 (GUIDED PRACTICE)
+// SCREEN 2
 const choices = document.querySelectorAll(".choice");
 const feedback = document.getElementById("feedback");
 
@@ -81,7 +72,7 @@ function goToScreen3() {
   nextRound();
 }
 
-// SCREEN 3 (FREE PLAY)
+// SCREEN 3
 const colors = ["red", "blue", "yellow", "brown", "green", "white", "pink"];
 let currentColor = "";
 let correctCount = 0;
@@ -124,21 +115,7 @@ choices2.forEach(choice => {
   });
 });
 
-// SIMPLE VOICE
-function playVoice(text) {
-  const speech = new SpeechSynthesisUtterance(text);
-  speech.lang = "en-US";
-  speech.rate = 0.8;
-  window.speechSynthesis.speak(speech);
-}
-
-// BOUNCE EFFECT HELPER
-function addBounce(el) {
-  el.classList.remove("pop");
-  void el.offsetWidth;
-  el.classList.add("pop");
-}
-
+// BUTTON FUNCTIONS
 function backToMenu() {
   window.location.href = "quizzes.html";
 }
@@ -151,4 +128,19 @@ function back2() {
 function goQuizzes() {
   saveQuizProgress(100);
   window.location.href = "quizzes.html";
+}
+
+// VOICE
+function playVoice(text) {
+  const speech = new SpeechSynthesisUtterance(text);
+  speech.lang = "en-US";
+  speech.rate = 0.8;
+  window.speechSynthesis.speak(speech);
+}
+
+// BOUNCE EFFECT
+function addBounce(el) {
+  el.classList.remove("pop");
+  void el.offsetWidth;
+  el.classList.add("pop");
 }
