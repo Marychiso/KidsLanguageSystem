@@ -2,29 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Alphabet Explorer </title>
+  <title>Alphabet Explorer</title>
   <link rel="stylesheet" href="alphabet.css">
 </head>
+
 <body>
 
 <div class="container">
 
-  <h1>Alphabet Explorer</h1>
+  <h1>🔤 Alphabet Explorer</h1>
 
-  <!-- SCREEN 1: GRID -->
+  <!-- ✅ INSTRUCTIONS -->
+  <p class="instructions">
+    Tap a letter to learn its sound and word!
+  </p>
+
+  <!-- SCREEN 1 -->
   <div id="screen1" class="screen active">
+
     <div id="alphabetGrid" class="grid"></div>
+
   </div>
 
-  <!-- SCREEN 2: LETTER DETAIL -->
+  <!-- SCREEN 2 -->
   <div id="screen2" class="screen">
+
+    <!-- ✅ SCREEN 2 INSTRUCTION -->
+    <p class="instructions">
+      Listen carefully and say the word out loud!
+    </p>
+
     <h2 id="bigLetter"></h2>
+
     <p id="letterText" class="big-text"></p>
-    <button onclick="backToGrid()">⬅ Back</button>
+
+    <div class="buttons">
+
+      <button onclick="backToGrid()">
+        ⬅ Back
+      </button>
+
+      <button onclick="goLessons()">
+        📚 Lessons
+      </button>
+
+    </div>
+
   </div>
 
 </div>
 
+<!-- BOTTOM NAVIGATION -->
+<div class="bottom-nav">
+  <button onclick="finishLesson()">
+  ✅ Finish
+</button>
+</div>
+
 <script src="alphabet.js"></script>
+
 </body>
 </html>

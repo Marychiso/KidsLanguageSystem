@@ -12,6 +12,7 @@
 
   <!-- SCREEN 1 -->
   <div id="screen1" class="screen active">
+
     <p id="instruction1" class="big-text"></p>
 
     <div class="grid">
@@ -31,6 +32,11 @@
     <p id="feedback1"></p>
 
     <button onclick="goToScreen2()">Next</button>
+
+    <div class="bottom-nav">
+      <button onclick="goQuizzesMenu()">⬅ Back to Quizzes</button>
+    </div>
+
   </div>
 
   <!-- SCREEN 2 -->
@@ -57,55 +63,36 @@
     <button onclick="goToScreen3()">Next</button>
   </div>
 
- <!-- SCREEN 3 -->
-<div id="screen3" class="screen">
-  <p id="instruction3" class="big-text"></p>
+  <!-- SCREEN 3 -->
+  <div id="screen3" class="screen">
 
-  <!-- PARADE -->
-  <div class="parade-section">
-    <p class="section-title">Watch carefully 👀</p>
-    <div id="parade" class="grid"></div>
-  </div>
+    <p id="instruction3" class="big-text"></p>
 
-  <!-- OPTIONS -->
-  <div class="options-section">
-    <p class="option-label">Tap your answer:</p>
-
-    <!-- CHOICES -->
-    <div class="grid small">
-      <div class="animal" data-animal="dog">
-        <img src="assets/images/dog.jpg" alt="dog">
-      </div>
-
-      <div class="animal" data-animal="cat">
-        <img src="assets/images/cat.jpg" alt="cat">
-      </div>
-
-      <div class="animal" data-animal="cow">
-        <img src="assets/images/cow.jpg" alt="cow">
-      </div>
-
-      <div class="animal" data-animal="lion">
-        <img src="assets/images/lion.jpg" alt="lion">
-      </div>
-
-      <div class="animal" data-animal="elephant">
-        <img src="assets/images/elephant.jpg" alt="elephant">
-      </div>
-
-      <div class="animal" data-animal="bird">
-        <img src="assets/images/bird.jpg" alt="bird">
-      </div>
-
-      <div class="animal" data-animal="fish">
-        <img src="assets/images/fish.jpg" alt="fish">
-      </div>
+    <div class="parade-section">
+      <p class="section-title">Watch carefully 👀</p>
+      <div id="parade" class="grid"></div>
     </div>
 
-    <p id="feedback3"></p>
+    <div class="options-section">
+      <p class="option-label">Tap your answer:</p>
 
-    <button onclick="back2()">Back</button>
-    <button onclick="goQuizzes()">Finish</button>
+      <div class="grid small">
+        <div class="animal" data-animal="dog"><img src="assets/images/dog.jpg"></div>
+        <div class="animal" data-animal="cat"><img src="assets/images/cat.jpg"></div>
+        <div class="animal" data-animal="cow"><img src="assets/images/cow.jpg"></div>
+        <div class="animal" data-animal="lion"><img src="assets/images/lion.jpg"></div>
+        <div class="animal" data-animal="elephant"><img src="assets/images/elephant.jpg"></div>
+        <div class="animal" data-animal="bird"><img src="assets/images/bird.jpg"></div>
+        <div class="animal" data-animal="fish"><img src="assets/images/fish.jpg"></div>
+      </div>
+
+      <p id="feedback3"></p>
+
+      <button onclick="back2()">Back</button>
+      <button onclick="goQuizzes()">Finish</button>
+
+    </div>
+
   </div>
 
 </div>

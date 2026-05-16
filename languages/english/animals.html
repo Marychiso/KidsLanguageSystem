@@ -5,6 +5,7 @@
   <title>Animals Lesson 🐾</title>
   <link rel="stylesheet" href="animals.css">
 </head>
+
 <body>
 
 <div class="container">
@@ -54,6 +55,7 @@
     </div>
 
     <button onclick="goToGame()">▶ Play</button>
+
   </div>
 
   <!-- SCREEN 2: GAME -->
@@ -65,8 +67,25 @@
 
     <p id="feedback"></p>
 
+<div class="buttons">
+
+  <button onclick="backToLearn()">
+    ⬅ Back
+  </button>
+
+  <button onclick="finishLesson()">
+    ✅ Finish
+  </button>
+
+</div>
+
   </div>
 
+</div>
+
+<!-- ✅ BOTTOM NAVIGATION -->
+<div class="bottom-nav">
+  <button onclick="goBackToLessons()">⬅ Back to Lessons</button>
 </div>
 
 <script src="animals.js"></script>

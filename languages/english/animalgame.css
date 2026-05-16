@@ -11,18 +11,19 @@ body{
   padding:20px;
 }
 
-/* TOP BAR */
-.top-bar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:20px;
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
 }
 
-h1{
-  flex:1;
-  margin:0;
-  font-size:40px;
+/* keeps title centered no matter what */
+.top-bar h1 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
 }
 
 /* BUTTONS */

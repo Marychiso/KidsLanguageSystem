@@ -5,11 +5,12 @@
   <title>Fruit Lesson 🍎</title>
   <link rel="stylesheet" href="fruit.css">
 </head>
+
 <body>
 
 <div class="container">
 
-  <h1> Fruit Lesson</h1>
+  <h1>🍎 Fruit Lesson</h1>
 
   <!-- SCREEN 1: INTRO -->
   <div id="screen1" class="screen active">
@@ -17,23 +18,40 @@
     <p id="fruitText" class="big-text"></p>
     <button onclick="nextFruit()">Next ▶</button>
   </div>
+<!-- SCREEN 2: PRACTICE -->
+<div id="screen2" class="screen">
 
-  <!-- SCREEN 2: PRACTICE -->
-  <div id="screen2" class="screen">
-    <p id="instruction" class="big-text"></p>
+  <p id="instruction" class="big-text"></p>
 
-    <div class="choices">
-      <img src="assets/images/banana.jpg" class="choice" data-fruit="banana">
-      <img src="assets/images/redapple.jpg" class="choice" data-fruit="apple">
-      <img src="assets/images/orange.jpg" class="choice" data-fruit="orange">
-      <img src="assets/images/grape.jpg" class="choice" data-fruit="grape">
-      <img src="assets/images/strawberry.jpg" class="choice" data-fruit="strawberry">
-      <img src="assets/images/watermelon.jpg" class="choice" data-fruit="watermelon">
-    </div>
-
-    <p id="feedback"></p>
+  <div class="choices">
+    <img src="assets/images/banana.jpg" class="choice" data-fruit="banana">
+    <img src="assets/images/redapple.jpg" class="choice" data-fruit="apple">
+    <img src="assets/images/orange.jpg" class="choice" data-fruit="orange">
+    <img src="assets/images/grape.jpg" class="choice" data-fruit="grape">
+    <img src="assets/images/strawberry.jpg" class="choice" data-fruit="strawberry">
+    <img src="assets/images/watermelon.jpg" class="choice" data-fruit="watermelon">
   </div>
 
+  <p id="feedback"></p>
+
+  <!-- ✅ BUTTONS -->
+  <div class="buttons">
+
+    <button onclick="restartLesson()">
+      🔄 Restart
+    </button>
+
+    <button onclick="goBackToLessons()">
+      ✅ Finish
+    </button>
+
+  </div>
+
+</div>
+
+<!-- ✅ BOTTOM NAVIGATION -->
+<div class="bottom-nav">
+  <button onclick="goBackToLessons()">⬅ Back to Lessons</button>
 </div>
 
 <script src="fruit.js"></script>

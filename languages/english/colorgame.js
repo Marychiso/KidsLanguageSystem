@@ -169,9 +169,9 @@ function resetGame() {
 // ======================
 // NAVIGATION
 // ======================
-function goGames() {
+
+function finishGame(){
   window.location.href = "games.html";
 }
-
 // START MESSAGE
 message.textContent = "Pick a color, then tap the correct object!";

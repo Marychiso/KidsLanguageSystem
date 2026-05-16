@@ -74,3 +74,11 @@ function readStory() {
   window.speechSynthesis.cancel();
   window.speechSynthesis.speak(speech);
 }
+
+function restartStory(){
+  location.reload();
+}
+
+function finishStory(){
+  window.location.href = "stories.html";
+}

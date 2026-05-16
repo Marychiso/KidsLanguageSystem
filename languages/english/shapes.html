@@ -5,8 +5,10 @@
   <title>Shape Adventure</title>
   <link rel="stylesheet" href="shapes.css">
 </head>
+
 <body>
 
+<!-- INTRO SCREEN -->
 <div class="screen active" id="screen1">
 
   <div class="card">
@@ -39,6 +41,18 @@
 
     <p id="feedback"></p>
 
+<div class="buttons">
+
+  <button onclick="restartShapes()">
+    🔄 Restart
+  </button>
+
+  <button onclick="finishShapes()">
+    ✅ Finish
+  </button>
+
+</div>
+
   </div>
 
 </div>
@@ -68,6 +82,11 @@
 
 </div>
 
+<!-- ✅ BOTTOM NAVIGATION -->
+<div class="bottom-nav">
+  <button onclick="goBackToLessons()">⬅ Back to Lessons</button>
+</div>
+
 <script src="shapes.js"></script>
 </body>
-</html>
+</html>   
