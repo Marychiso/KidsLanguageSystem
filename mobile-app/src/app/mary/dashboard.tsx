@@ -1,119 +1,200 @@
+
 import React from 'react';
 import {
   View,
   Text,
   ScrollView,
-  TouchableOpacity,
+  Pressable,
   StyleSheet,
 } from 'react-native';
+import { router, Stack } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { LearningColors as C } from '@/constants/learning-theme';
+import WavingKids from '@/components/waving-kids';
+
+// Learning activities shown on the Dashboard
+const activities = [
+  {
+    title: 'Lessons',
+    emoji: '📚',
+    description: 'Discover new words!',
+    color: C.blue,
+  },
+  {
+    title: 'Quizzes',
+    emoji: '🧠',
+    description: 'Show what you know!',
+    color: C.pink,
+  },
+  {
+    title: 'Games',
+    emoji: '🎮',
+    description: 'Play and learn!',
+    color: C.yellow,
+  },
+  {
+    title: 'Stories',
+    emoji: '📖',
+    description: 'Explore fun stories!',
+    color: C.green,
+  },
+  {
+    title: 'Badges',
+    emoji: '🏅',
+    description: 'Collect your rewards!',
+    color: '#E8DFFF',
+  },
+];
+
 export default function Dashboard() {
+  // Return to Login or Welcome
+  function handleBack() {
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.replace('/cindy/welcome');
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
-        {/* Header */}
-        <View style={styles.headerCard}>
-          <View>
-            <Text style={styles.helloText}>Hello, Mary’s Learner 👋</Text>
-            <Text style={styles.subText}>
-              Ready for today’s language adventure?
-            </Text>
-          </View>
-          <View style={styles.avatarCircle}>
-            <Text style={styles.avatarEmoji}>😊</Text>
+      <Stack.Screen options={{ headerShown: false }} />
+
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.content}
+      >
+        {/* Back button */}
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Go back"
+          onPress={handleBack}
+          style={({ pressed }) => [
+            styles.backButton,
+            pressed && styles.pressed,
+          ]}
+        >
+          <Text style={styles.backButtonText}>
+            ← Go Back
+          </Text>
+        </Pressable>
+
+        {/* Welcome section */}
+        <View style={styles.header}>
+          <Text style={styles.greeting}>
+            Hey, Little Superstar! 🌟
+          </Text>
+
+          <Text style={styles.subtitle}>
+            Ready for another fun learning adventure?
+          </Text>
+
+          <View style={styles.illustration}>
+            <WavingKids />
           </View>
         </View>
 
-        {/* Language Card */}
+        {/* Language Selection */}
         <View style={styles.languageCard}>
-          <View>
-            <Text style={styles.smallLabel}>Current Language</Text>
-            <Text style={styles.languageName}>English 🇬🇧</Text>
-            <Text style={styles.languageSubtext}>
-              Practice words, stories, and games
-            </Text>
-          </View>
+          <Text style={styles.languageEmoji}>🌍</Text>
 
-          <TouchableOpacity style={styles.changeButton}>
-            <Text style={styles.changeButtonText}>Change</Text>
-          </TouchableOpacity>
+          <Text style={styles.languageTitle}>
+            Let's Explore Languages!
+          </Text>
+
+          <Text style={styles.languageDescription}>
+            English, French, Turkish, Spanish and more!
+          </Text>
+
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Choose your language"
+            style={({ pressed }) => [
+              styles.languageButton,
+              pressed && styles.pressed,
+            ]}
+            onPress={() =>
+              router.push('/mary/language-selection')
+            }
+          >
+            <Text style={styles.languageButtonText}>
+              Choose Your Language →
+            </Text>
+          </Pressable>
         </View>
 
         {/* Continue Learning */}
         <View style={styles.continueCard}>
-          <Text style={styles.continueTitle}>Continue Learning</Text>
-          <Text style={styles.continueLesson}>Alphabet Lesson</Text>
-          <Text style={styles.continueSubtext}>
-            Pick up where you left off and keep learning new words.
+          <Text style={styles.continueEyebrow}>
+            YOUR NEXT ADVENTURE
           </Text>
 
-          <TouchableOpacity style={styles.startButton}>
-            <Text style={styles.startButtonText}>Continue</Text>
-          </TouchableOpacity>
-        </View>
+          <Text style={styles.continueTitle}>
+            Keep Learning! 🚀
+          </Text>
 
-        {/* Progress Section */}
-        <Text style={styles.sectionTitle}>My Progress</Text>
-        <View style={styles.progressCard}>
-          <View style={styles.progressTopRow}>
-            <Text style={styles.progressText}>3 of 10 lessons completed</Text>
-            <Text style={styles.progressPercent}>30%</Text>
-          </View>
+          <Text style={styles.continueDescription}>
+            Choose a language to begin your learning journey.
+          </Text>
 
-          <View style={styles.progressBarBackground}>
-            <View style={styles.progressBarFill} />
-          </View>
-
-          <View style={styles.progressStats}>
-            <View style={styles.statBox}>
-              <Text style={styles.statNumber}>12</Text>
-              <Text style={styles.statLabel}>Stars</Text>
-            </View>
-
-            <View style={styles.statBox}>
-              <Text style={styles.statNumber}>4</Text>
-              <Text style={styles.statLabel}>Badges</Text>
-            </View>
-
-            <View style={styles.statBox}>
-              <Text style={styles.statNumber}>5</Text>
-              <Text style={styles.statLabel}>Games</Text>
-            </View>
+          <View style={styles.comingSoon}>
+            <Text style={styles.comingSoonText}>
+              Your lessons will appear here
+            </Text>
           </View>
         </View>
 
-        {/* Learning Features */}
-        <Text style={styles.sectionTitle}>Explore Activities</Text>
+        {/* Learning Activities */}
+        <Text style={styles.sectionTitle}>
+          Let's Learn & Play! 🎉
+        </Text>
+
         <View style={styles.grid}>
-          <View style={[styles.featureCard, { backgroundColor: '#FFE3E3' }]}>
-            <Text style={styles.featureEmoji}>📚</Text>
-            <Text style={styles.featureTitle}>Lessons</Text>
-            <Text style={styles.featureText}>Learn new words and topics</Text>
-          </View>
+          {activities.map((activity) => (
+            <View
+              key={activity.title}
+              style={[
+                styles.activityCard,
+                { backgroundColor: activity.color },
+              ]}
+            >
+              <Text style={styles.activityEmoji}>
+                {activity.emoji}
+              </Text>
 
-          <View style={[styles.featureCard, { backgroundColor: '#E3F2FF' }]}>
-            <Text style={styles.featureEmoji}>🧠</Text>
-            <Text style={styles.featureTitle}>Quizzes</Text>
-            <Text style={styles.featureText}>Test what you’ve learned</Text>
-          </View>
+              <Text style={styles.activityTitle}>
+                {activity.title}
+              </Text>
 
-          <View style={[styles.featureCard, { backgroundColor: '#FFF0C9' }]}>
-            <Text style={styles.featureEmoji}>🎮</Text>
-            <Text style={styles.featureTitle}>Games</Text>
-            <Text style={styles.featureText}>Play and learn at the same time</Text>
-          </View>
+              <Text style={styles.activityDescription}>
+                {activity.description}
+              </Text>
+            </View>
+          ))}
+        </View>
 
-          <View style={[styles.featureCard, { backgroundColor: '#E8E1FF' }]}>
-            <Text style={styles.featureEmoji}>📖</Text>
-            <Text style={styles.featureTitle}>Stories</Text>
-            <Text style={styles.featureText}>Read fun learning stories</Text>
-          </View>
+        {/* Learning Progress */}
+        <Text style={styles.sectionTitle}>
+          My Learning Journey ⭐
+        </Text>
 
-          <View style={[styles.featureCard, { backgroundColor: '#DFF7E2' }]}>
-            <Text style={styles.featureEmoji}>🏅</Text>
-            <Text style={styles.featureTitle}>Badges</Text>
-            <Text style={styles.featureText}>See your rewards and achievements</Text>
+        <View style={styles.progressCard}>
+          <Text style={styles.progressEmoji}>🏆</Text>
+
+          <Text style={styles.progressTitle}>
+            Every Superstar Starts Somewhere!
+          </Text>
+
+          <Text style={styles.progressDescription}>
+            Complete lessons, earn stars, and unlock badges
+            as you learn.
+          </Text>
+
+          <View style={styles.progressPlaceholder}>
+            <Text style={styles.progressPlaceholderText}>
+              Your progress will appear here soon!
+            </Text>
           </View>
         </View>
       </ScrollView>
@@ -122,199 +203,249 @@ export default function Dashboard() {
 }
 
 const styles = StyleSheet.create({
+  // Main screen
   container: {
     flex: 1,
-    backgroundColor: '#FFF8F2',
+    backgroundColor: C.background,
   },
+
   content: {
-    padding: 20,
-    paddingBottom: 40,
+    paddingHorizontal: 20,
+    paddingTop: 14,
+    paddingBottom: 48,
   },
 
-  headerCard: {
-    backgroundColor: '#FFBFA3',
-    borderRadius: 24,
-    padding: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 18,
-  },
-  helloText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#3A2E2A',
-  },
-  subText: {
-    marginTop: 6,
-    fontSize: 14,
-    color: '#5B4A43',
-    maxWidth: 220,
-  },
-  avatarCircle: {
-    width: 58,
-    height: 58,
-    borderRadius: 29,
-    backgroundColor: '#FFF3EC',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  avatarEmoji: {
-    fontSize: 28,
-  },
-
-  languageCard: {
-    backgroundColor: '#D9F1FF',
-    borderRadius: 22,
-    padding: 18,
-    marginBottom: 18,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  smallLabel: {
-    fontSize: 12,
-    color: '#4B6470',
-    marginBottom: 4,
-  },
-  languageName: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#24333A',
-  },
-  languageSubtext: {
-    fontSize: 13,
-    color: '#5A717B',
-    marginTop: 4,
-  },
-  changeButton: {
-    backgroundColor: '#ffffff',
+  // Back button
+  backButton: {
+    alignSelf: 'flex-start',
+    backgroundColor: C.blue,
     paddingHorizontal: 18,
-    paddingVertical: 10,
+    paddingVertical: 12,
     borderRadius: 18,
-  },
-  changeButtonText: {
-    fontWeight: 'bold',
-    color: '#3C5966',
+    marginBottom: 18,
+    minHeight: 44,
+    justifyContent: 'center',
   },
 
-  continueCard: {
-    backgroundColor: '#FFE6F1',
-    borderRadius: 22,
-    padding: 20,
+  backButtonText: {
+    color: C.primary,
+    fontSize: 15,
+    fontWeight: '700',
+  },
+
+  // Welcome header
+  header: {
     marginBottom: 22,
   },
-  continueTitle: {
-    fontSize: 14,
-    color: '#7A5264',
-    marginBottom: 6,
+
+  greeting: {
+    fontSize: 27,
+    fontWeight: '800',
+    color: C.text,
+    lineHeight: 35,
   },
-  continueLesson: {
+
+  subtitle: {
+    fontSize: 15,
+    color: C.textSecondary,
+    marginTop: 8,
+    marginBottom: 18,
+  },
+
+  illustration: {
+    backgroundColor: C.blue,
+    borderRadius: 28,
+    padding: 12,
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+
+  // Language Selection
+  languageCard: {
+    backgroundColor: C.green,
+    borderRadius: 28,
+    padding: 22,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+
+  languageEmoji: {
+    fontSize: 48,
+    marginBottom: 8,
+  },
+
+  languageTitle: {
     fontSize: 22,
-    fontWeight: 'bold',
-    color: '#402A34',
-    marginBottom: 6,
+    fontWeight: '800',
+    color: C.text,
+    textAlign: 'center',
   },
-  continueSubtext: {
-    fontSize: 13,
-    color: '#6A5560',
+
+  languageDescription: {
+    fontSize: 14,
+    color: C.textSecondary,
+    textAlign: 'center',
+    lineHeight: 21,
+    marginTop: 8,
+    marginBottom: 18,
+  },
+
+  languageButton: {
+    backgroundColor: C.primary,
+    borderRadius: 20,
+    minHeight: 54,
+    paddingHorizontal: 22,
+    paddingVertical: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+  },
+
+  languageButtonText: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: C.white,
+    textAlign: 'center',
+  },
+
+  // Continue Learning
+  continueCard: {
+    backgroundColor: C.pink,
+    borderRadius: 26,
+    padding: 22,
+    marginBottom: 26,
+  },
+
+  continueEyebrow: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: C.primary,
+    letterSpacing: 1.2,
+    marginBottom: 8,
+  },
+
+  continueTitle: {
+    fontSize: 23,
+    fontWeight: '800',
+    color: C.text,
+  },
+
+  continueDescription: {
+    fontSize: 14,
+    color: C.textSecondary,
+    lineHeight: 21,
+    marginTop: 8,
     marginBottom: 15,
   },
-  startButton: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#FF8C94',
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderRadius: 22,
-  },
-  startButtonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
 
-  sectionTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#2F2F2F',
-    marginBottom: 12,
-  },
-
-  progressCard: {
-    backgroundColor: '#FFF7D6',
-    borderRadius: 22,
-    padding: 18,
-    marginBottom: 24,
-  },
-  progressTopRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  },
-  progressText: {
-    fontSize: 14,
-    color: '#5E5742',
-  },
-  progressPercent: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#5E5742',
-  },
-  progressBarBackground: {
-    height: 12,
-    backgroundColor: '#E9DFB2',
-    borderRadius: 10,
-    overflow: 'hidden',
-    marginBottom: 16,
-  },
-  progressBarFill: {
-    width: '30%',
-    height: '100%',
-    backgroundColor: '#F4B400',
-    borderRadius: 10,
-  },
-  progressStats: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  statBox: {
+  comingSoon: {
+    backgroundColor: C.white,
+    padding: 14,
+    borderRadius: 16,
     alignItems: 'center',
-    flex: 1,
-  },
-  statNumber: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#433A1B',
-  },
-  statLabel: {
-    fontSize: 12,
-    color: '#6A6245',
-    marginTop: 4,
   },
 
+  comingSoonText: {
+    color: C.textSecondary,
+    fontSize: 13,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+
+  // Section headings
+  sectionTitle: {
+    fontSize: 21,
+    fontWeight: '800',
+    color: C.text,
+    marginBottom: 14,
+  },
+
+  // Learning Activities
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+    marginBottom: 18,
   },
-  featureCard: {
+
+  activityCard: {
     width: '48%',
-    borderRadius: 20,
+    minHeight: 145,
+    borderRadius: 22,
     padding: 16,
     marginBottom: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  featureEmoji: {
-    fontSize: 30,
+
+  activityEmoji: {
+    fontSize: 36,
     marginBottom: 10,
   },
-  featureTitle: {
-    fontSize: 17,
-    fontWeight: 'bold',
-    color: '#2F2F2F',
-    marginBottom: 6,
+
+  activityTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: C.text,
+    textAlign: 'center',
   },
-  featureText: {
+
+  activityDescription: {
     fontSize: 12,
-    color: '#5D5D5D',
-    lineHeight: 17,
+    color: C.textSecondary,
+    lineHeight: 18,
+    textAlign: 'center',
+    marginTop: 5,
+  },
+
+  // Learning Progress
+  progressCard: {
+    backgroundColor: C.yellow,
+    borderRadius: 26,
+    padding: 22,
+    alignItems: 'center',
+  },
+
+  progressEmoji: {
+    fontSize: 45,
+    marginBottom: 10,
+  },
+
+  progressTitle: {
+    fontSize: 19,
+    fontWeight: '800',
+    color: C.text,
+    textAlign: 'center',
+  },
+
+  progressDescription: {
+    fontSize: 14,
+    color: C.textSecondary,
+    textAlign: 'center',
+    lineHeight: 21,
+    marginTop: 9,
+    marginBottom: 16,
+  },
+
+  progressPlaceholder: {
+    backgroundColor: C.white,
+    borderRadius: 16,
+    paddingHorizontal: 18,
+    paddingVertical: 13,
+    width: '100%',
+    alignItems: 'center',
+  },
+
+  progressPlaceholderText: {
+    fontSize: 13,
+    color: C.textSecondary,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+
+  // Button press effect
+  pressed: {
+    opacity: 0.85,
+    transform: [{ scale: 0.98 }],
   },
 });

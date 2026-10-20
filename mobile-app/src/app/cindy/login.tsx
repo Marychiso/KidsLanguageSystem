@@ -30,27 +30,27 @@ export default function LoginScreen() {
     setSuccess(false);
   }
 
-  function handleLogin() {
-    clearMessage();
+function handleLogin() {
+  clearMessage();
 
-    if (!email.trim() || !password) {
-      setMessage('Please enter your email and password.');
-      return;
-    }
-
-    // Sample account until backend integration.
-    if (
-      email.trim().toLowerCase() === 'demo@example.com' &&
-      password === 'Hello123!'
-    ) {
-      setSuccess(true);
-      setMessage('Demo login successful!');
-      return;
-    }
-
-    setMessage('The email or password is incorrect. Please try again.');
+  if (!email.trim() || !password) {
+    setMessage('Please enter your email and password.');
+    return;
   }
 
+  // Temporary demo account until backend integration.
+  if (
+    email.trim().toLowerCase() === 'demo@example.com' &&
+    password === 'Hello123!'
+  ) {
+    router.replace('/mary/dashboard');
+    return;
+  }
+
+  setMessage('The email or password is incorrect. Please try again.');
+}
+
+  
   return (
     <SafeAreaView style={styles.screen}>
       <Stack.Screen options={{ headerShown: false }} />
