@@ -3,61 +3,71 @@ import React from 'react';
 import {
   View,
   Text,
+  Image,
   ScrollView,
   Pressable,
   StyleSheet,
+  ImageSourcePropType,
 } from 'react-native';
 import { Stack, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { LearningColors as C } from '@/constants/learning-theme';
 
-const languages = [
+// Available languages and their flag images
+const languages: {
+  id: string;
+  name: string;
+  greeting: string;
+  flag: ImageSourcePropType;
+  color: string;
+}[] = [
   {
     id: 'english',
     name: 'English',
     greeting: 'Hello!',
-    flag: '🇬🇧',
+    flag: require('../../../assets/flags/english.png'),
     color: C.blue,
   },
   {
     id: 'french',
     name: 'French',
     greeting: 'Bonjour!',
-    flag: '🇫🇷',
+    flag: require('../../../assets/flags/french.png'),
     color: C.pink,
   },
   {
     id: 'turkish',
     name: 'Turkish',
     greeting: 'Merhaba!',
-    flag: '🇹🇷',
+    flag: require('../../../assets/flags/turkish.png'),
     color: '#FFE5D0',
   },
   {
     id: 'spanish',
     name: 'Spanish',
     greeting: '¡Hola!',
-    flag: '🇪🇸',
+    flag: require('../../../assets/flags/spanish.png'),
     color: C.yellow,
   },
   {
     id: 'chinese',
     name: 'Chinese',
     greeting: '你好!',
-    flag: '🇨🇳',
+    flag: require('../../../assets/flags/chinese.png'),
     color: '#E8DFFF',
   },
   {
     id: 'swahili',
     name: 'Swahili',
     greeting: 'Jambo!',
-    flag: '🇰🇪',
+    flag: require('../../../assets/flags/swahili.png'),
     color: C.green,
   },
 ];
 
 export default function LanguageSelection() {
+  // Return to the Dashboard
   function goBack() {
     if (router.canGoBack()) {
       router.back();
@@ -66,6 +76,7 @@ export default function LanguageSelection() {
     }
   }
 
+  // Open the Learning page for selected language
   function selectLanguage(language: string) {
     router.push({
       pathname: '/mary/learning',
@@ -81,14 +92,19 @@ export default function LanguageSelection() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.content}
       >
-        {/* Back navigation */}
+        {/* Back button */}
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="Go back"
           onPress={goBack}
-          style={styles.backButton}
+          style={({ pressed }) => [
+            styles.backButton,
+            pressed && styles.pressed,
+          ]}
         >
-          <Text style={styles.backText}>← Go Back</Text>
+          <Text style={styles.backText}>
+            ← Go Back
+          </Text>
         </Pressable>
 
         {/* Welcome header */}
@@ -127,10 +143,14 @@ export default function LanguageSelection() {
                 pressed && styles.pressed,
               ]}
             >
+              {/* Actual flag image */}
               <View style={styles.flagCircle}>
-                <Text style={styles.flag}>
-                  {language.flag}
-                </Text>
+                <Image
+                  source={language.flag}
+                  style={styles.flagImage}
+                  resizeMode="contain"
+                  accessibilityLabel={`${language.name} flag`}
+                />
               </View>
 
               <Text style={styles.languageName}>
@@ -150,9 +170,11 @@ export default function LanguageSelection() {
           ))}
         </View>
 
-        {/* Encouragement */}
+        {/* Encouragement section */}
         <View style={styles.footerCard}>
-          <Text style={styles.footerEmoji}>✨🎉✨</Text>
+          <Text style={styles.footerEmoji}>
+            ✨🎉✨
+          </Text>
 
           <Text style={styles.footerTitle}>
             You're a Language Superstar!
@@ -180,6 +202,7 @@ const styles = StyleSheet.create({
     paddingBottom: 45,
   },
 
+  // Back navigation
   backButton: {
     alignSelf: 'flex-start',
     backgroundColor: C.blue,
@@ -197,6 +220,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 
+  // Welcome header
   header: {
     backgroundColor: C.green,
     borderRadius: 30,
@@ -233,6 +257,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
+  // Language cards
   sectionTitle: {
     fontSize: 21,
     fontWeight: '800',
@@ -252,22 +277,24 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 16,
     alignItems: 'center',
-    minHeight: 205,
+    minHeight: 210,
     justifyContent: 'center',
   },
 
+  // Flag image container
   flagCircle: {
-    width: 74,
-    height: 74,
-    borderRadius: 37,
+    width: 84,
+    height: 84,
+    borderRadius: 42,
     backgroundColor: C.white,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 12,
   },
 
-  flag: {
-    fontSize: 40,
+  flagImage: {
+    width: 58,
+    height: 42,
   },
 
   languageName: {
@@ -299,6 +326,7 @@ const styles = StyleSheet.create({
     color: C.primary,
   },
 
+  // Encouragement section
   footerCard: {
     backgroundColor: C.yellow,
     borderRadius: 25,
