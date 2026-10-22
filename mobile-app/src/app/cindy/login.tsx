@@ -20,37 +20,28 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState('');
-  const [success, setSuccess] = useState(false);
   const [focusedField, setFocusedField] = useState<
     'email' | 'password' | null
   >(null);
 
   function clearMessage() {
     setMessage('');
-    setSuccess(false);
   }
 
-function handleLogin() {
-  clearMessage();
+  function handleLogin() {
+    clearMessage();
 
-  if (!email.trim() || !password) {
-    setMessage('Please enter your email and password.');
-    return;
-  }
+    if (!email.trim() || !password.trim()) {
+      setMessage('Please enter your email and password.');
+      return;
+    }
 
-  // Temporary demo account until backend integration.
-  if (
-    email.trim().toLowerCase() === 'demo@example.com' &&
-    password === 'Hello123!'
-  ) {
+    // TEMPORARY DEMO BYPASS:
+    // Accept any non-empty details for frontend testing.
+    // Replace this with backend authentication during integration.
     router.replace('/mary/dashboard');
-    return;
   }
 
-  setMessage('The email or password is incorrect. Please try again.');
-}
-
-  
   return (
     <SafeAreaView style={styles.screen}>
       <Stack.Screen options={{ headerShown: false }} />
@@ -144,12 +135,7 @@ function handleLogin() {
               </View>
 
               {!!message && (
-                <View
-                  style={[
-                    styles.messageBox,
-                    { backgroundColor: success ? C.green : C.pink },
-                  ]}
-                >
+                <View style={styles.messageBox}>
                   <Text
                     accessibilityLiveRegion="polite"
                     style={styles.messageText}
@@ -279,6 +265,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     padding: 14,
     marginTop: 16,
+    backgroundColor: C.pink,
   },
   messageText: {
     color: C.text,

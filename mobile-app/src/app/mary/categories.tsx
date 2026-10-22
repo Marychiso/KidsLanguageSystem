@@ -374,8 +374,19 @@ export default function CategoriesScreen() {
     }
   }
 
-  // We will connect each category to actual content next
+  // Luna's current story is available in English.
   function handleCategoryPress(categoryId: CategoryId) {
+    if (
+      languageId === 'english' &&
+      validActivity === 'stories' &&
+      categoryId === 'animals'
+    ) {
+      router.push({
+        pathname: '/cindy/animal-story',
+        params: { language: languageId, category: categoryId },
+      });
+      return;
+    }
     console.log(
       `Selected ${languageId} - ${validActivity} - ${categoryId}`
     );
