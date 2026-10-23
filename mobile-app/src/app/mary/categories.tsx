@@ -8,16 +8,18 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
+
 import {
   Stack,
   router,
   useLocalSearchParams,
 } from 'expo-router';
+
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { LearningColors as C } from '@/constants/learning-theme';
 
-// Five category IDs used throughout the application
+// Five category IDs
 type CategoryId =
   | 'alphabet'
   | 'animals'
@@ -25,6 +27,7 @@ type CategoryId =
   | 'fruits'
   | 'shapes';
 
+// Four learning activities
 type ActivityId =
   | 'lessons'
   | 'quizzes'
@@ -50,7 +53,7 @@ type Translation = {
   comingSoon: string;
 };
 
-// All screen translations
+// Translations for all six languages
 const translations: Record<string, Translation> = {
   english: {
     activities: {
@@ -293,7 +296,7 @@ const translations: Record<string, Translation> = {
   },
 };
 
-// Category appearances
+// Category cards
 const categories: {
   id: CategoryId;
   emoji: string;
@@ -348,9 +351,10 @@ export default function CategoriesScreen() {
       ? params.activity.toLowerCase()
       : 'lessons';
 
-  // Automatically choose the correct translation
+  // Choose the correct language
   const t = translations[languageId] ?? translations.english;
 
+  // Check which activity was selected
   const validActivity: ActivityId =
     activityId === 'lessons' ||
     activityId === 'quizzes' ||
@@ -359,6 +363,7 @@ export default function CategoriesScreen() {
       ? activityId
       : 'lessons';
 
+  // Back to Learning page
   function handleBack() {
     if (router.canGoBack()) {
       router.back();
@@ -374,8 +379,25 @@ export default function CategoriesScreen() {
     }
   }
 
-  // Luna's current story is available in English.
+  // Navigate when a category is selected
   function handleCategoryPress(categoryId: CategoryId) {
+    // MARY: English lessons
+    if (
+      languageId === 'english' &&
+      validActivity === 'lessons'
+    ) {
+      router.push({
+        pathname: '/mary/lesson',
+        params: {
+          language: languageId,
+          category: categoryId,
+        },
+      });
+      return;
+    }
+
+    // CINDY: Existing English Animal Story
+    // Leave this route unchanged.
     if (
       languageId === 'english' &&
       validActivity === 'stories' &&
@@ -383,15 +405,19 @@ export default function CategoriesScreen() {
     ) {
       router.push({
         pathname: '/cindy/animal-story',
-        params: { language: languageId, category: categoryId },
+        params: {
+          language: languageId,
+          category: categoryId,
+        },
       });
       return;
     }
+
+    // Remaining activities will be connected later
     console.log(
       `Selected ${languageId} - ${validActivity} - ${categoryId}`
     );
 
-    // Temporary message until we build the activity screens
     Alert.alert(
       t.categories[categoryId].title,
       t.comingSoon
@@ -445,7 +471,7 @@ export default function CategoriesScreen() {
           {t.sectionTitle} 🎉
         </Text>
 
-        {/* Five categories */}
+        {/* Five category cards */}
         <View style={styles.grid}>
           {categories.map((category) => {
             const translated = t.categories[category.id];
@@ -476,7 +502,7 @@ export default function CategoriesScreen() {
                   {translated.title}
                 </Text>
 
-                {/* Small English translation for beginners */}
+                {/* English hint for beginners */}
                 {languageId !== 'english' && (
                   <Text style={styles.englishHint}>
                     {category.englishName}
@@ -497,7 +523,7 @@ export default function CategoriesScreen() {
           })}
         </View>
 
-        {/* Encouragement */}
+        {/* Encouragement section */}
         <View style={styles.footerCard}>
           <Text style={styles.footerEmoji}>
             ⭐ 🏆 ⭐
@@ -528,7 +554,6 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
   },
 
-  // Back button
   backButton: {
     alignSelf: 'flex-start',
     backgroundColor: C.blue,
@@ -551,7 +576,6 @@ const styles = StyleSheet.create({
     transform: [{ scale: 0.97 }],
   },
 
-  // Header
   header: {
     backgroundColor: C.blue,
     borderRadius: 30,
@@ -588,7 +612,6 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
 
-  // Category heading
   sectionTitle: {
     fontSize: 20,
     fontWeight: '800',
@@ -596,7 +619,6 @@ const styles = StyleSheet.create({
     marginBottom: 17,
   },
 
-  // Category grid
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -665,7 +687,6 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
 
-  // Footer
   footerCard: {
     backgroundColor: C.green,
     borderRadius: 25,
