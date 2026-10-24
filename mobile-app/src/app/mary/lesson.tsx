@@ -1,5 +1,6 @@
 
 import React from 'react';
+
 import {
   View,
   Text,
@@ -17,9 +18,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { LearningColors as C } from '@/constants/learning-theme';
 
-// Import our completed lesson components
+// All five English lesson components
 import AlphabetLesson from '@/components/lessons/AlphabetLesson';
 import AnimalsLesson from '@/components/lessons/AnimalsLesson';
+import ColorsLesson from '@/components/lessons/ColorsLesson';
+import FruitsLesson from '@/components/lessons/FruitsLesson';
+import ShapesLesson from '@/components/lessons/ShapesLesson';
 
 // Five lesson categories
 const categoryNames: Record<string, string> = {
@@ -41,7 +45,6 @@ const languageNames: Record<string, string> = {
 };
 
 export default function LessonScreen() {
-  // Read the language and category passed from Categories
   const params = useLocalSearchParams<{
     language?: string;
     category?: string;
@@ -63,7 +66,7 @@ export default function LessonScreen() {
   const categoryName =
     categoryNames[categoryId] ?? 'Lesson';
 
-  // Return to the previous screen
+  // Return to the Categories screen.
   function handleBack() {
     if (router.canGoBack()) {
       router.back();
@@ -92,7 +95,7 @@ export default function LessonScreen() {
     );
   }
 
-  // NEW: English Animals Lesson
+  // English Animals Lesson
   if (
     languageId === 'english' &&
     categoryId === 'animals'
@@ -102,6 +105,48 @@ export default function LessonScreen() {
         <Stack.Screen options={{ headerShown: false }} />
 
         <AnimalsLesson onExit={handleBack} />
+      </SafeAreaView>
+    );
+  }
+
+  // English Colors Lesson
+  if (
+    languageId === 'english' &&
+    categoryId === 'colors'
+  ) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Stack.Screen options={{ headerShown: false }} />
+
+        <ColorsLesson onExit={handleBack} />
+      </SafeAreaView>
+    );
+  }
+
+  // English Fruits Lesson
+  if (
+    languageId === 'english' &&
+    categoryId === 'fruits'
+  ) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Stack.Screen options={{ headerShown: false }} />
+
+        <FruitsLesson onExit={handleBack} />
+      </SafeAreaView>
+    );
+  }
+
+  // NEW: English Shapes Lesson
+  if (
+    languageId === 'english' &&
+    categoryId === 'shapes'
+  ) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Stack.Screen options={{ headerShown: false }} />
+
+        <ShapesLesson onExit={handleBack} />
       </SafeAreaView>
     );
   }
@@ -237,4 +282,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
- 
