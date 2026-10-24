@@ -381,7 +381,8 @@ export default function CategoriesScreen() {
 
   // Navigate when a category is selected
   function handleCategoryPress(categoryId: CategoryId) {
-    // MARY: English lessons
+
+    // MARY: English Lessons
     if (
       languageId === 'english' &&
       validActivity === 'lessons'
@@ -396,15 +397,23 @@ export default function CategoriesScreen() {
       return;
     }
 
-    // CINDY: Existing English Animal Story
-    // Leave this route unchanged.
+    // CINDY: All five English Stories
     if (
       languageId === 'english' &&
-      validActivity === 'stories' &&
-      categoryId === 'animals'
+      validActivity === 'stories'
     ) {
+      const storyRoutes = {
+        alphabet: '/cindy/alphabet-story',
+        animals: '/cindy/animal-story',
+        colors: '/cindy/color-story',
+        fruits: '/cindy/fruit-story',
+        shapes: '/cindy/shapes-story',
+      } as const;
+
+      const storyRoute = storyRoutes[categoryId];
+
       router.push({
-        pathname: '/cindy/animal-story',
+        pathname: storyRoute,
         params: {
           language: languageId,
           category: categoryId,
@@ -413,7 +422,8 @@ export default function CategoriesScreen() {
       return;
     }
 
-    // Remaining activities will be connected later
+    // Other languages, quizzes and games
+    // will be connected as they are developed.
     console.log(
       `Selected ${languageId} - ${validActivity} - ${categoryId}`
     );
@@ -423,6 +433,8 @@ export default function CategoriesScreen() {
       t.comingSoon
     );
   }
+
+ 
 
   return (
     <SafeAreaView style={styles.container}>
@@ -707,6 +719,7 @@ const styles = StyleSheet.create({
   },
 
   footerDescription: {
+
     fontSize: 14,
     color: C.textSecondary,
     textAlign: 'center',
