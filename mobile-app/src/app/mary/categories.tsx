@@ -397,6 +397,24 @@ export default function CategoriesScreen() {
       return;
     }
 
+    
+    // MARY: English Quizzes
+    // Open the quiz screen for the selected category.
+    if (
+      languageId === 'english' &&
+      validActivity === 'quizzes'
+    ) {
+      router.push({
+        pathname: '/mary/quiz',
+        params: {
+          language: languageId,
+          category: categoryId,
+        },
+      });
+      return;
+    }
+
+
     // CINDY: All five English Stories
     if (
       languageId === 'english' &&
