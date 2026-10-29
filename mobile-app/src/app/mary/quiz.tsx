@@ -18,11 +18,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { LearningColors as C } from '@/constants/learning-theme';
 
-// Our English quiz components
+// All five English quizzes
 import AlphabetQuiz from '@/components/quizzes/AlphabetQuiz';
 import AnimalsQuiz from '@/components/quizzes/AnimalsQuiz';
+import ColorsQuiz from '@/components/quizzes/ColorsQuiz';
+import FruitsQuiz from '@/components/quizzes/FruitsQuiz';
+import ShapesQuiz from '@/components/quizzes/ShapesQuiz';
 
-// Five quiz categories
 const categoryNames: Record<string, string> = {
   alphabet: 'Alphabet',
   animals: 'Animals',
@@ -31,7 +33,6 @@ const categoryNames: Record<string, string> = {
   shapes: 'Shapes',
 };
 
-// Available languages
 const languageNames: Record<string, string> = {
   english: 'English',
   french: 'French',
@@ -42,7 +43,6 @@ const languageNames: Record<string, string> = {
 };
 
 export default function QuizScreen() {
-  // Read the selected language and quiz category.
   const params = useLocalSearchParams<{
     language?: string;
     category?: string;
@@ -64,7 +64,7 @@ export default function QuizScreen() {
   const categoryName =
     categoryNames[categoryId] ?? 'Quiz';
 
-  // Return to the quiz category selection screen.
+  // Return to the quiz categories.
   function handleBack() {
     if (router.canGoBack()) {
       router.back();
@@ -93,7 +93,7 @@ export default function QuizScreen() {
     );
   }
 
-  // NEW: English Animals Quiz
+  // English Animals Quiz
   if (
     languageId === 'english' &&
     categoryId === 'animals'
@@ -107,7 +107,49 @@ export default function QuizScreen() {
     );
   }
 
-  // Other quizzes will be added as we develop them.
+  // English Colors Quiz
+  if (
+    languageId === 'english' &&
+    categoryId === 'colors'
+  ) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Stack.Screen options={{ headerShown: false }} />
+
+        <ColorsQuiz onExit={handleBack} />
+      </SafeAreaView>
+    );
+  }
+
+  // English Fruits Quiz
+  if (
+    languageId === 'english' &&
+    categoryId === 'fruits'
+  ) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Stack.Screen options={{ headerShown: false }} />
+
+        <FruitsQuiz onExit={handleBack} />
+      </SafeAreaView>
+    );
+  }
+
+  // NEW: English Shapes Quiz
+  if (
+    languageId === 'english' &&
+    categoryId === 'shapes'
+  ) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Stack.Screen options={{ headerShown: false }} />
+
+        <ShapesQuiz onExit={handleBack} />
+      </SafeAreaView>
+    );
+  }
+
+  // Other languages: quizzes will be added later.
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen options={{ headerShown: false }} />
@@ -218,8 +260,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: C.textSecondary,
     textAlign: 'center',
-    lineHeight: 22,
-    marginTop: 10,
+    marginTop: 9,
   },
 
   chooseButton: {
