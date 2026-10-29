@@ -143,6 +143,9 @@ export default function AnimalsQuiz({
     useState<'watch' | 'answer'>('watch');
 
   const [questionReady, setQuestionReady] = useState(false);
+  const [questionVisible, setQuestionVisible] = useState(false);
+  const [soundOn, setSoundOn] = useState(true);
+  const soundOnRef = useRef(true);
 
   const [feedback, setFeedback] = useState('');
 
@@ -228,12 +231,16 @@ export default function AnimalsQuiz({
 
   // Brighter, clearer speech, matching Alphabet Quiz.
   const speak = useCallback(async (text: string) => {
+    if (!soundOnRef.current) return;
     const generation = ++speechGeneration.current;
 
     try {
       await Speech.stop();
 
-      if (generation !== speechGeneration.current) {
+      if (
+        generation !== speechGeneration.current ||
+        !soundOnRef.current
+      ) {
         return;
       }
 
@@ -273,9 +280,11 @@ export default function AnimalsQuiz({
         : logicQuestion.question;
 
     setQuestionReady(false);
+    setQuestionVisible(false);
     stopNarration();
 
     const timer = setTimeout(() => {
+      setQuestionVisible(true);
       setQuestionReady(true);
       void speak(instruction);
     }, OPENING_DELAY_MS);
@@ -305,6 +314,7 @@ export default function AnimalsQuiz({
     }
 
     setQuestionReady(false);
+    setQuestionVisible(false);
 
     if (visibleCount === 0) {
       void speak('Watch the animal parade');
@@ -340,9 +350,11 @@ export default function AnimalsQuiz({
     }
 
     setQuestionReady(false);
+    setQuestionVisible(false);
     stopNarration();
 
     const timer = setTimeout(() => {
+      setQuestionVisible(true);
       setQuestionReady(true);
       void speak('Which animal came first?');
     }, OPENING_DELAY_MS);
@@ -358,6 +370,23 @@ export default function AnimalsQuiz({
     speak,
     stopNarration,
   ]);
+
+  function toggleSound() {
+    const next = !soundOnRef.current;
+    soundOnRef.current = next;
+    setSoundOn(next);
+
+    if (!next) {
+      stopNarration();
+    } else if (stage === 'complete') {
+      void speak('Amazing job! Animal Quiz complete!');
+    } else if (stage === 'parade' && paradePhase === 'watch') {
+      // Do not restart the parade when sound is switched on.
+      void speak('Watch the animal parade');
+    } else if (questionVisible && !answerLocked) {
+      void speak(currentInstruction);
+    }
+  }
 
   function resetFeedback() {
     setFeedback('');
@@ -595,29 +624,43 @@ export default function AnimalsQuiz({
 
   return (
     <ScrollView
+      key={stage}
       style={styles.container}
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
-      <Pressable
-        accessibilityRole="button"
-        onPress={
-          stage === 'sounds' || stage === 'complete'
-            ? finishQuiz
-            : stage === 'logic'
-              ? backToSounds
-              : backToLogic
-        }
-        style={styles.backButton}
-      >
-        <Text style={styles.backText}>
-          ← {stage === 'sounds' || stage === 'complete'
-            ? 'Back to Quizzes'
-            : stage === 'logic'
-              ? 'Back to Sounds'
-              : 'Back to Logic'}
-        </Text>
-      </Pressable>
+      <View style={styles.topRow}>
+        <Pressable
+          accessibilityRole="button"
+          onPress={
+            stage === 'sounds' || stage === 'complete'
+              ? finishQuiz
+              : stage === 'logic'
+                ? backToSounds
+                : backToLogic
+          }
+          style={styles.backButton}
+        >
+          <Text style={styles.backText}>
+            ← {stage === 'sounds' || stage === 'complete'
+              ? 'Back'
+              : stage === 'logic'
+                ? 'Sounds'
+                : 'Logic'}
+          </Text>
+        </Pressable>
+
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={soundOn ? 'Turn sound off' : 'Turn sound on'}
+          onPress={toggleSound}
+          style={[styles.soundButton, !soundOn && styles.soundButtonMuted]}
+        >
+          <Text style={styles.soundButtonText}>
+            {soundOn ? '🔊 Sound On' : '🔇 Sound Off'}
+          </Text>
+        </Pressable>
+      </View>
 
       {stage === 'complete' ? (
         <>
@@ -767,7 +810,7 @@ export default function AnimalsQuiz({
                 </Text>
 
                 <Text style={styles.instructionText}>
-                  {currentInstruction}
+                  {questionVisible ? currentInstruction : 'Get ready...'}
                 </Text>
 
                 <Text style={styles.readyText}>
@@ -778,10 +821,14 @@ export default function AnimalsQuiz({
 
                 <Pressable
                   accessibilityRole="button"
+                  disabled={!soundOn || !questionVisible}
                   onPress={() =>
                     void speak(currentInstruction)
                   }
-                  style={styles.listenButton}
+                  style={[
+                    styles.listenButton,
+                    (!soundOn || !questionVisible) && styles.disabledListenButton,
+                  ]}
                 >
                   <Text style={styles.listenText}>
                     🔊 Hear Again
@@ -895,6 +942,33 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
   },
 
+  topRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 8,
+    marginBottom: 20,
+  },
+
+  soundButton: {
+    backgroundColor: '#DDF7E5',
+    minHeight: 46,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    borderRadius: 18,
+    justifyContent: 'center',
+  },
+
+  soundButtonMuted: {
+    backgroundColor: '#F0EAF5',
+  },
+
+  soundButtonText: {
+    color: C.text,
+    fontSize: 14,
+    fontWeight: '800',
+  },
+
   backButton: {
     alignSelf: 'flex-start',
     backgroundColor: C.blue,
@@ -903,7 +977,6 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     minHeight: 44,
     justifyContent: 'center',
-    marginBottom: 20,
   },
 
   backText: {
@@ -1006,6 +1079,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 22,
     paddingVertical: 13,
     alignItems: 'center',
+  },
+
+  disabledListenButton: {
+    opacity: 0.45,
   },
 
   listenText: {

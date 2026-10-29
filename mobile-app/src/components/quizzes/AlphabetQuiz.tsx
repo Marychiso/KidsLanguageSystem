@@ -34,10 +34,10 @@ const MEDIUM_LETTERS = [
 
 const REQUIRED_MEDIUM_ANSWERS = 5;
 
-// Pause before the child hears a new question.
+// Pause before announcing each question.
 const QUESTION_DELAY_MS = 1800;
 
-// Pause after a correct answer before advancing.
+// Pause after a correct answer.
 const NEXT_ROUND_DELAY_MS = 1600;
 
 const LETTER_COLORS = [
@@ -55,7 +55,10 @@ function shuffleLetters(items: string[]) {
   for (let i = result.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
 
-    [result[i], result[j]] = [result[j], result[i]];
+    [result[i], result[j]] = [
+      result[j],
+      result[i],
+    ];
   }
 
   return result;
@@ -81,8 +84,11 @@ function pickTarget(
 export default function AlphabetQuiz({
   onExit,
 }: AlphabetQuizProps) {
-  const [stage, setStage] = useState<Stage>('easy');
-  const [easyIndex, setEasyIndex] = useState(0);
+  const [stage, setStage] =
+    useState<Stage>('easy');
+
+  const [easyIndex, setEasyIndex] =
+    useState(0);
 
   const [easyComplete, setEasyComplete] =
     useState(false);
@@ -96,7 +102,9 @@ export default function AlphabetQuiz({
   const [mediumCorrect, setMediumCorrect] =
     useState(0);
 
-  const [feedback, setFeedback] = useState('');
+  const [feedback, setFeedback] =
+    useState('');
+
   const [feedbackType, setFeedbackType] =
     useState<FeedbackType>(null);
 
@@ -109,9 +117,19 @@ export default function AlphabetQuiz({
   const [questionReady, setQuestionReady] =
     useState(false);
 
-  const selectedVoice = useRef<string | undefined>(
-    undefined
-  );
+  // NEW: Hide instructions during preparation.
+  const [questionVisible, setQuestionVisible] =
+    useState(false);
+
+  // NEW: Sound control, kept between quiz levels.
+  const [soundOn, setSoundOn] =
+    useState(true);
+
+  const soundOnRef =
+    useRef(true);
+
+  const selectedVoice =
+    useRef<string | undefined>(undefined);
 
   const popAnimation = useRef(
     new Animated.Value(1)
@@ -121,9 +139,11 @@ export default function AlphabetQuiz({
     ReturnType<typeof setTimeout> | null
   >(null);
 
-  const speechGeneration = useRef(0);
+  const speechGeneration =
+    useRef(0);
 
-  const easyTarget = EASY_LETTERS[easyIndex];
+  const easyTarget =
+    EASY_LETTERS[easyIndex];
 
   const clearRoundTimer = useCallback(() => {
     if (roundTimer.current !== null) {
@@ -132,8 +152,7 @@ export default function AlphabetQuiz({
     }
   }, []);
 
-  // Select a better-quality voice when the device
-  // has one available.
+  // Find the best available British English voice.
   useEffect(() => {
     let active = true;
 
@@ -144,27 +163,29 @@ export default function AlphabetQuiz({
 
         const englishUK = voices.filter(
           (voice) =>
-            voice.language.toLowerCase().startsWith(
-              'en-gb'
-            )
+            voice.language
+              .toLowerCase()
+              .startsWith('en-gb')
         );
 
         const english = voices.filter(
           (voice) =>
-            voice.language.toLowerCase().startsWith(
-              'en'
-            )
+            voice.language
+              .toLowerCase()
+              .startsWith('en')
         );
 
         const bestVoice =
           englishUK.find(
             (voice) =>
-              voice.quality === Speech.VoiceQuality.Enhanced
+              voice.quality ===
+              Speech.VoiceQuality.Enhanced
           ) ??
           englishUK[0] ??
           english.find(
             (voice) =>
-              voice.quality === Speech.VoiceQuality.Enhanced
+              voice.quality ===
+              Speech.VoiceQuality.Enhanced
           ) ??
           english[0];
 
@@ -189,18 +210,26 @@ export default function AlphabetQuiz({
 
   const stopNarration = useCallback(() => {
     speechGeneration.current += 1;
+
     void Speech.stop().catch(() => {});
   }, []);
 
+  // NEW: All narration respects the sound setting.
   const speak = useCallback(async (text: string) => {
-    const generation = ++speechGeneration.current;
+    if (!soundOnRef.current) {
+      return;
+    }
+
+    const generation =
+      ++speechGeneration.current;
 
     try {
       await Speech.stop();
 
-      // Don't start a previously queued utterance
-      // if another question has replaced it.
-      if (generation !== speechGeneration.current) {
+      if (
+        generation !== speechGeneration.current ||
+        !soundOnRef.current
+      ) {
         return;
       }
 
@@ -226,25 +255,44 @@ export default function AlphabetQuiz({
     };
   }, [clearRoundTimer, stopNarration]);
 
-  // Speak only after the screen has settled.
-  // The timer is cancelled if the question changes.
+  const currentTarget =
+    stage === 'easy'
+      ? easyTarget
+      : targetLetter;
+
+  const instruction =
+    stage === 'easy'
+      ? `Tap ${currentTarget}`
+      : `Find ${currentTarget}`;
+
+  // NEW:
+  // First show "Get ready..."
+  // After 1.8 seconds, reveal and narrate the question.
   useEffect(() => {
-    if (stage === 'complete' || easyComplete) {
+    if (
+      stage === 'complete' ||
+      (stage === 'easy' && easyComplete)
+    ) {
       setQuestionReady(false);
+      setQuestionVisible(false);
       return;
     }
 
-    const instruction =
+    const text =
       stage === 'easy'
         ? `Tap ${easyTarget}`
         : `Find ${targetLetter}`;
 
     setQuestionReady(false);
+    setQuestionVisible(false);
+
     stopNarration();
 
     const timer = setTimeout(() => {
+      setQuestionVisible(true);
       setQuestionReady(true);
-      void speak(instruction);
+
+      void speak(text);
     }, QUESTION_DELAY_MS);
 
     return () => {
@@ -259,6 +307,34 @@ export default function AlphabetQuiz({
     speak,
     stopNarration,
   ]);
+
+  // NEW: Turn narration on or off immediately.
+  function toggleSound() {
+    const next = !soundOnRef.current;
+
+    soundOnRef.current = next;
+    setSoundOn(next);
+
+    if (!next) {
+      stopNarration();
+      return;
+    }
+
+    // Replay the current instruction when
+    // the child turns sound back on.
+    if (
+      questionVisible &&
+      !answerLocked &&
+      !easyComplete &&
+      stage !== 'complete'
+    ) {
+      void speak(instruction);
+    } else if (stage === 'complete') {
+      void speak(
+        'Amazing! You completed the Alphabet Quiz!'
+      );
+    }
+  }
 
   function animateLetter() {
     popAnimation.setValue(0.84);
@@ -293,11 +369,14 @@ export default function AlphabetQuiz({
     if (letter !== easyTarget) {
       setFeedback('❌ Try again!');
       setFeedbackType('wrong');
+
       void speak('Try again');
       return;
     }
 
     setAnswerLocked(true);
+    setQuestionReady(false);
+
     setFeedback('🌟 Good job!');
     setFeedbackType('correct');
 
@@ -309,13 +388,22 @@ export default function AlphabetQuiz({
       roundTimer.current = null;
 
       if (easyIndex < EASY_LETTERS.length - 1) {
-        setEasyIndex((previous) => previous + 1);
+        setEasyIndex(
+          (previous) => previous + 1
+        );
+
         clearFeedback();
         setAnswerLocked(false);
+        setQuestionReady(false);
+        setQuestionVisible(false);
       } else {
         setEasyComplete(true);
+        setQuestionReady(false);
+        setQuestionVisible(false);
+
         setFeedback('🎉 Easy level complete!');
         setSelectedLetter(null);
+
         void speak(
           'Great job! Easy level complete!'
         );
@@ -327,12 +415,16 @@ export default function AlphabetQuiz({
     clearRoundTimer();
     stopNarration();
 
-    const shuffled = shuffleLetters(MEDIUM_LETTERS);
+    const shuffled =
+      shuffleLetters(MEDIUM_LETTERS);
 
     setMediumLetters(shuffled);
     setTargetLetter(pickTarget(shuffled));
     setMediumCorrect(0);
     setAnswerLocked(false);
+    setQuestionReady(false);
+    setQuestionVisible(false);
+
     clearFeedback();
     setStage('medium');
   }
@@ -352,6 +444,7 @@ export default function AlphabetQuiz({
     if (letter !== targetLetter) {
       setFeedback('❌ Try again!');
       setFeedbackType('wrong');
+
       void speak('Try again');
       return;
     }
@@ -359,7 +452,9 @@ export default function AlphabetQuiz({
     const nextCount = mediumCorrect + 1;
 
     setAnswerLocked(true);
+    setQuestionReady(false);
     setMediumCorrect(nextCount);
+
     setFeedback('⭐ Good job!');
     setFeedbackType('correct');
 
@@ -373,19 +468,27 @@ export default function AlphabetQuiz({
 
       if (nextCount >= REQUIRED_MEDIUM_ANSWERS) {
         setStage('complete');
+        setQuestionReady(false);
+        setQuestionVisible(false);
+
         void speak(
           'Amazing! You completed the Alphabet Quiz!'
         );
         return;
       }
 
-      const shuffled = shuffleLetters(MEDIUM_LETTERS);
+      const shuffled =
+        shuffleLetters(MEDIUM_LETTERS);
 
       setMediumLetters(shuffled);
+
       setTargetLetter(
         pickTarget(shuffled, targetLetter)
       );
+
       setAnswerLocked(false);
+      setQuestionReady(false);
+      setQuestionVisible(false);
     }, NEXT_ROUND_DELAY_MS);
   }
 
@@ -395,6 +498,8 @@ export default function AlphabetQuiz({
 
     clearFeedback();
     setAnswerLocked(false);
+    setQuestionReady(false);
+    setQuestionVisible(false);
     setStage('easy');
   }
 
@@ -407,7 +512,11 @@ export default function AlphabetQuiz({
     setMediumCorrect(0);
     setTargetLetter('D');
     setMediumLetters(MEDIUM_LETTERS);
+
     setAnswerLocked(false);
+    setQuestionReady(false);
+    setQuestionVisible(false);
+
     clearFeedback();
     setStage('easy');
   }
@@ -415,6 +524,7 @@ export default function AlphabetQuiz({
   function finishQuiz() {
     clearRoundTimer();
     stopNarration();
+
     onExit();
   }
 
@@ -422,11 +532,6 @@ export default function AlphabetQuiz({
     stage === 'easy'
       ? EASY_LETTERS
       : mediumLetters;
-
-  const currentTarget =
-    stage === 'easy'
-      ? easyTarget
-      : targetLetter;
 
   const completedCount =
     stage === 'easy'
@@ -445,32 +550,50 @@ export default function AlphabetQuiz({
       ? 'Letter Challenge!'
       : 'Find the Letter!';
 
-  const instruction =
-    stage === 'easy'
-      ? `Tap ${currentTarget}`
-      : `Find ${currentTarget}`;
-
   return (
     <ScrollView
       style={styles.container}
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
-      <Pressable
-        accessibilityRole="button"
-        onPress={
-          stage === 'medium'
-            ? backToEasy
-            : finishQuiz
-        }
-        style={styles.backButton}
-      >
-        <Text style={styles.backText}>
-          {stage === 'medium'
-            ? '← Back to Easy Level'
-            : '← Back to Quizzes'}
-        </Text>
-      </Pressable>
+      {/* BACK AND SOUND CONTROLS */}
+      <View style={styles.topRow}>
+        <Pressable
+          accessibilityRole="button"
+          onPress={
+            stage === 'medium'
+              ? backToEasy
+              : finishQuiz
+          }
+          style={styles.backButton}
+        >
+          <Text style={styles.backText}>
+            {stage === 'medium'
+              ? '← Easy Level'
+              : '← Back'}
+          </Text>
+        </Pressable>
+
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={
+            soundOn
+              ? 'Turn sound off'
+              : 'Turn sound on'
+          }
+          onPress={toggleSound}
+          style={[
+            styles.soundButton,
+            !soundOn && styles.soundButtonMuted,
+          ]}
+        >
+          <Text style={styles.soundButtonText}>
+            {soundOn
+              ? '🔊 Sound On'
+              : '🔇 Sound Off'}
+          </Text>
+        </Pressable>
+      </View>
 
       {stage === 'complete' ? (
         <>
@@ -519,7 +642,8 @@ export default function AlphabetQuiz({
           <View
             style={[
               styles.header,
-              stage === 'medium' && styles.mediumHeader,
+              stage === 'medium' &&
+                styles.mediumHeader,
             ]}
           >
             <Text style={styles.headerEmoji}>
@@ -559,6 +683,7 @@ export default function AlphabetQuiz({
             </View>
           </View>
 
+          {/* INSTRUCTIONS WITH NARRATION TIMING */}
           <View style={styles.instructionCard}>
             <Text style={styles.instructionEmoji}>
               👂
@@ -567,7 +692,9 @@ export default function AlphabetQuiz({
             <Text style={styles.instructionText}>
               {stage === 'easy' && easyComplete
                 ? 'Great job! 🎉'
-                : instruction}
+                : questionVisible
+                  ? instruction
+                  : 'Get ready...'}
             </Text>
 
             <Text style={styles.readyText}>
@@ -575,13 +702,26 @@ export default function AlphabetQuiz({
                 ? 'Ready for the next level!'
                 : questionReady
                   ? 'Your turn! Tap the letter.'
-                  : 'Get ready...'}
+                  : 'Listen carefully!'}
             </Text>
 
             <Pressable
               accessibilityRole="button"
-              onPress={() => void speak(instruction)}
-              style={styles.listenButton}
+              disabled={
+                !soundOn ||
+                !questionVisible ||
+                easyComplete
+              }
+              onPress={() =>
+                void speak(instruction)
+              }
+              style={[
+                styles.listenButton,
+                (!soundOn ||
+                  !questionVisible ||
+                  easyComplete) &&
+                  styles.disabledListenButton,
+              ]}
             >
               <Text style={styles.listenText}>
                 🔊 Hear Again
@@ -630,7 +770,8 @@ export default function AlphabetQuiz({
                       {
                         backgroundColor:
                           LETTER_COLORS[
-                            index % LETTER_COLORS.length
+                            index %
+                              LETTER_COLORS.length
                           ],
                       },
                       selected &&
@@ -663,12 +804,17 @@ export default function AlphabetQuiz({
             <Pressable
               accessibilityRole="button"
               onPress={startMedium}
-              style={styles.mainButton}
+              disabled={!easyComplete}
+              style={[
+                styles.mainButton,
+                !easyComplete &&
+                  styles.disabledNextButton,
+              ]}
             >
               <Text style={styles.mainButtonText}>
                 {easyComplete
                   ? 'Continue to Medium Level →'
-                  : 'Next Level →'}
+                  : 'Finish Easy Level First'}
               </Text>
             </Pressable>
           ) : (
@@ -693,29 +839,59 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: C.background,
   },
+
   content: {
     paddingHorizontal: 18,
     paddingTop: 14,
     paddingBottom: 50,
   },
-  backButton: {
-    alignSelf: 'flex-start',
-    backgroundColor: C.blue,
-    borderRadius: 18,
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    minHeight: 44,
-    justifyContent: 'center',
+
+  topRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 8,
     marginBottom: 20,
   },
+
+  backButton: {
+    backgroundColor: C.blue,
+    borderRadius: 18,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    minHeight: 46,
+    justifyContent: 'center',
+  },
+
   backText: {
     color: C.primary,
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '800',
   },
+
+  soundButton: {
+    backgroundColor: '#DDF7E5',
+    borderRadius: 18,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    minHeight: 46,
+    justifyContent: 'center',
+  },
+
+  soundButtonMuted: {
+    backgroundColor: '#F0EAF5',
+  },
+
+  soundButtonText: {
+    color: C.text,
+    fontSize: 14,
+    fontWeight: '800',
+  },
+
   pressed: {
     opacity: 0.8,
   },
+
   header: {
     backgroundColor: '#DDEBFF',
     padding: 22,
@@ -723,19 +899,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
+
   mediumHeader: {
     backgroundColor: '#E9E1FF',
   },
+
   headerEmoji: {
     fontSize: 40,
     marginBottom: 10,
   },
+
   headerTitle: {
     fontSize: 25,
     fontWeight: '800',
     color: C.text,
     textAlign: 'center',
   },
+
   headerSubtitle: {
     fontSize: 15,
     color: C.textSecondary,
@@ -743,29 +923,35 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     marginTop: 9,
   },
+
   progressCard: {
     backgroundColor: '#FFF0C7',
     borderRadius: 20,
     padding: 17,
     marginBottom: 20,
   },
+
   progressText: {
     fontSize: 16,
     fontWeight: '800',
     color: C.text,
     textAlign: 'center',
   },
+
   progressTrack: {
     height: 12,
     backgroundColor: C.white,
     borderRadius: 8,
     overflow: 'hidden',
+    marginTop: 12,
   },
+
   progressFill: {
     height: '100%',
     backgroundColor: '#42A66B',
     borderRadius: 8,
   },
+
   instructionCard: {
     backgroundColor: '#FFE5EF',
     borderRadius: 26,
@@ -773,10 +959,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 22,
   },
+
   instructionEmoji: {
     fontSize: 38,
     marginBottom: 8,
   },
+
   instructionText: {
     fontSize: 32,
     fontWeight: '800',
@@ -784,12 +972,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 10,
   },
+
   readyText: {
     fontSize: 14,
     color: C.textSecondary,
     textAlign: 'center',
     marginBottom: 17,
   },
+
   listenButton: {
     backgroundColor: C.primary,
     borderRadius: 18,
@@ -797,11 +987,17 @@ const styles = StyleSheet.create({
     paddingVertical: 13,
     alignItems: 'center',
   },
+
+  disabledListenButton: {
+    opacity: 0.45,
+  },
+
   listenText: {
     color: C.white,
     fontSize: 15,
     fontWeight: '800',
   },
+
   sectionTitle: {
     fontSize: 20,
     fontWeight: '800',
@@ -809,16 +1005,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 18,
   },
+
   letterGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     marginBottom: 18,
   },
+
   letterWrapper: {
     width: '30%',
     marginBottom: 12,
   },
+
   letterButton: {
     height: 95,
     borderRadius: 22,
@@ -827,19 +1026,23 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: C.white,
   },
+
   letterText: {
     fontSize: 40,
     fontWeight: '800',
     color: C.text,
   },
+
   correctLetter: {
     borderColor: '#2FAA58',
     backgroundColor: '#D8F7E0',
   },
+
   wrongLetter: {
     borderColor: '#ED6672',
     backgroundColor: '#FFE0E5',
   },
+
   feedbackCard: {
     backgroundColor: '#FFF0C7',
     borderRadius: 20,
@@ -847,11 +1050,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 18,
   },
+
   feedbackText: {
     fontSize: 21,
     fontWeight: '800',
     color: C.text,
   },
+
   mainButton: {
     backgroundColor: C.primary,
     borderRadius: 18,
@@ -859,22 +1064,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 17,
   },
+
+  disabledNextButton: {
+    opacity: 0.45,
+  },
+
   mainButtonText: {
     color: C.white,
     fontSize: 16,
     fontWeight: '800',
+    textAlign: 'center',
   },
+
   finishButton: {
     backgroundColor: C.blue,
     borderRadius: 18,
     paddingVertical: 16,
     alignItems: 'center',
   },
+
   finishButtonText: {
     color: C.primary,
     fontSize: 16,
     fontWeight: '800',
   },
+
   completeCard: {
     backgroundColor: '#FFF0C7',
     borderRadius: 28,
@@ -883,10 +1097,12 @@ const styles = StyleSheet.create({
     marginTop: 25,
     marginBottom: 24,
   },
+
   completeEmoji: {
     fontSize: 55,
     marginBottom: 15,
   },
+
   completeTitle: {
     fontSize: 27,
     fontWeight: '800',
@@ -894,12 +1110,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 14,
   },
+
   completeDescription: {
     fontSize: 17,
     color: C.textSecondary,
     textAlign: 'center',
     lineHeight: 26,
   },
+
   stars: {
     fontSize: 35,
     marginTop: 20,
