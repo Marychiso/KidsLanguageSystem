@@ -440,8 +440,31 @@ export default function CategoriesScreen() {
       return;
     }
 
-    // Other languages, quizzes and games
-    // will be connected as they are developed.
+    // CINDY: All five English Games
+    if (
+      languageId === 'english' &&
+      validActivity === 'games'
+    ) {
+      const gameRoutes = {
+        alphabet: '/cindy/alphabet-game',
+        animals: '/cindy/animal-game',
+        colors: '/cindy/colors-game',
+        fruits: '/cindy/fruit-game',
+        shapes: '/cindy/shapes-game',
+      } as const;
+
+      router.push({
+        pathname: gameRoutes[categoryId],
+        params: {
+          language: languageId,
+          category: categoryId,
+          activity: 'games',
+        },
+      });
+      return;
+    }
+
+    // Activities in other languages will be connected as developed.
     console.log(
       `Selected ${languageId} - ${validActivity} - ${categoryId}`
     );
