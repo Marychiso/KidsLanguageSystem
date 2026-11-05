@@ -382,6 +382,27 @@ export default function CategoriesScreen() {
   // Navigate when a category is selected
   function handleCategoryPress(categoryId: CategoryId) {
 
+    // MARY: French Alphabet Lesson
+    // NEW: Connect French > Lessons > Alphabet.
+    if (
+      languageId === 'french' &&
+      validActivity === 'lessons' &&
+      categoryId === 'alphabet'
+    ) {
+      router.push('/mary/french-alphabet');
+      return;
+    }
+
+    // MARY: French Animals Lesson
+if (
+  languageId === 'french' &&
+  validActivity === 'lessons' &&
+  categoryId === 'animals'
+) {
+  router.push('/mary/french-animals');
+  return;
+}
+
     // MARY: English Lessons
     if (
       languageId === 'english' &&
@@ -397,7 +418,6 @@ export default function CategoriesScreen() {
       return;
     }
 
-    
     // MARY: English Quizzes
     // Open the quiz screen for the selected category.
     if (
@@ -413,7 +433,6 @@ export default function CategoriesScreen() {
       });
       return;
     }
-
 
     // CINDY: All five English Stories
     if (
@@ -474,8 +493,6 @@ export default function CategoriesScreen() {
       t.comingSoon
     );
   }
-
- 
 
   return (
     <SafeAreaView style={styles.container}>
@@ -760,7 +777,6 @@ const styles = StyleSheet.create({
   },
 
   footerDescription: {
-
     fontSize: 14,
     color: C.textSecondary,
     textAlign: 'center',
