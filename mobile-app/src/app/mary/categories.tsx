@@ -403,6 +403,39 @@ if (
   return;
 }
 
+// MARY: French Colors Lesson
+if (
+  languageId === 'french' &&
+  validActivity === 'lessons' &&
+  categoryId === 'colors'
+) {
+  router.push('/mary/french-colors');
+  return;
+}
+
+
+    // MARY: French Fruits Lesson
+    if (
+      languageId === 'french' &&
+      validActivity === 'lessons' &&
+      categoryId === 'fruits'
+    ) {
+      router.push('/mary/french-fruits');
+      return;
+    }
+
+    
+    // MARY: French Shapes Lesson
+    if (
+      languageId === 'french' &&
+      validActivity === 'lessons' &&
+      categoryId === 'shapes'
+    ) {
+      router.push('/mary/french-shapes');
+      return;
+    }
+
+
     // MARY: English Lessons
     if (
       languageId === 'english' &&
