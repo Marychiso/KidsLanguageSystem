@@ -435,8 +435,63 @@ if (
       return;
     }
 
+     // MARY: French Alphabet Quiz
+    if (
+      languageId === 'french' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'alphabet'
+    ) {
+      router.push('/mary/french-alphabet-quiz');
+      return;
+    }
 
-    // MARY: English Lessons
+    
+    // MARY: French Animals Quiz
+    if (
+      languageId === 'french' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'animals'
+    ) {
+      router.push('/mary/french-animals-quiz');
+      return;
+    }
+
+    
+    // MARY: French Colors Quiz
+    if (
+      languageId === 'french' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'colors'
+    ) {
+      router.push('/mary/french-colors-quiz');
+      return;
+    }
+
+    
+    // MARY: French Fruits Quiz
+    if (
+      languageId === 'french' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'fruits'
+    ) {
+      router.push('/mary/french-fruits-quiz');
+      return;
+    }
+
+    // MARY: French Shapes Quiz
+    if (
+      languageId === 'french' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'shapes'
+    ) {
+      router.push('/mary/french-shapes-quiz');
+      return;
+    }
+
+
+
+
+// MARY: English Lessons
     if (
       languageId === 'english' &&
       validActivity === 'lessons'
