@@ -1,38 +1,19 @@
-
 import React from 'react';
 import {
-  View,
-  Text,
-  ScrollView,
-  Pressable,
-  StyleSheet,
   Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
-
-import {
-  Stack,
-  router,
-  useLocalSearchParams,
-} from 'expo-router';
-
+import { Stack, router, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { LearningColors as C } from '@/constants/learning-theme';
 
-// Five category IDs
-type CategoryId =
-  | 'alphabet'
-  | 'animals'
-  | 'colors'
-  | 'fruits'
-  | 'shapes';
-
-// Four learning activities
-type ActivityId =
-  | 'lessons'
-  | 'quizzes'
-  | 'stories'
-  | 'games';
+type CategoryId = 'alphabet' | 'animals' | 'colors' | 'fruits' | 'shapes';
+type ActivityId = 'lessons' | 'quizzes' | 'stories' | 'games';
 
 type Translation = {
   activities: Record<ActivityId, string>;
@@ -41,19 +22,12 @@ type Translation = {
   sectionTitle: string;
   back: string;
   explore: string;
-  categories: Record<
-    CategoryId,
-    {
-      title: string;
-      description: string;
-    }
-  >;
+  categories: Record<CategoryId, { title: string; description: string }>;
   encouragementTitle: string;
   encouragementText: string;
   comingSoon: string;
 };
 
-// Translations for all six languages
 const translations: Record<string, Translation> = {
   english: {
     activities: {
@@ -68,30 +42,14 @@ const translations: Record<string, Translation> = {
     back: 'Go Back',
     explore: 'Explore',
     categories: {
-      alphabet: {
-        title: 'Alphabet',
-        description: 'Learn your ABCs!',
-      },
-      animals: {
-        title: 'Animals',
-        description: 'Meet animal friends!',
-      },
-      colors: {
-        title: 'Colors',
-        description: 'Explore the rainbow!',
-      },
-      fruits: {
-        title: 'Fruits',
-        description: 'Discover yummy fruits!',
-      },
-      shapes: {
-        title: 'Shapes',
-        description: 'Discover amazing shapes!',
-      },
+      alphabet: { title: 'Alphabet', description: 'Learn your ABCs!' },
+      animals: { title: 'Animals', description: 'Meet animal friends!' },
+      colors: { title: 'Colors', description: 'Explore the rainbow!' },
+      fruits: { title: 'Fruits', description: 'Discover yummy fruits!' },
+      shapes: { title: 'Shapes', description: 'Discover amazing shapes!' },
     },
     encouragementTitle: "You're Doing Amazing!",
-    encouragementText:
-      'Every new thing you learn makes you a language superstar!',
+    encouragementText: 'Every new thing you learn makes you a language superstar!',
     comingSoon: 'This activity is coming soon!',
   },
 
@@ -108,30 +66,14 @@ const translations: Record<string, Translation> = {
     back: 'Retour',
     explore: 'Explorer',
     categories: {
-      alphabet: {
-        title: 'Alphabet',
-        description: "Apprends l'alphabet !",
-      },
-      animals: {
-        title: 'Animaux',
-        description: 'Découvre les animaux !',
-      },
-      colors: {
-        title: 'Couleurs',
-        description: 'Explore les couleurs !',
-      },
-      fruits: {
-        title: 'Fruits',
-        description: 'Découvre les fruits !',
-      },
-      shapes: {
-        title: 'Formes',
-        description: 'Découvre les formes !',
-      },
+      alphabet: { title: 'Alphabet', description: "Apprends l'alphabet !" },
+      animals: { title: 'Animaux', description: 'Découvre les animaux !' },
+      colors: { title: 'Couleurs', description: 'Explore les couleurs !' },
+      fruits: { title: 'Fruits', description: 'Découvre les fruits !' },
+      shapes: { title: 'Formes', description: 'Découvre les formes !' },
     },
     encouragementTitle: 'Bravo, petite star !',
-    encouragementText:
-      'Chaque jour, tu apprends quelque chose de nouveau !',
+    encouragementText: 'Chaque jour, tu apprends quelque chose de nouveau !',
     comingSoon: 'Cette activité arrive bientôt !',
   },
 
@@ -148,30 +90,14 @@ const translations: Record<string, Translation> = {
     back: 'Geri Dön',
     explore: 'Keşfet',
     categories: {
-      alphabet: {
-        title: 'Alfabe',
-        description: 'Alfabeyi öğren!',
-      },
-      animals: {
-        title: 'Hayvanlar',
-        description: 'Hayvan dostlarını tanı!',
-      },
-      colors: {
-        title: 'Renkler',
-        description: 'Renkleri keşfet!',
-      },
-      fruits: {
-        title: 'Meyveler',
-        description: 'Lezzetli meyveleri tanı!',
-      },
-      shapes: {
-        title: 'Şekiller',
-        description: 'Harika şekilleri öğren!',
-      },
+      alphabet: { title: 'Alfabe', description: 'Alfabeyi öğren!' },
+      animals: { title: 'Hayvanlar', description: 'Hayvan dostlarını tanı!' },
+      colors: { title: 'Renkler', description: 'Renkleri keşfet!' },
+      fruits: { title: 'Meyveler', description: 'Lezzetli meyveleri tanı!' },
+      shapes: { title: 'Şekiller', description: 'Harika şekilleri öğren!' },
     },
     encouragementTitle: 'Harika gidiyorsun!',
-    encouragementText:
-      'Öğrendiğin her yeni şey seni daha da geliştirir!',
+    encouragementText: 'Öğrendiğin her yeni şey seni daha da geliştirir!',
     comingSoon: 'Bu etkinlik yakında hazır olacak!',
   },
 
@@ -188,30 +114,14 @@ const translations: Record<string, Translation> = {
     back: 'Volver',
     explore: 'Explorar',
     categories: {
-      alphabet: {
-        title: 'Alfabeto',
-        description: '¡Aprende el alfabeto!',
-      },
-      animals: {
-        title: 'Animales',
-        description: '¡Conoce a los animales!',
-      },
-      colors: {
-        title: 'Colores',
-        description: '¡Explora los colores!',
-      },
-      fruits: {
-        title: 'Frutas',
-        description: '¡Descubre frutas deliciosas!',
-      },
-      shapes: {
-        title: 'Formas',
-        description: '¡Descubre las formas!',
-      },
+      alphabet: { title: 'Alfabeto', description: '¡Aprende el alfabeto!' },
+      animals: { title: 'Animales', description: '¡Conoce a los animales!' },
+      colors: { title: 'Colores', description: '¡Explora los colores!' },
+      fruits: { title: 'Frutas', description: '¡Descubre frutas deliciosas!' },
+      shapes: { title: 'Formas', description: '¡Descubre las formas!' },
     },
     encouragementTitle: '¡Lo estás haciendo genial!',
-    encouragementText:
-      '¡Cada cosa nueva que aprendes te convierte en una estrella!',
+    encouragementText: '¡Cada cosa nueva que aprendes te convierte en una estrella!',
     comingSoon: '¡Esta actividad estará disponible pronto!',
   },
 
@@ -228,30 +138,14 @@ const translations: Record<string, Translation> = {
     back: '返回',
     explore: '探索',
     categories: {
-      alphabet: {
-        title: '字母',
-        description: '一起学习字母吧！',
-      },
-      animals: {
-        title: '动物',
-        description: '认识动物朋友！',
-      },
-      colors: {
-        title: '颜色',
-        description: '探索美丽的颜色！',
-      },
-      fruits: {
-        title: '水果',
-        description: '认识美味的水果！',
-      },
-      shapes: {
-        title: '形状',
-        description: '学习有趣的形状！',
-      },
+      alphabet: { title: '字母', description: '一起学习字母吧！' },
+      animals: { title: '动物', description: '认识动物朋友！' },
+      colors: { title: '颜色', description: '探索美丽的颜色！' },
+      fruits: { title: '水果', description: '认识美味的水果！' },
+      shapes: { title: '形状', description: '学习有趣的形状！' },
     },
     encouragementTitle: '你真棒！',
-    encouragementText:
-      '每天学习一点新知识，你就会越来越厉害！',
+    encouragementText: '每天学习一点新知识，你就会越来越厉害！',
     comingSoon: '这个活动即将推出！',
   },
 
@@ -268,72 +162,80 @@ const translations: Record<string, Translation> = {
     back: 'Rudi Nyuma',
     explore: 'Chunguza',
     categories: {
-      alphabet: {
-        title: 'Alfabeti',
-        description: 'Jifunze alfabeti!',
-      },
-      animals: {
-        title: 'Wanyama',
-        description: 'Wafahamu marafiki wanyama!',
-      },
-      colors: {
-        title: 'Rangi',
-        description: 'Gundua rangi mbalimbali!',
-      },
-      fruits: {
-        title: 'Matunda',
-        description: 'Gundua matunda matamu!',
-      },
-      shapes: {
-        title: 'Maumbo',
-        description: 'Jifunze maumbo mbalimbali!',
-      },
+      alphabet: { title: 'Alfabeti', description: 'Jifunze alfabeti!' },
+      animals: { title: 'Wanyama', description: 'Wafahamu marafiki wanyama!' },
+      colors: { title: 'Rangi', description: 'Gundua rangi mbalimbali!' },
+      fruits: { title: 'Matunda', description: 'Gundua matunda matamu!' },
+      shapes: { title: 'Maumbo', description: 'Jifunze maumbo mbalimbali!' },
     },
     encouragementTitle: 'Unafanya vizuri sana!',
-    encouragementText:
-      'Kila jambo jipya unalojifunza linakufanya uwe bora zaidi!',
+    encouragementText: 'Kila jambo jipya unalojifunza linakufanya uwe bora zaidi!',
     comingSoon: 'Shughuli hii itapatikana hivi karibuni!',
   },
 };
 
-// Category cards
 const categories: {
   id: CategoryId;
   emoji: string;
   color: string;
   englishName: string;
 }[] = [
-  {
-    id: 'alphabet',
-    emoji: '🔤',
-    color: C.pink,
-    englishName: 'Alphabet',
-  },
-  {
-    id: 'animals',
-    emoji: '🦁',
-    color: C.green,
-    englishName: 'Animals',
-  },
-  {
-    id: 'colors',
-    emoji: '🎨',
-    color: C.blue,
-    englishName: 'Colors',
-  },
-  {
-    id: 'fruits',
-    emoji: '🍎',
-    color: C.yellow,
-    englishName: 'Fruits',
-  },
-  {
-    id: 'shapes',
-    emoji: '🔺',
-    color: '#E8DFFF',
-    englishName: 'Shapes',
-  },
+  { id: 'alphabet', emoji: '🔤', color: C.pink, englishName: 'Alphabet' },
+  { id: 'animals', emoji: '🦁', color: C.green, englishName: 'Animals' },
+  { id: 'colors', emoji: '🎨', color: C.blue, englishName: 'Colors' },
+  { id: 'fruits', emoji: '🍎', color: C.yellow, englishName: 'Fruits' },
+  { id: 'shapes', emoji: '🔺', color: '#E8DFFF', englishName: 'Shapes' },
 ];
+
+const frenchLessonRoutes = {
+  alphabet: '/mary/french-alphabet',
+  animals: '/mary/french-animals',
+  colors: '/mary/french-colors',
+  fruits: '/mary/french-fruits',
+  shapes: '/mary/french-shapes',
+} as const;
+
+const frenchQuizRoutes = {
+  alphabet: '/mary/french-alphabet-quiz',
+  animals: '/mary/french-animals-quiz',
+  colors: '/mary/french-colors-quiz',
+  fruits: '/mary/french-fruits-quiz',
+  shapes: '/mary/french-shapes-quiz',
+} as const;
+
+const storyRoutes = {
+  english: {
+    alphabet: '/cindy/alphabet-story',
+    animals: '/cindy/animal-story',
+    colors: '/cindy/color-story',
+    fruits: '/cindy/fruit-story',
+    shapes: '/cindy/shapes-story',
+  },
+  french: {
+    alphabet: '/cindy/french-alphabet-story',
+    animals: '/cindy/french-animal-story',
+    colors: '/cindy/french-colors-story',
+    fruits: '/cindy/french-fruit-story',
+    shapes: '/cindy/french-shapes-story',
+  },
+} as const;
+
+const gameRoutes = {
+  english: {
+    alphabet: '/cindy/alphabet-game',
+    animals: '/cindy/animal-game',
+    colors: '/cindy/colors-game',
+    fruits: '/cindy/fruit-game',
+    shapes: '/cindy/shapes-game',
+  },
+  french: {
+    alphabet: '/cindy/french-alphabet-game',
+    animals: '/cindy/french-animal-game',
+    colors: '/cindy/french-colors-game',
+    fruits: '/cindy/french-fruit-game',
+    shapes: '/cindy/french-shapes-game',
+  },
+} as const;
 
 export default function CategoriesScreen() {
   const params = useLocalSearchParams<{
@@ -351,10 +253,8 @@ export default function CategoriesScreen() {
       ? params.activity.toLowerCase()
       : 'lessons';
 
-  // Choose the correct language
   const t = translations[languageId] ?? translations.english;
 
-  // Check which activity was selected
   const validActivity: ActivityId =
     activityId === 'lessons' ||
     activityId === 'quizzes' ||
@@ -363,205 +263,35 @@ export default function CategoriesScreen() {
       ? activityId
       : 'lessons';
 
-  // Back to Learning page
   function handleBack() {
     if (router.canGoBack()) {
       router.back();
     } else {
       router.replace({
         pathname: '/mary/learning',
-        params: {
-          language: translations[languageId]
-            ? languageId
-            : 'english',
-        },
+        params: { language: translations[languageId] ? languageId : 'english' },
       });
     }
   }
 
-  // Navigate when a category is selected
   function handleCategoryPress(categoryId: CategoryId) {
-
-    // MARY: French Alphabet Lesson
-    // NEW: Connect French > Lessons > Alphabet.
     if (
-      languageId === 'french' &&
-      validActivity === 'lessons' &&
-      categoryId === 'alphabet'
-    ) {
-      router.push('/mary/french-alphabet');
-      return;
-    }
-
-    // MARY: French Animals Lesson
-if (
-  languageId === 'french' &&
-  validActivity === 'lessons' &&
-  categoryId === 'animals'
-) {
-  router.push('/mary/french-animals');
-  return;
-}
-
-// MARY: French Colors Lesson
-if (
-  languageId === 'french' &&
-  validActivity === 'lessons' &&
-  categoryId === 'colors'
-) {
-  router.push('/mary/french-colors');
-  return;
-}
-
-
-    // MARY: French Fruits Lesson
-    if (
-      languageId === 'french' &&
-      validActivity === 'lessons' &&
-      categoryId === 'fruits'
-    ) {
-      router.push('/mary/french-fruits');
-      return;
-    }
-
-    
-    // MARY: French Shapes Lesson
-    if (
-      languageId === 'french' &&
-      validActivity === 'lessons' &&
-      categoryId === 'shapes'
-    ) {
-      router.push('/mary/french-shapes');
-      return;
-    }
-
-     // MARY: French Alphabet Quiz
-    if (
-      languageId === 'french' &&
-      validActivity === 'quizzes' &&
-      categoryId === 'alphabet'
-    ) {
-      router.push('/mary/french-alphabet-quiz');
-      return;
-    }
-
-    
-    // MARY: French Animals Quiz
-    if (
-      languageId === 'french' &&
-      validActivity === 'quizzes' &&
-      categoryId === 'animals'
-    ) {
-      router.push('/mary/french-animals-quiz');
-      return;
-    }
-
-    
-    // MARY: French Colors Quiz
-    if (
-      languageId === 'french' &&
-      validActivity === 'quizzes' &&
-      categoryId === 'colors'
-    ) {
-      router.push('/mary/french-colors-quiz');
-      return;
-    }
-
-    
-    // MARY: French Fruits Quiz
-    if (
-      languageId === 'french' &&
-      validActivity === 'quizzes' &&
-      categoryId === 'fruits'
-    ) {
-      router.push('/mary/french-fruits-quiz');
-      return;
-    }
-
-    // MARY: French Shapes Quiz
-    if (
-      languageId === 'french' &&
-      validActivity === 'quizzes' &&
-      categoryId === 'shapes'
-    ) {
-      router.push('/mary/french-shapes-quiz');
-      return;
-    }
-
-
-
-
-// MARY: English Lessons
-    if (
-      languageId === 'english' &&
-      validActivity === 'lessons'
+      validActivity === 'stories' &&
+      (languageId === 'english' || languageId === 'french')
     ) {
       router.push({
-        pathname: '/mary/lesson',
-        params: {
-          language: languageId,
-          category: categoryId,
-        },
+        pathname: storyRoutes[languageId][categoryId],
+        params: { language: languageId, category: categoryId },
       });
       return;
     }
 
-    // MARY: English Quizzes
-    // Open the quiz screen for the selected category.
     if (
-      languageId === 'english' &&
-      validActivity === 'quizzes'
+      validActivity === 'games' &&
+      (languageId === 'english' || languageId === 'french')
     ) {
       router.push({
-        pathname: '/mary/quiz',
-        params: {
-          language: languageId,
-          category: categoryId,
-        },
-      });
-      return;
-    }
-
-    // CINDY: All five English Stories
-    if (
-      languageId === 'english' &&
-      validActivity === 'stories'
-    ) {
-      const storyRoutes = {
-        alphabet: '/cindy/alphabet-story',
-        animals: '/cindy/animal-story',
-        colors: '/cindy/color-story',
-        fruits: '/cindy/fruit-story',
-        shapes: '/cindy/shapes-story',
-      } as const;
-
-      const storyRoute = storyRoutes[categoryId];
-
-      router.push({
-        pathname: storyRoute,
-        params: {
-          language: languageId,
-          category: categoryId,
-        },
-      });
-      return;
-    }
-
-    // CINDY: All five English Games
-    if (
-      languageId === 'english' &&
-      validActivity === 'games'
-    ) {
-      const gameRoutes = {
-        alphabet: '/cindy/alphabet-game',
-        animals: '/cindy/animal-game',
-        colors: '/cindy/colors-game',
-        fruits: '/cindy/fruit-game',
-        shapes: '/cindy/shapes-game',
-      } as const;
-
-      router.push({
-        pathname: gameRoutes[categoryId],
+        pathname: gameRoutes[languageId][categoryId],
         params: {
           language: languageId,
           category: categoryId,
@@ -571,15 +301,34 @@ if (
       return;
     }
 
-    // Activities in other languages will be connected as developed.
-    console.log(
-      `Selected ${languageId} - ${validActivity} - ${categoryId}`
-    );
+    if (languageId === 'french' && validActivity === 'lessons') {
+      router.push(frenchLessonRoutes[categoryId]);
+      return;
+    }
 
-    Alert.alert(
-      t.categories[categoryId].title,
-      t.comingSoon
-    );
+    if (languageId === 'french' && validActivity === 'quizzes') {
+      router.push(frenchQuizRoutes[categoryId]);
+      return;
+    }
+
+    if (languageId === 'english' && validActivity === 'lessons') {
+      router.push({
+        pathname: '/mary/lesson',
+        params: { language: languageId, category: categoryId },
+      });
+      return;
+    }
+
+    if (languageId === 'english' && validActivity === 'quizzes') {
+      router.push({
+        pathname: '/mary/quiz',
+        params: { language: languageId, category: categoryId },
+      });
+      return;
+    }
+
+    console.log(`Selected ${languageId} - ${validActivity} - ${categoryId}`);
+    Alert.alert(t.categories[categoryId].title, t.comingSoon);
   }
 
   return (
@@ -590,46 +339,24 @@ if (
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.content}
       >
-        {/* Back button */}
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Go back"
+          accessibilityLabel={t.back}
           onPress={handleBack}
-          style={({ pressed }) => [
-            styles.backButton,
-            pressed && styles.pressed,
-          ]}
+          style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
         >
-          <Text style={styles.backText}>
-            ← {t.back}
-          </Text>
+          <Text style={styles.backText}>← {t.back}</Text>
         </Pressable>
 
-        {/* Welcome header */}
         <View style={styles.header}>
-          <Text style={styles.headerEmoji}>
-            🌈 📚 ✨
-          </Text>
-
-          <Text style={styles.greeting}>
-            {t.greeting}
-          </Text>
-
-          <Text style={styles.headerTitle}>
-            {t.activities[validActivity]}
-          </Text>
-
-          <Text style={styles.headerSubtitle}>
-            {t.question}
-          </Text>
+          <Text style={styles.headerEmoji}>🌈 📚 ✨</Text>
+          <Text style={styles.greeting}>{t.greeting}</Text>
+          <Text style={styles.headerTitle}>{t.activities[validActivity]}</Text>
+          <Text style={styles.headerSubtitle}>{t.question}</Text>
         </View>
 
-        {/* Category heading */}
-        <Text style={styles.sectionTitle}>
-          {t.sectionTitle} 🎉
-        </Text>
+        <Text style={styles.sectionTitle}>{t.sectionTitle} 🎉</Text>
 
-        {/* Five category cards */}
         <View style={styles.grid}>
           {categories.map((category) => {
             const translated = t.categories[category.id];
@@ -639,32 +366,21 @@ if (
                 key={category.id}
                 accessibilityRole="button"
                 accessibilityLabel={translated.title}
-                onPress={() =>
-                  handleCategoryPress(category.id)
-                }
+                onPress={() => handleCategoryPress(category.id)}
                 style={({ pressed }) => [
                   styles.categoryCard,
-                  {
-                    backgroundColor: category.color,
-                  },
+                  { backgroundColor: category.color },
                   pressed && styles.pressed,
                 ]}
               >
                 <View style={styles.emojiCircle}>
-                  <Text style={styles.categoryEmoji}>
-                    {category.emoji}
-                  </Text>
+                  <Text style={styles.categoryEmoji}>{category.emoji}</Text>
                 </View>
 
-                <Text style={styles.categoryTitle}>
-                  {translated.title}
-                </Text>
+                <Text style={styles.categoryTitle}>{translated.title}</Text>
 
-                {/* English hint for beginners */}
                 {languageId !== 'english' && (
-                  <Text style={styles.englishHint}>
-                    {category.englishName}
-                  </Text>
+                  <Text style={styles.englishHint}>{category.englishName}</Text>
                 )}
 
                 <Text style={styles.categoryDescription}>
@@ -672,28 +388,17 @@ if (
                 </Text>
 
                 <View style={styles.exploreButton}>
-                  <Text style={styles.exploreText}>
-                    {t.explore} →
-                  </Text>
+                  <Text style={styles.exploreText}>{t.explore} →</Text>
                 </View>
               </Pressable>
             );
           })}
         </View>
 
-        {/* Encouragement section */}
         <View style={styles.footerCard}>
-          <Text style={styles.footerEmoji}>
-            ⭐ 🏆 ⭐
-          </Text>
-
-          <Text style={styles.footerTitle}>
-            {t.encouragementTitle}
-          </Text>
-
-          <Text style={styles.footerDescription}>
-            {t.encouragementText}
-          </Text>
+          <Text style={styles.footerEmoji}>⭐ 🏆 ⭐</Text>
+          <Text style={styles.footerTitle}>{t.encouragementTitle}</Text>
+          <Text style={styles.footerDescription}>{t.encouragementText}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -701,10 +406,7 @@ if (
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: C.background,
-  },
+  container: { flex: 1, backgroundColor: C.background },
 
   content: {
     paddingHorizontal: 20,
@@ -723,16 +425,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
-  backText: {
-    color: C.primary,
-    fontSize: 15,
-    fontWeight: '700',
-  },
+  backText: { color: C.primary, fontSize: 15, fontWeight: '700' },
 
-  pressed: {
-    opacity: 0.85,
-    transform: [{ scale: 0.97 }],
-  },
+  pressed: { opacity: 0.85, transform: [{ scale: 0.97 }] },
 
   header: {
     backgroundColor: C.blue,
@@ -742,10 +437,7 @@ const styles = StyleSheet.create({
     marginBottom: 26,
   },
 
-  headerEmoji: {
-    fontSize: 44,
-    marginBottom: 12,
-  },
+  headerEmoji: { fontSize: 44, marginBottom: 12 },
 
   greeting: {
     fontSize: 16,
@@ -804,9 +496,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
 
-  categoryEmoji: {
-    fontSize: 37,
-  },
+  categoryEmoji: { fontSize: 37 },
 
   categoryTitle: {
     fontSize: 18,
@@ -839,11 +529,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
 
-  exploreText: {
-    color: C.primary,
-    fontSize: 13,
-    fontWeight: '800',
-  },
+  exploreText: { color: C.primary, fontSize: 13, fontWeight: '800' },
 
   footerCard: {
     backgroundColor: C.green,
@@ -852,10 +538,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  footerEmoji: {
-    fontSize: 32,
-    marginBottom: 10,
-  },
+  footerEmoji: { fontSize: 32, marginBottom: 10 },
 
   footerTitle: {
     fontSize: 19,
