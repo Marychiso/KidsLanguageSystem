@@ -275,6 +275,37 @@ export default function CategoriesScreen() {
   }
 
   function handleCategoryPress(categoryId: CategoryId) {
+
+        // MARY: Turkish Alphabet Lesson
+    if (
+      languageId === 'turkish' &&
+      validActivity === 'lessons' &&
+      categoryId === 'alphabet'
+    ) {
+      router.push('/mary/turkish-alphabet');
+      return;
+    }
+
+    // MARY: Turkish Animals Lesson
+    if (
+      languageId === 'turkish' &&
+      validActivity === 'lessons' &&
+      categoryId === 'animals'
+    ) {
+      router.push('/mary/turkish-animals');
+      return;
+    }
+
+    // MARY: Turkish Colors Lesson
+    if (
+      languageId === 'turkish' &&
+      validActivity === 'lessons' &&
+      categoryId === 'colors'
+    ) {
+      router.push('/mary/turkish-colors');
+      return;
+    }
+    
     if (
       validActivity === 'stories' &&
       (languageId === 'english' || languageId === 'french')
