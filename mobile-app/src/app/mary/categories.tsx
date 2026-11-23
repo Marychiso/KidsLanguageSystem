@@ -275,8 +275,7 @@ export default function CategoriesScreen() {
   }
 
   function handleCategoryPress(categoryId: CategoryId) {
-
-        // MARY: Turkish Alphabet Lesson
+    // MARY: Turkish Alphabet Lesson
     if (
       languageId === 'turkish' &&
       validActivity === 'lessons' &&
@@ -306,7 +305,6 @@ export default function CategoriesScreen() {
       return;
     }
 
-
     // MARY: Turkish Fruits Lesson
     if (
       languageId === 'turkish' &&
@@ -316,8 +314,6 @@ export default function CategoriesScreen() {
       router.push('/mary/turkish-fruits');
       return;
     }
-
-
 
     // MARY: Turkish Shapes Lesson
     if (
@@ -329,7 +325,55 @@ export default function CategoriesScreen() {
       return;
     }
 
+    // MARY: Turkish Shapes Quiz
+    if (
+      languageId === 'turkish' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'shapes'
+    ) {
+      router.push('/mary/turkish-shapes-quiz');
+      return;
+    }
 
+    // MARY: Turkish Fruits Quiz
+    if (
+      languageId === 'turkish' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'fruits'
+    ) {
+      router.push('/mary/turkish-fruits-quiz');
+      return;
+    }
+
+    // MARY: Turkish Colors Quiz
+    if (
+      languageId === 'turkish' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'colors'
+    ) {
+      router.push('/mary/turkish-colors-quiz');
+      return;
+    }
+
+    // MARY: Turkish Animals Quiz
+    if (
+      languageId === 'turkish' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'animals'
+    ) {
+      router.push('/mary/turkish-animals-quiz');
+      return;
+    }
+
+    // MARY: Turkish Alphabet Quiz
+    if (
+      languageId === 'turkish' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'alphabet'
+    ) {
+      router.push('/mary/turkish-alphabet-quiz');
+      return;
+    }
 
     if (
       validActivity === 'stories' &&
