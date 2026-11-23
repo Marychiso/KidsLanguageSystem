@@ -305,7 +305,32 @@ export default function CategoriesScreen() {
       router.push('/mary/turkish-colors');
       return;
     }
-    
+
+
+    // MARY: Turkish Fruits Lesson
+    if (
+      languageId === 'turkish' &&
+      validActivity === 'lessons' &&
+      categoryId === 'fruits'
+    ) {
+      router.push('/mary/turkish-fruits');
+      return;
+    }
+
+
+
+    // MARY: Turkish Shapes Lesson
+    if (
+      languageId === 'turkish' &&
+      validActivity === 'lessons' &&
+      categoryId === 'shapes'
+    ) {
+      router.push('/mary/turkish-shapes');
+      return;
+    }
+
+
+
     if (
       validActivity === 'stories' &&
       (languageId === 'english' || languageId === 'french')
