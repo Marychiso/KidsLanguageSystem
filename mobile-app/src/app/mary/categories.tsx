@@ -275,6 +275,56 @@ export default function CategoriesScreen() {
   }
 
   function handleCategoryPress(categoryId: CategoryId) {
+    // MARY: Spanish Colors Lesson
+    if (
+      languageId === 'spanish' &&
+      validActivity === 'lessons' &&
+      categoryId === 'colors'
+    ) {
+      router.push('/mary/spanish-colors');
+      return;
+    }
+
+    // MARY: Spanish Animals Lesson
+    if (
+      languageId === 'spanish' &&
+      validActivity === 'lessons' &&
+      categoryId === 'animals'
+    ) {
+      router.push('/mary/spanish-animals');
+      return;
+    }
+
+    // MARY: Spanish Shapes Lesson
+    if (
+      languageId === 'spanish' &&
+      validActivity === 'lessons' &&
+      categoryId === 'shapes'
+    ) {
+      router.push('/mary/spanish-shapes');
+      return;
+    }
+
+    // MARY: Spanish Fruits Lesson
+    if (
+      languageId === 'spanish' &&
+      validActivity === 'lessons' &&
+      categoryId === 'fruits'
+    ) {
+      router.push('/mary/spanish-fruits');
+      return;
+    }
+
+    // MARY: Spanish Alphabet Lesson (NEW)
+    if (
+      languageId === 'spanish' &&
+      validActivity === 'lessons' &&
+      categoryId === 'alphabet'
+    ) {
+      router.push('/mary/spanish-alphabet');
+      return;
+    }
+
     // MARY: Turkish Alphabet Lesson
     if (
       languageId === 'turkish' &&
