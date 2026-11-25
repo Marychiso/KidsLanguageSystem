@@ -275,6 +275,56 @@ export default function CategoriesScreen() {
   }
 
   function handleCategoryPress(categoryId: CategoryId) {
+    // MARY: Spanish Shapes Quiz
+    if (
+      languageId === 'spanish' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'shapes'
+    ) {
+      router.push('/mary/spanish-shapes-quiz');
+      return;
+    }
+
+    // MARY: Spanish Fruits Quiz
+    if (
+      languageId === 'spanish' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'fruits'
+    ) {
+      router.push('/mary/spanish-fruits-quiz');
+      return;
+    }
+
+    // MARY: Spanish Colors Quiz
+    if (
+      languageId === 'spanish' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'colors'
+    ) {
+      router.push('/mary/spanish-colors-quiz');
+      return;
+    }
+
+    // MARY: Spanish Animals Quiz
+    if (
+      languageId === 'spanish' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'animals'
+    ) {
+      router.push('/mary/spanish-animals-quiz');
+      return;
+    }
+
+    // MARY: Spanish Alphabet Quiz
+    if (
+      languageId === 'spanish' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'alphabet'
+    ) {
+      router.push('/mary/spanish-alphabet-quiz');
+      return;
+    }
+
     // MARY: Spanish Colors Lesson
     if (
       languageId === 'spanish' &&
