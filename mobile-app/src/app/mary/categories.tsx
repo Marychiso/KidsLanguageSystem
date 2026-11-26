@@ -138,7 +138,7 @@ const translations: Record<string, Translation> = {
     back: '返回',
     explore: '探索',
     categories: {
-      alphabet: { title: '字母', description: '一起学习字母吧！' },
+      alphabet: { title: '拼音', description: '学习拼音和声调！' },
       animals: { title: '动物', description: '认识动物朋友！' },
       colors: { title: '颜色', description: '探索美丽的颜色！' },
       fruits: { title: '水果', description: '认识美味的水果！' },
@@ -275,6 +275,56 @@ export default function CategoriesScreen() {
   }
 
   function handleCategoryPress(categoryId: CategoryId) {
+    // MARY: Mandarin Shapes Lesson
+    if (
+      languageId === 'chinese' &&
+      validActivity === 'lessons' &&
+      categoryId === 'shapes'
+    ) {
+      router.push('/mary/chinese-shapes');
+      return;
+    }
+
+    // MARY: Mandarin Fruits Lesson
+    if (
+      languageId === 'chinese' &&
+      validActivity === 'lessons' &&
+      categoryId === 'fruits'
+    ) {
+      router.push('/mary/chinese-fruits');
+      return;
+    }
+
+    // MARY: Mandarin Colors Lesson
+    if (
+      languageId === 'chinese' &&
+      validActivity === 'lessons' &&
+      categoryId === 'colors'
+    ) {
+      router.push('/mary/chinese-colors');
+      return;
+    }
+
+    // MARY: Mandarin Animals Lesson
+    if (
+      languageId === 'chinese' &&
+      validActivity === 'lessons' &&
+      categoryId === 'animals'
+    ) {
+      router.push('/mary/chinese-animals');
+      return;
+    }
+
+    // MARY: Mandarin Pinyin and Tones (Alphabet category)
+    if (
+      languageId === 'chinese' &&
+      validActivity === 'lessons' &&
+      categoryId === 'alphabet'
+    ) {
+      router.push('/mary/chinese-alphabet');
+      return;
+    }
+
     // MARY: Spanish Shapes Quiz
     if (
       languageId === 'spanish' &&
