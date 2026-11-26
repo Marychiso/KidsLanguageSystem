@@ -275,6 +275,57 @@ export default function CategoriesScreen() {
   }
 
   function handleCategoryPress(categoryId: CategoryId) {
+    // MARY: Mandarin Shapes Quiz
+    if (
+      languageId === 'chinese' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'shapes'
+    ) {
+      router.push('/mary/chinese-shapes-quiz');
+      return;
+    }
+
+    // MARY: Mandarin Fruits Quiz
+    if (
+      languageId === 'chinese' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'fruits'
+    ) {
+      router.push('/mary/chinese-fruits-quiz');
+      return;
+    }
+
+    // MARY: Mandarin Colors Quiz
+    if (
+      languageId === 'chinese' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'colors'
+    ) {
+      router.push('/mary/chinese-colors-quiz');
+      return;
+    }
+
+    // MARY: Mandarin Animals Quiz
+    if (
+      languageId === 'chinese' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'animals'
+    ) {
+      router.push('/mary/chinese-animals-quiz');
+      return;
+    }
+
+    // MARY: Mandarin Pinyin & Tones Quiz
+    if (
+      languageId === 'chinese' &&
+      validActivity === 'quizzes' &&
+      categoryId === 'alphabet'
+    ) {
+      router.push('/mary/chinese-alphabet-quiz');
+      return;
+    }
+
+
     // MARY: Mandarin Shapes Lesson
     if (
       languageId === 'chinese' &&
